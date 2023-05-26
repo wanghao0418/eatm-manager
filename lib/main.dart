@@ -1,9 +1,11 @@
 import 'package:fluent_ui/fluent_ui.dart' hide Page;
 import 'package:flutter/foundation.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart' as flutter_acrylic;
 import 'package:window_manager/window_manager.dart';
 import 'package:provider/provider.dart';
+import 'store/global.dart';
 import 'theme.dart';
 import 'routes/router.dart';
 
@@ -35,7 +37,8 @@ void main() async {
         TitleBarStyle.hidden,
         windowButtonVisibility: false,
       );
-      await windowManager.setMinimumSize(const Size(500, 600));
+      await windowManager.setSize(const Size(1200, 800));
+      await windowManager.setMinimumSize(const Size(1200, 800));
       await windowManager.show();
       await windowManager.setPreventClose(true);
       await windowManager.setSkipTaskbar(false);
@@ -58,48 +61,59 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (_) => AppTheme(),
-        builder: (context, _) {
-          final appTheme = context.watch<AppTheme>();
-          return FluentApp.router(
-            title: 'Eatm Manager',
-            themeMode: appTheme.mode,
-            debugShowCheckedModeBanner: false,
-            color: appTheme.color,
-            darkTheme: FluentThemeData(
-                brightness: Brightness.dark,
-                accentColor: appTheme.color,
-                visualDensity: VisualDensity.standard,
-                focusTheme: FocusThemeData(
-                  glowFactor: is10footScreen(context) ? 2.0 : 0.0,
-                ),
-                fontFamily: 'MyFont'),
-            theme: FluentThemeData(
-                accentColor: appTheme.color,
-                visualDensity: VisualDensity.standard,
-                focusTheme: FocusThemeData(
-                  glowFactor: is10footScreen(context) ? 2.0 : 0.0,
-                ),
-                fontFamily: 'MyFont'),
-            locale: appTheme.locale,
+    return ScreenUtilInit(
+        designSize: const Size(1920, 1080),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(create: (_) => AppTheme()),
+              ChangeNotifierProvider(create: (_) => SignedInModel())
+            ],
             builder: (context, child) {
-              return Directionality(
-                textDirection: appTheme.textDirection,
-                child: NavigationPaneTheme(
-                  data: NavigationPaneThemeData(
-                    backgroundColor: appTheme.windowEffect !=
-                            flutter_acrylic.WindowEffect.disabled
-                        ? Colors.transparent
-                        : null,
-                  ),
-                  child: child!,
-                ),
+              final appTheme = context.watch<AppTheme>();
+              return FluentApp.router(
+                title: 'Eman自动化',
+                themeMode: appTheme.mode,
+                debugShowCheckedModeBanner: false,
+                color: appTheme.color,
+                darkTheme: FluentThemeData(
+                    brightness: Brightness.dark,
+                    accentColor: appTheme.color,
+                    visualDensity: VisualDensity.standard,
+                    focusTheme: FocusThemeData(
+                      glowFactor: is10footScreen(context) ? 2.0 : 0.0,
+                    ),
+                    fontFamily: 'MyFont'),
+                theme: FluentThemeData(
+                    accentColor: appTheme.color,
+                    visualDensity: VisualDensity.standard,
+                    focusTheme: FocusThemeData(
+                      glowFactor: is10footScreen(context) ? 2.0 : 0.0,
+                    ),
+                    fontFamily: 'MyFont'),
+                locale: appTheme.locale,
+                builder: (context, child) {
+                  return Directionality(
+                    textDirection: appTheme.textDirection,
+                    child: NavigationPaneTheme(
+                      data: NavigationPaneThemeData(
+                        backgroundColor: appTheme.windowEffect !=
+                                flutter_acrylic.WindowEffect.disabled
+                            ? Colors.transparent
+                            : null,
+                      ),
+                      child: child!,
+                    ),
+                  );
+                },
+                routeInformationParser: router.routeInformationParser,
+                routerDelegate: router.routerDelegate,
+                routeInformationProvider: router.routeInformationProvider,
               );
             },
-            routeInformationParser: router.routeInformationParser,
-            routerDelegate: router.routerDelegate,
-            routeInformationProvider: router.routeInformationProvider,
+            child: child,
           );
         });
   }
