@@ -8,11 +8,14 @@ class HomePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Container(
-          child: Text(
-        "首页",
-      ).fontSize(20.sp)),
+    return ScaffoldPage.scrollable(
+      header: const PageHeader(
+        title: Text('EMAN 益模'),
+        commandBar: CommandBar(
+          primaryItems: [],
+        ),
+      ),
+      children: [],
     );
   }
 }

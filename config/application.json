@@ -1,0 +1,10 @@
+{
+  "localBaseUrl": "http://127.0.0.1:8081",
+  "DevBaseUrl": "http://127.0.0.1:8082",
+  "ProductBaseUrl": "http://127.0.0.1:8083",
+  "connectTimeout": 10000,
+  "receiveTimeout": 30000,
+  "sendTimeout": 6000,
+  "mesPort":8098,
+  "autoRunWebsocketUrL":"ws://127.0.0.1:8092"
+}

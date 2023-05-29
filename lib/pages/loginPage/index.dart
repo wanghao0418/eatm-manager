@@ -1,4 +1,4 @@
-import 'package:eatm_manager/pages/layout/layout.dart';
+import 'package:eatm_manager/pages/layout/index.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Page;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,15 +16,15 @@ class LoginPage extends HookWidget {
     return Consumer<SignedInModel>(builder: (context, signedIn, child) {
       return Stack(
         children: [
-          // Positioned(
-          //     right: 0,
-          //     top: 0,
-          //     child: Container(
-          //       child: Align(
-          //         alignment: Alignment.centerRight,
-          //         // child: WindowButtons(),
-          //       ),
-          //     )),
+          Positioned(
+              right: 0,
+              top: 0,
+              child: Container(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: WindowButtons(),
+                ),
+              )),
           Container(
             child: Button(
                 child: Text('登录'),

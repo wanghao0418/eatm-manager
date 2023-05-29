@@ -1,10 +1,15 @@
+import 'dart:ui';
+
+import 'package:eatm_manager/common/config.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Page;
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart' as material;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart' as flutter_acrylic;
 import 'package:window_manager/window_manager.dart';
 import 'package:provider/provider.dart';
+import 'common/request.dart';
 import 'store/global.dart';
 import 'theme.dart';
 import 'routes/router.dart';
@@ -44,7 +49,8 @@ void main() async {
       await windowManager.setSkipTaskbar(false);
     });
   }
-
+  await GlobalConfig.instance.init();
+  _readArguments();
   runApp(MyApp());
 
   // Future.wait([
@@ -55,6 +61,37 @@ void main() async {
   //   DeferredWidget.preload(surfaces.loadLibrary),
   //   DeferredWidget.preload(theming.loadLibrary),
   // ]);
+}
+
+// 读取启动参数
+Future<void> _readArguments() async {
+  var env = const String.fromEnvironment('APP_ENV', defaultValue: 'product');
+  print(env);
+  // 根据启动参数设置当前的环境
+  final String environment = env ?? Environment.Product.value; // 默认为生产环境
+  switch (environment) {
+    case 'local':
+      Http.setBaseUrl(GlobalConfig.instance.application.localBaseUrl!);
+      break;
+    case 'dev':
+      Http.setBaseUrl(GlobalConfig.instance.application.devBaseUrl!);
+      break;
+    case 'product':
+      Http.setBaseUrl(GlobalConfig.instance.application.productBaseUrl!);
+      break;
+    default:
+      // 未知环境
+      break;
+  }
+}
+
+class MyCustomScrollBehavior extends material.MaterialScrollBehavior {
+// Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }
 
 class MyApp extends StatelessWidget {
@@ -111,6 +148,7 @@ class MyApp extends StatelessWidget {
                 routeInformationParser: router.routeInformationParser,
                 routerDelegate: router.routerDelegate,
                 routeInformationProvider: router.routeInformationProvider,
+                scrollBehavior: MyCustomScrollBehavior(),
               );
             },
             child: child,

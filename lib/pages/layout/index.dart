@@ -1,3 +1,5 @@
+import 'package:eatm_manager/common/icons.dart';
+import 'package:eatm_manager/common/request.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Page;
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/link.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:styled_widget/styled_widget.dart';
+import '../../api/menu_api.dart';
 import '../../routes/router.dart';
 import '../../theme.dart';
 
@@ -45,18 +48,29 @@ class _LayoutState extends State<Layout> with WindowListener {
         if (router.location != '/') router.pushNamed('home');
       },
     ),
+    PaneItem(
+      key: const Key('/dashboard'),
+      icon: Icon(MyIcons.workmanship),
+      title: const Text('工艺绑定'),
+      body: const SizedBox.shrink(),
+      onTap: () {
+        if (router.location != '/dashboard') {
+          router.pushNamed('dashboard');
+        }
+      },
+    ),
     // PaneItemHeader(header: const Text('Inputs')),
-    // PaneItem(
-    //   key: const Key('/inputs/buttons'),
-    //   icon: const Icon(FluentIcons.button_control),
-    //   title: const Text('Button'),
-    //   body: const SizedBox.shrink(),
-    //   onTap: () {
-    //     if (router.location != '/inputs/buttons') {
-    //       router.pushNamed('inputs_buttons');
-    //     }
-    //   },
-    // ),
+    PaneItem(
+      key: const Key('/interchangeStation'),
+      icon: const Icon(FluentIcons.button_control),
+      title: const Text('接驳站'),
+      body: const SizedBox.shrink(),
+      onTap: () {
+        if (router.location != '/interchangeStation') {
+          router.pushNamed('interchangeStation');
+        }
+      },
+    ),
     // PaneItem(
     //   key: const Key('/inputs/checkbox'),
     //   icon: const Icon(FluentIcons.checkbox_composite),
@@ -371,9 +385,14 @@ class _LayoutState extends State<Layout> with WindowListener {
     // TODO: mobile widgets, Scrollbar, BottomNavigationBar, RatingBar
   ];
 
+  getMenuList() async {
+    ResponseBodyApi res = await MenuApi.listAuth();
+  }
+
   @override
   void initState() {
     windowManager.addListener(this);
+    getMenuList();
     super.initState();
   }
 
@@ -504,6 +523,11 @@ class _LayoutState extends State<Layout> with WindowListener {
           key: ValueKey('body$name'),
           child: widget.child,
         );
+        // final body = FocusTraversalGroup(
+        //   key: ValueKey('body$name'),
+        //   child: widget.child,
+        // );
+        // return TabView(currentIndex: currentTabIndex, tabs: openTabs);
       },
       pane: NavigationPane(
         selected: _calculateSelectedIndex(context),
@@ -563,7 +587,9 @@ class _LayoutState extends State<Layout> with WindowListener {
           }).toList(),
           trailingIcon: IgnorePointer(
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                searchFocusNode.requestFocus();
+              },
               icon: const Icon(FluentIcons.search),
             ),
           ),
@@ -572,42 +598,42 @@ class _LayoutState extends State<Layout> with WindowListener {
         autoSuggestBoxReplacement: const Icon(FluentIcons.search),
         footerItems: footerItems,
       ),
-      onOpenSearch: () {
-        searchFocusNode.requestFocus();
-      },
+      // onOpenSearch: () {
+      //   searchFocusNode.requestFocus();
+      // },
     );
   }
 
-  // @override
-  // void onWindowClose() async {
-  //   bool _isPreventClose = await windowManager.isPreventClose();
-  //   if (_isPreventClose) {
-  //     showDialog(
-  //       context: context,
-  //       builder: (_) {
-  //         return ContentDialog(
-  //           title: const Text('确认关闭'),
-  //           content: const Text('是否确定关闭软件?'),
-  //           actions: [
-  //             FilledButton(
-  //               child: const Text('Yes'),
-  //               onPressed: () {
-  //                 Navigator.pop(context);
-  //                 windowManager.destroy();
-  //               },
-  //             ),
-  //             Button(
-  //               child: const Text('No'),
-  //               onPressed: () {
-  //                 Navigator.pop(context);
-  //               },
-  //             ),
-  //           ],
-  //         );
-  //       },
-  //     );
-  //   }
-  // }
+  @override
+  void onWindowClose() async {
+    bool _isPreventClose = await windowManager.isPreventClose();
+    if (_isPreventClose) {
+      showDialog(
+        context: context,
+        builder: (_) {
+          return ContentDialog(
+            title: const Text('确认关闭'),
+            content: const Text('是否确定关闭软件?'),
+            actions: [
+              FilledButton(
+                child: const Text('Yes'),
+                onPressed: () {
+                  Navigator.pop(context);
+                  windowManager.destroy();
+                },
+              ),
+              Button(
+                child: const Text('No'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 }
 
 class WindowButtons extends StatelessWidget {
