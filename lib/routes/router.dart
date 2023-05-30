@@ -46,7 +46,7 @@ final router = GoRouter(
     GoRoute(
       path: '/login',
       name: 'login',
-      builder: (context, state) => const LoginPage(),
+      builder: (context, state) => LoginPage(),
     ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,

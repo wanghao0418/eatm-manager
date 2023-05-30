@@ -59,7 +59,7 @@ class _LayoutState extends State<Layout> with WindowListener {
         }
       },
     ),
-    // PaneItemHeader(header: const Text('Inputs')),
+    PaneItemHeader(header: const Text('Inputs')),
     PaneItem(
       key: const Key('/interchangeStation'),
       icon: const Icon(FluentIcons.button_control),
@@ -385,6 +385,7 @@ class _LayoutState extends State<Layout> with WindowListener {
     // TODO: mobile widgets, Scrollbar, BottomNavigationBar, RatingBar
   ];
 
+  // 获取菜单列表
   getMenuList() async {
     ResponseBodyApi res = await MenuApi.listAuth();
   }
@@ -445,6 +446,7 @@ class _LayoutState extends State<Layout> with WindowListener {
       appBar: NavigationAppBar(
         automaticallyImplyLeading: false,
         leading: () {
+          if (kIsWeb) return null;
           final enabled = widget.shellContext != null && router.canPop();
 
           final onPressed = enabled

@@ -1,6 +1,6 @@
 {
   "localBaseUrl": "http://127.0.0.1:8081",
-  "DevBaseUrl": "http://127.0.0.1:8082",
+  "DevBaseUrl": "http://124.71.221.246:8088",
   "ProductBaseUrl": "http://127.0.0.1:8083",
   "connectTimeout": 10000,
   "receiveTimeout": 30000,

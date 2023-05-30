@@ -35,7 +35,8 @@ class InterchangeStationPage extends HookWidget {
   Widget useShelvesData() {
     var currentShelfIndex = useState(0);
     var shelfList = useState([]);
-    final menuController = FlyoutController();
+    final FlyoutController menuController =
+        useMemoized(() => FlyoutController());
     var menuOffset = useState(Offset.zero);
 
     useEffect(() {
@@ -72,7 +73,7 @@ class InterchangeStationPage extends HookWidget {
                   itemBuilder: (context, index) {
                     var shelf = shelfList.value[index];
                     return ListTile.selectable(
-                      title: Text(shelf['shelfName']),
+                      title: Text(shelf['shelfName']).fontSize(20.sp),
                       selected: currentShelfIndex.value == index,
                       onSelectionChange: (v) => currentShelfIndex.value = index,
                     );
@@ -185,7 +186,7 @@ class InterchangeStationPage extends HookWidget {
                                   elevation: 0,
                                   items: [
                                     MenuFlyoutItem(
-                                        text: Text('下料'),
+                                        text: Text('下料').fontSize(16.sp),
                                         onPressed: () {
                                           print('下料');
                                         }),
@@ -306,7 +307,6 @@ class InterchangeStationPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     var shelfShelvesInfo = useShelvesData();
-    final scrollController = useScrollController();
     return Container(
       key: _pageKey,
       padding: EdgeInsets.all(20.r),
@@ -359,11 +359,12 @@ class InterchangeStationPage extends HookWidget {
                                           MainAxisAlignment.center,
                                       children: [
                                         Button(
-                                            child: Text('绑定物料'),
+                                            child: Text('绑定物料').fontSize(16.sp),
                                             onPressed: () {}),
                                         5.horizontalSpaceRadius,
                                         FilledButton(
-                                            child: Text('上料'), onPressed: () {})
+                                            child: Text('上料').fontSize(16.sp),
+                                            onPressed: () {})
                                       ],
                                     )
                                   ],
@@ -394,7 +395,7 @@ class InterchangeStationPage extends HookWidget {
                                           child: Padding(
                                             padding:
                                                 EdgeInsets.only(left: 40.sp),
-                                            child: Text('123'),
+                                            child: Text('123').fontSize(16.sp),
                                           ),
                                           labelStyle: TextStyle(
                                               color: Colors.yellow.darkest),
@@ -404,7 +405,7 @@ class InterchangeStationPage extends HookWidget {
                                           child: Padding(
                                             padding:
                                                 EdgeInsets.only(left: 40.sp),
-                                            child: Text('123'),
+                                            child: Text('123').fontSize(16.sp),
                                           ),
                                           labelStyle: TextStyle(
                                               color: Colors.yellow.darkest),
@@ -414,7 +415,7 @@ class InterchangeStationPage extends HookWidget {
                                           child: Padding(
                                             padding:
                                                 EdgeInsets.only(left: 40.sp),
-                                            child: Text('123'),
+                                            child: Text('123').fontSize(16.sp),
                                           ),
                                           labelStyle: TextStyle(
                                               color: Colors.yellow.darkest),
@@ -424,7 +425,7 @@ class InterchangeStationPage extends HookWidget {
                                           child: Padding(
                                             padding:
                                                 EdgeInsets.only(left: 40.sp),
-                                            child: Text('123'),
+                                            child: Text('123').fontSize(16.sp),
                                           ),
                                           labelStyle: TextStyle(
                                               color: Colors.yellow.darkest),
@@ -458,10 +459,12 @@ class InterchangeStationPage extends HookWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 FilledButton(
-                                    child: Text('取托盘'), onPressed: () {}),
+                                    child: Text('取托盘').fontSize(16.sp),
+                                    onPressed: () {}),
                                 10.verticalSpacingRadius,
                                 FilledButton(
-                                    child: Text('放托盘'), onPressed: () {})
+                                    child: Text('放托盘').fontSize(16.sp),
+                                    onPressed: () {})
                               ]),
                         ),
                         headWidget: Container(
