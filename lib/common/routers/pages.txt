@@ -1,0 +1,9 @@
+
+      GetPage(
+        name: RouteNames.systemLogin,
+        page: () => const LoginPage(),
+      ),
+      GetPage(
+        name: RouteNames.systemMain,
+        page: () => const MainPage(),
+      ),
