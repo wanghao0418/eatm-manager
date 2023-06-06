@@ -1,10 +1,16 @@
-import 'package:fluent_ui/fluent_ui.dart';
+import 'package:eatm_manager/common/index.dart';
+import 'package:fluent_ui/fluent_ui.dart' hide Tab;
 import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart' as material;
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:styled_widget/styled_widget.dart';
 
 import '../../../common/widgets/index.dart';
 import 'index.dart';
+import 'widgets/indexedStackLazy.dart';
+import './widgets/fluent_tab.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -28,125 +34,75 @@ class _MainPageState extends State<MainPage>
 class _MainViewGetX extends GetView<MainController> {
   const _MainViewGetX({Key? key}) : super(key: key);
 
+  // tabContent
+  Widget _buildTabContent() {
+    return Container(
+        child: IndexedStackLazy(
+      index: controller.currentTabIndex.value,
+      children: controller.tabs.isNotEmpty
+          ? controller.tabs.map((Tab tab) {
+              var page = tab.url != null
+                  ? MainChildPages.getPage(tab.url) ?? Container()
+                  : Container();
+              return KeyedSubtree(
+                key: Key('page-${tab.url}-${tab.id}'),
+                child: page,
+              );
+            }).toList()
+          : [Container()],
+    ));
+  }
+
+  // tabView
+  Widget _buildTabView(context) {
+    return Container(
+      child: Column(children: [
+        // _buildCustomTab(context),
+        FluentTab(
+          key: controller.tabViewKey,
+          currentIndex: controller.currentTabIndex.value,
+          tabs: controller.tabs,
+          onChanged: (value) {
+            controller.currentTabIndex.value = value;
+            controller.currentTabKey = controller.tabs[value].key;
+            controller.update(['main']);
+          },
+          footer: kIsWeb ? null : WindowButtons(),
+        ),
+        Expanded(child: _buildTabContent()),
+      ]),
+    );
+  }
+
   // 主视图
-  Widget _buildView() {
+  Widget _buildView(context) {
     return NavigationView(
       key: controller.viewKey,
       // appBar: kIsWeb
       //     ? null
       //     : NavigationAppBar(
-      //         height: 40.r,
+      //         height: 40,
       //         automaticallyImplyLeading: false,
-      //         // leading: () {
-      //         //   if (kIsWeb) return null;
-      //         //   final enabled = widget.shellContext != null && router.canPop();
-
-      //         //   final onPressed = enabled
-      //         //       ? () {
-      //         //           if (router.canPop()) {
-      //         //             context.pop();
-      //         //             setState(() {});
-      //         //           }
-      //         //         }
-      //         //       : null;
-      //         //   return NavigationPaneTheme(
-      //         //     data: NavigationPaneTheme.of(context).merge(NavigationPaneThemeData(
-      //         //       unselectedIconColor: ButtonState.resolveWith((states) {
-      //         //         if (states.isDisabled) {
-      //         //           return ButtonThemeData.buttonColor(context, states);
-      //         //         }
-      //         //         return ButtonThemeData.uncheckedInputColor(
-      //         //           FluentTheme.of(context),
-      //         //           states,
-      //         //         ).basedOnLuminance();
-      //         //       }),
-      //         //     )),
-      //         //     child: Builder(
-      //         //       builder: (context) => PaneItem(
-      //         //         icon: const Center(child: Icon(FluentIcons.back, size: 12.0)),
-      //         //         title: Text(localizations.backButtonTooltip),
-      //         //         body: const SizedBox.shrink(),
-      //         //         enabled: enabled,
-      //         //       ).build(
-      //         //         context,
-      //         //         false,
-      //         //         onPressed,
-      //         //         displayMode: PaneDisplayMode.compact,
-      //         //       ),
-      //         //     ),
-      //         //   );
-      //         // }(),
-      //         // title: () {
-      //         //   if (kIsWeb) {
-      //         //     return const Align(
-      //         //       alignment: AlignmentDirectional.centerStart,
-      //         //       child: Text(appTitle),
-      //         //     );
-      //         //   }
-      //         //   return const DragToMoveArea(
-      //         //     child: Align(
-      //         //       alignment: AlignmentDirectional.centerStart,
-      //         //       child: Text(appTitle),
-      //         //     ),
-      //         //   );
-      //         // }(),
       //         actions: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-      //           // Container(
-      //           //   height: double.infinity,
-      //           //   padding: EdgeInsets.only(right: 10),
-      //           //   alignment: AlignmentDirectional.centerEnd,
-      //           //   child: ToggleSwitch(
-      //           //     content: const Text('Dark mode'),
-      //           //     checked: FluentTheme.of(context).brightness.isDark,
-      //           //     onChanged: (v) {
-      //           //       // if (v) {
-      //           //       //   appTheme.mode = ThemeMode.dark;
-      //           //       // } else {
-      //           //       //   appTheme.mode = ThemeMode.light;
-      //           //       // }
-      //           //       Get.changeThemeMode(v ? ThemeMode.dark : ThemeMode.light);
-      //           //     },
-      //           //   ),
-      //           // ),
       //           if (!kIsWeb) const WindowButtons(),
       //         ]),
       //       ),
       paneBodyBuilder: (item, child) {
-        return TabView(
-          currentIndex: controller.currentTabIndex.value,
-          tabs: controller.tabs,
-          onChanged: (value) {
-            controller.currentTabIndex.value = value;
-            controller.currentTabKey = controller.tabs![value].key;
-            controller.update(["main"]);
-          },
-          onReorder: (oldIndex, newIndex) {
-            if (oldIndex < newIndex) {
-              newIndex -= 1;
-            }
-            final item = controller.tabs!.removeAt(oldIndex);
-            controller.tabs!.insert(newIndex, item);
-
-            if (controller.currentTabIndex.value == newIndex) {
-              controller.currentTabIndex.value = oldIndex;
-            } else if (controller.currentTabIndex.value == oldIndex) {
-              controller.currentTabIndex.value = newIndex;
-            }
-            controller.update(["main"]);
-          },
-          footer: kIsWeb ? null : WindowButtons(),
-        );
+        return _buildTabView(context);
       },
       pane: NavigationPane(
+        key: controller.navigationPaneKey,
+        size: const NavigationPaneSize(
+          openWidth: 200,
+        ),
         selected: controller.calculateSelectedIndex(),
         header: SizedBox(
           height: kOneLineTileHeight,
           child: ShaderMask(
             shaderCallback: (rect) {
-              // final color = appTheme.color.defaultBrushFor(
-              //   theme.brightness,
-              // );
-              final color = Colors.blue;
+              final color = AppTheme.systemAccentColor.defaultBrushFor(
+                Get.theme.brightness,
+              );
               return LinearGradient(
                 colors: [
                   color,
@@ -161,22 +117,14 @@ class _MainViewGetX extends GetView<MainController> {
           ),
         ),
         displayMode: PaneDisplayMode.compact,
-        // indicator: () {
-        //   switch (appTheme.indicator) {
-        //     case NavigationIndicators.end:
-        //       return const EndNavigationIndicator();
-        //     case NavigationIndicators.sticky:
-        //     default:
-        //       return const StickyNavigationIndicator();
-        //   }
-        // }(),
         items: controller.menuItems,
         autoSuggestBox: AutoSuggestBox(
           key: controller.searchKey,
           focusNode: controller.searchFocusNode,
           controller: controller.searchController,
           unfocusedColor: Colors.transparent,
-          items: controller.menuItems.whereType<PaneItem>().map((item) {
+          items:
+              controller.canSelectMenuItems.whereType<PaneItem>().map((item) {
             assert(item.title is Text);
             final text = (item.title as Text).data!;
             return AutoSuggestBoxItem(
@@ -214,9 +162,18 @@ class _MainViewGetX extends GetView<MainController> {
       id: "main",
       builder: (_) {
         return material.Scaffold(
-          body: _buildView(),
+          body: _buildView(context),
         );
       },
     );
+  }
+}
+
+class TabViewScrollBehavior extends ScrollBehavior {
+  const TabViewScrollBehavior();
+
+  @override
+  Widget buildScrollbar(context, child, details) {
+    return child;
   }
 }
