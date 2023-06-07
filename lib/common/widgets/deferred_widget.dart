@@ -64,10 +64,11 @@ class _DeferredWidgetState extends State<DeferredWidget> {
   }
 
   void _onLibraryLoaded() {
-    setState(() {
-      _loadedCreator = widget.createWidget;
-      _loadedChild = _loadedCreator!();
-    });
+    if (mounted)
+      setState(() {
+        _loadedCreator = widget.createWidget;
+        _loadedChild = _loadedCreator!();
+      });
   }
 
   @override

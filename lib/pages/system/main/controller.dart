@@ -1,19 +1,13 @@
-import 'dart:async';
-
 import 'package:eatm_manager/common/api/menu.dart';
 import 'package:eatm_manager/common/extension/main.dart';
 import 'package:eatm_manager/common/index.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Tab;
 import 'package:flutter/foundation.dart';
+// import 'package:flutter/material.dart' as material;
 import 'package:get/get.dart';
 import './widgets/fluent_tab.dart';
 
 import '../../../common/utils/http.dart';
-
-// const double kTileHeight = 34.0;
-// const double kMinTileWidth = 80.0;
-// const double kMaxTileWidth = 240.0;
-// const double kButtonWidth = 32.0;
 
 class MainController extends GetxController {
   MainController();
@@ -23,6 +17,7 @@ class MainController extends GetxController {
   final navigationPaneKey = GlobalKey(debugLabel: 'Navigation Pane Key');
   final searchFocusNode = FocusNode();
   final searchController = TextEditingController();
+  late PageController pageController;
   var currentTabIndex = 0.obs;
   Key? currentTabKey;
   List<Tab> tabs = [];
@@ -73,6 +68,13 @@ class MainController extends GetxController {
                 key: Key('expand-menu-${menu.id!}'),
                 title: Text(menu.name ?? ''),
                 icon: const Icon(FluentIcons.list),
+                // onItemPressed: (value) {
+                //   var index = childrenKeys
+                //       .indexWhere((element) => element == value.key);
+                //   if (index > -1) {
+                //     onMenuTap(childrenList[index]);
+                //   }
+                // },
                 items: childrenList
                     .map((e) => PaneItem(
                           key: Key('menu-${e.url}-${e.id}'),
@@ -164,8 +166,13 @@ class MainController extends GetxController {
           }
           tabs.removeWhere((element) => element.key == Key('menu-$url-$id'));
           if (currentTabKey == Key('menu-$url-$id')) {
-            currentTabKey = tabs.last.key;
-            currentTabIndex.value = tabs.length - 1;
+            // 关闭当前tab 则打开下一个tab 如果没有下一个tab 则打开最后一个tab
+            if (tabs.length > currentTabIndex.value) {
+              currentTabKey = tabs[currentTabIndex.value].key;
+            } else {
+              currentTabKey = tabs.last.key;
+              currentTabIndex.value = tabs.length - 1;
+            }
           } else {
             currentTabIndex.value =
                 tabs.indexWhere((element) => element.key == currentTabKey);
@@ -184,10 +191,17 @@ class MainController extends GetxController {
     update(["main"]);
   }
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  // }
+  @override
+  void onInit() {
+    super.onInit();
+    currentTabIndex.listen((value) {
+      pageController.animateToPage(
+        value,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
 
   @override
   void onReady() {

@@ -44,6 +44,7 @@ dependencies:
   dio: ^5.1.2
   get: ^4.6.5
   get_storage: ^2.1.1
+  syncfusion_flutter_datagrid: ^21.2.8
 
 dev_dependencies:
   flutter_test:

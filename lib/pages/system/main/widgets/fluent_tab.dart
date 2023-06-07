@@ -79,17 +79,17 @@ class _FluentTabState extends State<FluentTab> {
     if (mounted) setState(() {});
   }
 
-  // @override
-  // void didUpdateWidget(TabView oldWidget) {
-  //   super.didUpdateWidget(oldWidget);
-  //   if (widget.tabs.length != scrollController.itemCount) {
-  //     scrollController.itemCount = widget.tabs.length;
-  //   }
-  //   if (widget.currentIndex != oldWidget.currentIndex &&
-  //       scrollController.hasClients) {
-  //     scrollController.scrollToItem(widget.currentIndex);
-  //   }
-  // }
+  @override
+  void didUpdateWidget(FluentTab oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.tabs.length != scrollController.itemCount) {
+      scrollController.itemCount = widget.tabs.length;
+    }
+    if (widget.currentIndex != oldWidget.currentIndex &&
+        scrollController.hasClients) {
+      scrollController.scrollToItem(widget.currentIndex);
+    }
+  }
 
   @override
   void dispose() {

@@ -9,7 +9,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 import '../../../common/widgets/index.dart';
 import 'index.dart';
-import 'widgets/indexedStackLazy.dart';
+import 'widgets/cached_page_view.dart';
 import './widgets/fluent_tab.dart';
 
 class MainPage extends StatefulWidget {
@@ -36,21 +36,28 @@ class _MainViewGetX extends GetView<MainController> {
 
   // tabContent
   Widget _buildTabContent() {
-    return Container(
-        child: IndexedStackLazy(
-      index: controller.currentTabIndex.value,
+    return CachedPageView(
+      initialPageIndex: controller.currentTabIndex.value,
       children: controller.tabs.isNotEmpty
           ? controller.tabs.map((Tab tab) {
-              var page = tab.url != null
-                  ? MainChildPages.getPage(tab.url) ?? Container()
-                  : Container();
+              var page = MainChildPages.getPage(tab.url);
               return KeyedSubtree(
                 key: Key('page-${tab.url}-${tab.id}'),
                 child: page,
               );
             }).toList()
           : [Container()],
-    ));
+      onPageChanged: (value) {
+        print('onPageChanged: $value');
+        // if (value == controller.currentTabIndex.value) return;
+        // controller.currentTabIndex.value = value;
+        // controller.currentTabKey = controller.tabs[value].key;
+        // controller.update(['main']);
+      },
+      onPageControllerCreated: (pcontroller) {
+        controller.pageController = pcontroller;
+      },
+    );
   }
 
   // tabView
@@ -63,6 +70,7 @@ class _MainViewGetX extends GetView<MainController> {
           currentIndex: controller.currentTabIndex.value,
           tabs: controller.tabs,
           onChanged: (value) {
+            if (value == controller.currentTabIndex.value) return;
             controller.currentTabIndex.value = value;
             controller.currentTabKey = controller.tabs[value].key;
             controller.update(['main']);
@@ -166,14 +174,5 @@ class _MainViewGetX extends GetView<MainController> {
         );
       },
     );
-  }
-}
-
-class TabViewScrollBehavior extends ScrollBehavior {
-  const TabViewScrollBehavior();
-
-  @override
-  Widget buildScrollbar(context, child, details) {
-    return child;
   }
 }

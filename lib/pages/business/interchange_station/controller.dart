@@ -1,3 +1,11 @@
+/*
+ * @Author: wanghao wanghao@oureman.com
+ * @Date: 2023-06-02 13:38:09
+ * @LastEditors: wanghao wanghao@oureman.com
+ * @LastEditTime: 2023-06-07 14:22:04
+ * @FilePath: /eatm_manager/lib/pages/business/interchange_station/controller.dart
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import 'dart:math';
 
 import 'package:fluent_ui/fluent_ui.dart';

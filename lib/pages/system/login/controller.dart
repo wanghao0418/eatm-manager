@@ -29,7 +29,7 @@ class LoginController extends GetxController {
     if (response.success == true) {
       UserStore userStore = Get.find<UserStore>();
       userStore.setToken(response.data['token']);
-      Get.toNamed(RouteNames.systemMain);
+      Get.offNamed(RouteNames.systemMain);
     }
   }
 

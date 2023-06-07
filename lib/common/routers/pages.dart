@@ -2,8 +2,9 @@ import 'package:eatm_manager/common/routers/names.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:get/get.dart';
 
-import '../../pages/business/interchangeStation/index.dart'
-    deferred as interchangeStation;
+import '../../pages/business/ceshi/ceshi.dart';
+import '../../pages/business/work_station/index.dart' deferred as workStation;
+
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -50,16 +51,11 @@ class MainChildPage {
 
 class MainChildPages {
   static List<MainChildPage> list = [
-    MainChildPage(
-        url: '/dashboard',
-        page: Container(child: Text('工艺绑定')),
-        icon: MyIcons.workmanship),
+    MainChildPage(url: '/dashboard', page: Ceshi(), icon: MyIcons.workmanship),
     MainChildPage(
         url: '/kaihua',
         page: DeferredWidget(
-          interchangeStation.loadLibrary,
-          () => interchangeStation.InterchangeStationPage(),
-        ),
+            workStation.loadLibrary, () => workStation.WorkStationPage()),
         icon: MyIcons.kanBan),
     MainChildPage(
         url: '/userInfoList',
