@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../pages/business/ceshi/ceshi.dart';
 import '../../pages/business/work_station/index.dart' deferred as workStation;
-
+import '../../pages/business/auto_running/index.dart' deferred as autoRunning;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -83,7 +83,8 @@ class MainChildPages {
         icon: MyIcons.ganttChart),
     MainChildPage(
         url: '/AutoRunView',
-        page: Center(child: Text('运行管理')),
+        page: DeferredWidget(
+            autoRunning.loadLibrary, () => autoRunning.AutoRunningPage()),
         icon: MyIcons.runManage),
     MainChildPage(
         url: '/MachineManagement',

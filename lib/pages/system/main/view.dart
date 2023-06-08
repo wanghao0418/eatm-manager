@@ -48,7 +48,7 @@ class _MainViewGetX extends GetView<MainController> {
             }).toList()
           : [Container()],
       onPageChanged: (value) {
-        print('onPageChanged: $value');
+        // print('onPageChanged: $value');
         // if (value == controller.currentTabIndex.value) return;
         // controller.currentTabIndex.value = value;
         // controller.currentTabKey = controller.tabs[value].key;

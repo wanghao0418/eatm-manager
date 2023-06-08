@@ -1,4 +1,4 @@
-library auto_run_manager;
+library auto_runing;
 
 export './controller.dart';
 export './view.dart';
