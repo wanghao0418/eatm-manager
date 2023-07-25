@@ -43,7 +43,7 @@ class ConfigStore extends GetxController {
     var env = const String.fromEnvironment('APP_ENV', defaultValue: 'product');
     print(env);
     // 根据启动参数设置当前的环境
-    final String environment = env ?? Environment.Product.value; // 默认为生产环境
+    final String environment = env; // 默认为生产环境
     switch (environment) {
       case 'local':
         HttpUtil.setBaseUrl(ConfigStore.instance.localBaseUrl!);

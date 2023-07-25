@@ -198,7 +198,7 @@ class AutoRunningController extends GetxController {
     treeDataList.forEach((element) {
       element['Id'] = treeDataList.indexOf(element) + 1;
     });
-    update(['autoRunView']);
+    update(['auto_running']);
     ;
   }
 
@@ -303,7 +303,7 @@ class AutoRunningController extends GetxController {
           // }
 
           // setState(() {});
-          update(['autoRunView']);
+          update(['auto_running']);
         } else if (jsonResponseShel["sigInitZiDongList"] != null) {
           _sigInitZiDongListGenerateData =
               sigInitZiDongListGenerate.fromJson(jsonResponseShel);
@@ -345,17 +345,17 @@ class AutoRunningController extends GetxController {
       nShelfNo = nId;
       _bIsClickButton = true;
       ShelRowColData();
-      update(['autoRunView']);
+      update(['auto_running']);
     } else {
       // 跳转
       // Utils.openTab('42');
       expandTop = !expandTop;
-      update(['autoRunView']);
+      update(['auto_running']);
     }
   }
 
   _initData() {
-    update(["auto_runing"]);
+    update(["auto_running"]);
   }
 
   void onTap() {}

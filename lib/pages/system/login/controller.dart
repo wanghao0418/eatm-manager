@@ -28,6 +28,7 @@ class LoginController extends GetxController {
     ResponseApiBody response = await UserApi.login(user.toJson());
     if (response.success == true) {
       UserStore userStore = Get.find<UserStore>();
+      userStore.setUserInfo(response.data['currentUserInfo']);
       userStore.setToken(response.data['token']);
       Get.offNamed(RouteNames.systemMain);
     }

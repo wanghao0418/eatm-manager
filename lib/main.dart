@@ -1,8 +1,10 @@
 import 'dart:ui';
+import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Page;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:system_theme/system_theme.dart';
 import 'package:flutter/material.dart' as material;
@@ -34,32 +36,68 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (context, child) {
+          final GlobalTheme globalTheme = Get.find<GlobalTheme>();
           return FluentApp(
             debugShowCheckedModeBanner: false,
+            themeMode: globalTheme.mode,
+            color: globalTheme.accentColor,
+            theme: FluentThemeData(
+              brightness: Brightness.light,
+              accentColor: globalTheme.accentColor,
+              fontFamily: 'MyFont',
+              visualDensity: VisualDensity.standard,
+              focusTheme: FocusThemeData(
+                glowFactor: is10footScreen(context) ? 2.0 : 0.0,
+              ),
+              iconTheme: const IconThemeData(
+                color: Colors.black,
+              ),
+            ),
+            darkTheme: FluentThemeData(
+              brightness: Brightness.dark,
+              accentColor: globalTheme.accentColor,
+              fontFamily: 'MyFont',
+              visualDensity: VisualDensity.standard,
+              focusTheme: FocusThemeData(
+                glowFactor: is10footScreen(context) ? 2.0 : 0.0,
+              ),
+              iconTheme: const IconThemeData(
+                color: Colors.white,
+              ),
+            ),
             home: GetMaterialApp(
               debugShowCheckedModeBanner: false,
-              color: AppTheme.systemAccentColor,
-              themeMode: Get.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-              theme: material.ThemeData(
-                primarySwatch: material.Colors.blue,
-                visualDensity: VisualDensity.standard,
-                fontFamily: 'MyFont',
-                primaryColor: AppTheme.systemAccentColor,
-              ),
-              darkTheme: material.ThemeData(
-                primarySwatch: material.Colors.blue,
-                visualDensity: VisualDensity.standard,
-                fontFamily: 'MyFont',
-                // primaryColor: systemAccentColor,
-              ),
               title: 'EMAN',
               initialRoute: RouteNames.systemMain,
-              localizationsDelegates: [
+              localizationsDelegates: const [
                 FluentLocalizations.delegate,
               ],
+              theme: material.ThemeData(
+                brightness: Brightness.light,
+                expansionTileTheme:
+                    const material.ExpansionTileThemeData().copyWith(
+                  iconColor: globalTheme.accentColor,
+                  collapsedIconColor: Colors.grey[100],
+                ),
+              ),
+              darkTheme: material.ThemeData(
+                brightness: Brightness.dark,
+                expansionTileTheme:
+                    const material.ExpansionTileThemeData().copyWith(
+                  iconColor: globalTheme.accentColor,
+                  collapsedIconColor: Colors.grey[100],
+                ),
+                listTileTheme: const material.ListTileThemeData().copyWith(
+                  tileColor: globalTheme.isDarkMode
+                      ? const Color(0xff303C54)
+                      : const Color(0xffF2F4F8),
+                ),
+              ),
               initialBinding: AllControllerBinding(),
               getPages: RoutePages.list,
               scrollBehavior: MyCustomScrollBehavior(),
+              navigatorObservers: [FlutterSmartDialog.observer],
+              builder: FlutterSmartDialog.init(),
             ),
           );
         });

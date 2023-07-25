@@ -110,11 +110,13 @@ class _AutoRunningViewGetX extends GetView<AutoRunningController> {
 
     var buttonBar = material.ButtonBar(
       children: [
-        FilledButton(onPressed: () => controller.start(), child: Text('开始')),
-        FilledButton(onPressed: () => controller.stop(), child: Text('开始')),
+        FilledButton(
+            onPressed: () => controller.start(), child: Text(listButton[0])),
+        FilledButton(
+            onPressed: () => controller.stop(), child: Text(listButton[1])),
         FilledButton(
             onPressed: () => controller.detailedInformation(0, 0),
-            child: Text('列表详情')),
+            child: Text(listButton[2])),
       ],
     );
 
@@ -341,7 +343,7 @@ class _AutoRunningViewGetX extends GetView<AutoRunningController> {
                   .collapseAll();
               (controller.treeTableKey.currentState! as TreeTableState)
                   .setSelectedRowKey(index);
-              controller.update(['auto_runing']);
+              controller.update(['auto_running']);
             } else {
               // 未找到
               (controller.treeTableKey.currentState! as TreeTableState)
@@ -364,7 +366,7 @@ class _AutoRunningViewGetX extends GetView<AutoRunningController> {
                       ),
                     ),
                     actions: [
-                      TextButton(
+                      FilledButton(
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
@@ -556,10 +558,10 @@ class _AutoRunningViewGetX extends GetView<AutoRunningController> {
   Widget build(BuildContext context) {
     return GetBuilder<AutoRunningController>(
       init: AutoRunningController(),
-      id: "auto_runing",
+      id: "auto_running",
       builder: (_) {
-        return material.Scaffold(
-          body: _buildView(),
+        return ScaffoldPage(
+          content: _buildView(),
         );
       },
     );

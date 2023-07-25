@@ -6,7 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 
 const double _kTileHeight = 34.0;
-const double _kMinTileWidth = 80.0;
+const double _kMinTileWidth = 100.0;
 const double _kMaxTileWidth = 240.0;
 const double _kButtonWidth = 32.0;
 
@@ -208,7 +208,7 @@ class _FluentTabState extends State<FluentTab> {
         style: ButtonStyle(
           foregroundColor: ButtonState.resolveWith((states) {
             if (states.isDisabled || states.isNone) {
-              return FluentTheme.of(context).disabledColor;
+              return FluentTheme.of(context).acrylicBackgroundColor;
             } else {
               return FluentTheme.of(context).inactiveColor;
             }

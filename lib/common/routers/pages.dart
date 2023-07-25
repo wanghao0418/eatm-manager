@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import '../../pages/business/ceshi/ceshi.dart';
 import '../../pages/business/work_station/index.dart' deferred as workStation;
 import '../../pages/business/auto_running/index.dart' deferred as autoRunning;
+import '../../pages/business/warehouse_management/shelf_management/index.dart'
+    deferred as shelfManagement;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -53,7 +55,7 @@ class MainChildPages {
   static List<MainChildPage> list = [
     MainChildPage(url: '/dashboard', page: Ceshi(), icon: MyIcons.workmanship),
     MainChildPage(
-        url: '/kaihua',
+        url: '/workStation',
         page: DeferredWidget(
             workStation.loadLibrary, () => workStation.WorkStationPage()),
         icon: MyIcons.kanBan),
@@ -190,6 +192,11 @@ class MainChildPages {
         url: '/ChipBindingStl',
         page: Center(child: Text('多钢件绑定')),
         icon: MyIcons.binding),
+    MainChildPage(
+        url: '/shelfManagement',
+        page: DeferredWidget(shelfManagement.loadLibrary,
+            () => shelfManagement.ShelfManagementPage()),
+        icon: FluentIcons.guid),
   ];
 
   static Widget getPage(String url) {

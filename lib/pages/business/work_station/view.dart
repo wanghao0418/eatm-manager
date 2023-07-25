@@ -384,8 +384,9 @@ class _WorkStationViewGetX extends GetView<WorkStationController> {
       init: WorkStationController(),
       id: "work_station",
       builder: (_) {
-        return material.Scaffold(
-          body: _buildView(),
+        return ScaffoldPage(
+          padding: EdgeInsets.zero,
+          content: _buildView(),
         );
       },
     );

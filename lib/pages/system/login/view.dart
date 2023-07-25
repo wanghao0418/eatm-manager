@@ -1,3 +1,4 @@
+import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as material;
@@ -12,7 +13,7 @@ class LoginPage extends GetView<LoginController> {
   const LoginPage({Key? key}) : super(key: key);
 
   // 主视图
-  Widget _buildView() {
+  Widget _buildView(context) {
     return Stack(
       children: [
         Container(
@@ -57,7 +58,9 @@ class LoginPage extends GetView<LoginController> {
             constraints: BoxConstraints(minWidth: 500, minHeight: 300),
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: GlobalTheme.instance.isDarkMode
+                  ? FluentTheme.of(context).acrylicBackgroundColor
+                  : Colors.white,
               borderRadius: BorderRadius.circular(10.r),
               boxShadow: [
                 BoxShadow(
@@ -118,6 +121,7 @@ class LoginPage extends GetView<LoginController> {
                                   child: Icon(
                                     FluentIcons.user_window,
                                     size: 20.sp,
+                                    color: GlobalTheme.instance.buttonIconColor,
                                   ),
                                 ),
                                 focusNode: controller.focusNodeUserName,
@@ -157,6 +161,7 @@ class LoginPage extends GetView<LoginController> {
                                   child: Icon(
                                     FluentIcons.lock,
                                     size: 20.sp,
+                                    color: GlobalTheme.instance.buttonIconColor,
                                   ),
                                 ),
                                 placeholder: '请输入密码',
@@ -224,7 +229,7 @@ class LoginPage extends GetView<LoginController> {
       id: "login",
       builder: (_) {
         return material.Scaffold(
-          body: _buildView(),
+          body: _buildView(context),
         );
       },
     );

@@ -18,7 +18,7 @@ class _CeshiState extends State<Ceshi> with AutomaticKeepAliveClientMixin {
     super.build(context);
     return Container(
         child: Center(
-      child: TextButton(
+      child: FilledButton(
         onPressed: () {
           setState(() {
             count++;

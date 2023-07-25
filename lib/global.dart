@@ -1,3 +1,12 @@
+/*
+ * @Author: wanghao wanghao@oureman.com
+ * @Date: 2023-06-01 09:46:10
+ * @LastEditors: wanghao wanghao@oureman.com
+ * @LastEditTime: 2023-07-24 17:49:25
+ * @FilePath: /eatm_manager/lib/global.dart
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
+import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -48,6 +57,7 @@ class Global {
 
     Get.put<UserStore>(UserStore());
     Get.put<ConfigStore>(ConfigStore());
+    Get.put<GlobalTheme>(GlobalTheme());
   }
 
 // 获取系统主题颜色
