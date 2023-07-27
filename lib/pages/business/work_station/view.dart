@@ -1,3 +1,4 @@
+import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -194,6 +195,7 @@ class _WorkStationViewGetX extends GetView<WorkStationController> {
       children: [
         Expanded(
           child: ListView.builder(
+              padding: EdgeInsets.only(bottom: 10.r),
               scrollDirection: Axis.horizontal,
               itemExtent: 300.r,
               itemCount: 10,
@@ -314,7 +316,7 @@ class _WorkStationViewGetX extends GetView<WorkStationController> {
                     ));
               }),
         ),
-        50.horizontalSpaceRadius,
+        GlobalTheme.instance.contentDistance.horizontalSpace,
         SizedBox(
           width: 300.r,
           child: Column(

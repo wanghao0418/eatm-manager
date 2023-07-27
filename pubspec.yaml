@@ -49,6 +49,8 @@ dependencies:
   flutter_simple_treeview: ^3.0.0-nullsafety.1
   flutter_smart_dialog: ^4.9.0+1
   pluto_grid: ^7.0.2
+  excel: 2.0.4
+  file_selector: ^0.9.2+4
 
 dev_dependencies:
   flutter_test:
@@ -96,9 +98,9 @@ flutter:
       - family: Roboto
         fonts:
           - asset: assets/fonts/Roboto.ttf
-      - family: MyFont
-        fonts:
-          - asset: assets/fonts/MyFont.otf
+      # - family: MyFont
+      #   fonts:
+      #     - asset: assets/fonts/MyFont.otf
       - family: MyIcons
         fonts:
           - asset: assets/fonts/CustomIcons.ttf

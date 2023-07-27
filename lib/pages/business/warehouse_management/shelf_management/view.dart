@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-25 13:37:07
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-25 18:30:45
+ * @LastEditTime: 2023-07-25 18:46:01
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/shelf_management/view.dart
  * @Description: 货架管理页面
  */
@@ -349,7 +349,8 @@ class _ShelfManagementViewGetX extends GetView<ShelfManagementController> {
           const Divider(),
           10.verticalSpace,
           Expanded(
-              child: ListView.builder(
+              child: ListView.separated(
+            separatorBuilder: (context, index) => const Divider(),
             itemCount: controller.shelfList.length,
             itemBuilder: (context, index) {
               var item = controller.shelfList[index];
@@ -375,59 +376,70 @@ class _ShelfManagementViewGetX extends GetView<ShelfManagementController> {
           borderRadius: globalTheme.contentRadius,
           boxShadow: [globalTheme.boxShadow]),
       child: PlutoGrid(
-        columns: [
-          PlutoColumn(
-              title: '序号',
-              field: 'shelfId',
-              width: 60,
-              readOnly: true,
-              type: PlutoColumnType.text()),
-          PlutoColumn(
-              title: '货位号', field: 'shelfName', type: PlutoColumnType.text()),
-          PlutoColumn(
-              title: '托盘SN', field: 'shelfType', type: PlutoColumnType.text()),
-          PlutoColumn(
-              title: '托盘芯片',
-              field: 'shelfStatus',
-              type: PlutoColumnType.text()),
-          PlutoColumn(
-              title: '工件SN',
-              field: 'shelfLocation',
-              type: PlutoColumnType.text()),
-          PlutoColumn(
-              title: '工件类型', field: 'shelfLayer', type: PlutoColumnType.text()),
-          PlutoColumn(
-              title: '托盘类型',
-              field: 'shelfColumn',
-              type: PlutoColumnType.text()),
-          PlutoColumn(
-              title: '托盘重量', field: 'shelfRow', type: PlutoColumnType.text()),
-          PlutoColumn(
-              title: '更新时间', field: 'shelfRow2', type: PlutoColumnType.text()),
-          PlutoColumn(
-              title: '禁用', field: 'shelfRow3', type: PlutoColumnType.text()),
-          PlutoColumn(
-              title: '当前状态', field: 'shelfRow4', type: PlutoColumnType.text()),
-        ],
-        rows: controller.rows,
-        onLoaded: (PlutoGridOnLoadedEvent event) {
-          controller.stateManager = event.stateManager;
-        },
-        onRowChecked: (event) {
-          print(event);
-        },
-        configuration: PlutoGridConfiguration(
-          localeText: const PlutoGridLocaleText.china(),
-          columnSize: const PlutoGridColumnSizeConfig(
-              autoSizeMode: PlutoAutoSizeMode.scale),
-          style: PlutoGridStyleConfig(
-            gridBorderColor: Colors.transparent,
-            gridBackgroundColor: globalTheme.pageContentBackgroundColor,
-            columnTextStyle: FluentTheme.of(context).typography.body!,
-            iconColor: globalTheme.buttonIconColor,
+          columns: [
+            PlutoColumn(
+                title: '序号',
+                field: 'shelfId',
+                width: 60,
+                readOnly: true,
+                type: PlutoColumnType.text()),
+            PlutoColumn(
+                title: '货位号', field: 'shelfName', type: PlutoColumnType.text()),
+            PlutoColumn(
+                title: '托盘SN',
+                field: 'shelfType',
+                type: PlutoColumnType.text()),
+            PlutoColumn(
+                title: '托盘芯片',
+                field: 'shelfStatus',
+                type: PlutoColumnType.text()),
+            PlutoColumn(
+                title: '工件SN',
+                field: 'shelfLocation',
+                type: PlutoColumnType.text()),
+            PlutoColumn(
+                title: '工件类型',
+                field: 'shelfLayer',
+                type: PlutoColumnType.text()),
+            PlutoColumn(
+                title: '托盘类型',
+                field: 'shelfColumn',
+                type: PlutoColumnType.text()),
+            PlutoColumn(
+                title: '托盘重量', field: 'shelfRow', type: PlutoColumnType.text()),
+            PlutoColumn(
+                title: '更新时间',
+                field: 'shelfRow2',
+                width: 300,
+                type: PlutoColumnType.text()),
+            PlutoColumn(
+                title: '禁用', field: 'shelfRow3', type: PlutoColumnType.text()),
+            PlutoColumn(
+                title: '当前状态',
+                field: 'shelfRow4',
+                type: PlutoColumnType.text()),
+          ],
+          rows: controller.rows,
+          onLoaded: (PlutoGridOnLoadedEvent event) {
+            controller.stateManager = event.stateManager;
+          },
+          onRowChecked: (event) {
+            print(event);
+          },
+          configuration: globalTheme.plutoGridConfig
+
+          //  PlutoGridConfiguration(
+          //   localeText: const PlutoGridLocaleText.china(),
+          //   columnSize: const PlutoGridColumnSizeConfig(
+          //       autoSizeMode: PlutoAutoSizeMode.none),
+          //   style: PlutoGridStyleConfig(
+          //     gridBorderColor: Colors.transparent,
+          //     gridBackgroundColor: globalTheme.pageContentBackgroundColor,
+          //     columnTextStyle: FluentTheme.of(context).typography.body!,
+          //     iconColor: globalTheme.buttonIconColor,
+          //   ),
+          // ),
           ),
-        ),
-      ),
     );
 
     return Container(

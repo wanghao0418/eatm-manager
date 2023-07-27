@@ -3,10 +3,22 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:get/get.dart';
 
 import '../../pages/business/ceshi/ceshi.dart';
-import '../../pages/business/work_station/index.dart' deferred as workStation;
-import '../../pages/business/auto_running/index.dart' deferred as autoRunning;
+import '../../pages/business/work_station/index.dart' deferred as work_station;
+import '../../pages/business/auto_running/index.dart' deferred as auto_running;
+import '../../pages/business/tool_management/standard_tool_management/index.dart'
+    deferred as standard_tool_management;
+import '../../pages/business/tool_management/mac_tool_magazine_management/index.dart'
+    deferred as mac_tool_magazine_management;
+import '../../pages/business/tool_management/tool_magazine_outside_mac/index.dart'
+    deferred as tool_magazine_outside_mac;
 import '../../pages/business/warehouse_management/shelf_management/index.dart'
-    deferred as shelfManagement;
+    deferred as shelf_management;
+import '../../pages/business/warehouse_management/storage_records/index.dart'
+    deferred as storage_records;
+import '../../pages/business/warehouse_management/exit_records/index.dart'
+    deferred as exit_records;
+import '../../pages/business/warehouse_management/task_management/index.dart'
+    deferred as task_management;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -21,6 +33,13 @@ class RoutePages {
     ),
     GetPage(
       name: RouteNames.systemMain,
+      page: () => const MainPage(),
+      middlewares: [
+        RouteAuthMiddleware(priority: 1),
+      ],
+    ),
+    GetPage(
+      name: RouteNames.main,
       page: () => const MainPage(),
       middlewares: [
         RouteAuthMiddleware(priority: 1),
@@ -56,8 +75,8 @@ class MainChildPages {
     MainChildPage(url: '/dashboard', page: Ceshi(), icon: MyIcons.workmanship),
     MainChildPage(
         url: '/workStation',
-        page: DeferredWidget(
-            workStation.loadLibrary, () => workStation.WorkStationPage()),
+        page: DeferredWidget(work_station.loadLibrary,
+            () => work_station.WorkStationPage()), // 接驳站管理
         icon: MyIcons.kanBan),
     MainChildPage(
         url: '/userInfoList',
@@ -86,7 +105,7 @@ class MainChildPages {
     MainChildPage(
         url: '/AutoRunView',
         page: DeferredWidget(
-            autoRunning.loadLibrary, () => autoRunning.AutoRunningPage()),
+            auto_running.loadLibrary, () => auto_running.AutoRunningPage()),
         icon: MyIcons.runManage),
     MainChildPage(
         url: '/MachineManagement',
@@ -161,10 +180,6 @@ class MainChildPages {
         page: Center(child: Text('维保设置')),
         icon: MyIcons.maintenance),
     MainChildPage(
-        url: '/ExternalToolMagazine',
-        page: Center(child: Text('机外刀库')),
-        icon: MyIcons.tool),
-    MainChildPage(
         url: '/AllMachine',
         page: Center(child: Text('多机负荷')),
         icon: MyIcons.loadAnalysis),
@@ -193,10 +208,46 @@ class MainChildPages {
         page: Center(child: Text('多钢件绑定')),
         icon: MyIcons.binding),
     MainChildPage(
+        url: '/standardToolManagement',
+        page: DeferredWidget(
+            standard_tool_management.loadLibrary,
+            () =>
+                standard_tool_management.StandardToolManagementPage()), //标准刀具管理
+        icon: MyIcons.tool),
+    MainChildPage(
+        url: '/macToolMagazine',
+        page: DeferredWidget(
+            mac_tool_magazine_management.loadLibrary,
+            () => mac_tool_magazine_management
+                .MacToolMagazineManagementPage()), //机床刀库管理
+        icon: MyIcons.tool),
+    MainChildPage(
+        url: '/toolMagazineOutsideMac',
+        page: DeferredWidget(
+            tool_magazine_outside_mac.loadLibrary,
+            () =>
+                tool_magazine_outside_mac.ToolMagazineOutsideMacPage()), //机外刀库
+        icon: MyIcons.tool),
+    MainChildPage(
         url: '/shelfManagement',
-        page: DeferredWidget(shelfManagement.loadLibrary,
-            () => shelfManagement.ShelfManagementPage()),
+        page: DeferredWidget(shelf_management.loadLibrary,
+            () => shelf_management.ShelfManagementPage()), // 货架管理
         icon: FluentIcons.guid),
+    MainChildPage(
+        url: '/storageRecords',
+        page: DeferredWidget(storage_records.loadLibrary,
+            () => storage_records.StorageRecordsPage()), // 入库记录
+        icon: FluentIcons.open_pane_mirrored),
+    MainChildPage(
+        url: '/exitRecords',
+        page: DeferredWidget(exit_records.loadLibrary,
+            () => exit_records.ExitRecordsPage()), // 出库记录
+        icon: FluentIcons.open_pane),
+    MainChildPage(
+        url: '/taskManagement',
+        page: DeferredWidget(task_management.loadLibrary,
+            () => task_management.TaskManagementPage()), // 任务管理
+        icon: FluentIcons.page_list_solid),
   ];
 
   static Widget getPage(String url) {

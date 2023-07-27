@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-20 10:25:25
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-25 18:01:37
+ * @LastEditTime: 2023-07-27 09:33:00
  * @FilePath: /iniConfig/lib/common/style/global_theme.dart
  * @Description: 全局主题控制器
  */
@@ -10,6 +10,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:flutter/material.dart' as material;
+import 'package:pluto_grid/pluto_grid.dart';
 
 class GlobalTheme extends GetxController {
   static GlobalTheme get instance => Get.find<GlobalTheme>();
@@ -82,6 +83,22 @@ class GlobalTheme extends GetxController {
       color: pageContentBackgroundColor,
       borderRadius: contentRadius,
       boxShadow: [boxShadow]);
+  // 通用表格配置
+  PlutoGridConfiguration get plutoGridConfig => PlutoGridConfiguration(
+        localeText: const PlutoGridLocaleText.china(),
+        columnSize: const PlutoGridColumnSizeConfig(
+            autoSizeMode: PlutoAutoSizeMode.none),
+        style: PlutoGridStyleConfig(
+          gridBorderColor: Colors.grey[30],
+          gridBackgroundColor: pageContentBackgroundColor,
+          cellTextStyle: TextStyle(color: buttonIconColor),
+          rowColor: Colors.transparent,
+          columnTextStyle: TextStyle(color: buttonIconColor),
+          iconColor: buttonIconColor,
+          menuBackgroundColor: pageContentBackgroundColor,
+          gridBorderRadius: BorderRadius.circular(5.0),
+        ),
+      );
 
   _initStore() {
     int readAccentColorIndex = _storage.read('accentColorIndex') ?? 5;

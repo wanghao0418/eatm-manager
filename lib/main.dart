@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
             theme: FluentThemeData(
               brightness: Brightness.light,
               accentColor: globalTheme.accentColor,
-              fontFamily: 'MyFont',
+              fontFamily: 'Roboto',
               visualDensity: VisualDensity.standard,
               focusTheme: FocusThemeData(
                 glowFactor: is10footScreen(context) ? 2.0 : 0.0,
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
             darkTheme: FluentThemeData(
               brightness: Brightness.dark,
               accentColor: globalTheme.accentColor,
-              fontFamily: 'MyFont',
+              fontFamily: 'Roboto',
               visualDensity: VisualDensity.standard,
               focusTheme: FocusThemeData(
                 glowFactor: is10footScreen(context) ? 2.0 : 0.0,
@@ -79,6 +79,7 @@ class MyApp extends StatelessWidget {
                   iconColor: globalTheme.accentColor,
                   collapsedIconColor: Colors.grey[100],
                 ),
+                fontFamily: 'Roboto',
               ),
               darkTheme: material.ThemeData(
                 brightness: Brightness.dark,
@@ -92,6 +93,7 @@ class MyApp extends StatelessWidget {
                       ? const Color(0xff303C54)
                       : const Color(0xffF2F4F8),
                 ),
+                fontFamily: 'Roboto',
               ),
               initialBinding: AllControllerBinding(),
               getPages: RoutePages.list,

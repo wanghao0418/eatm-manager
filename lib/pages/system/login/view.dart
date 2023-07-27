@@ -1,16 +1,42 @@
+/*
+ * @Author: wanghao wanghao@oureman.com
+ * @Date: 2023-07-26 16:37:19
+ * @LastEditors: wanghao wanghao@oureman.com
+ * @LastEditTime: 2023-07-26 16:39:54
+ * @FilePath: /eatm_manager/lib/pages/system/login/view.dart
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import 'package:eatm_manager/common/style/global_theme.dart';
+import 'package:eatm_manager/common/widgets/window_button.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart' as material;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../../common/widgets/window_button.dart';
 import 'index.dart';
 
-class LoginPage extends GetView<LoginController> {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return const _LoginViewGetX();
+  }
+}
+
+class _LoginViewGetX extends GetView<LoginController> {
+  const _LoginViewGetX({Key? key}) : super(key: key);
 
   // 主视图
   Widget _buildView(context) {
@@ -39,7 +65,7 @@ class LoginPage extends GetView<LoginController> {
             width: double.infinity,
             padding: EdgeInsets.only(left: 10.r, right: 10.r),
             height: 60,
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Image(
@@ -83,13 +109,6 @@ class LoginPage extends GetView<LoginController> {
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Text('欢迎使用',
-                  //     style: TextStyle(
-                  //         fontSize: 36.sp,
-                  //         fontWeight: FontWeight.bold,
-                  //         // letterSpacing: 5,
-                  //         color: Colors.blue)),
-                  // 20.verticalSpacingRadius,
                   Text('EMAN 益模',
                       style: TextStyle(
                           fontSize: 30.sp,
@@ -102,117 +121,94 @@ class LoginPage extends GetView<LoginController> {
                           fontWeight: FontWeight.bold,
                           color: Colors.blue.light)),
                   30.verticalSpacingRadius,
-                  Form(
-                    key: controller.formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                            padding: EdgeInsets.fromLTRB(20.r, 0, 20.r, 20.r),
-                            child: InfoLabel(
-                              label: '用户名:',
-                              labelStyle: TextStyle(
-                                fontSize: 20.sp,
-                              ),
-                              child: TextFormBox(
-                                // style: TextStyle(fontSize: 16.sp),
-                                prefix: Padding(
-                                  padding: EdgeInsets.only(left: 10.r),
-                                  child: Icon(
-                                    FluentIcons.user_window,
-                                    size: 20.sp,
-                                    color: GlobalTheme.instance.buttonIconColor,
-                                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                          padding: EdgeInsets.fromLTRB(20.r, 0, 20.r, 20.r),
+                          child: InfoLabel(
+                            label: '用户名:',
+                            labelStyle: TextStyle(
+                              fontSize: 20.sp,
+                            ),
+                            child: TextBox(
+                              prefix: Padding(
+                                padding: EdgeInsets.only(left: 10.r),
+                                child: Icon(
+                                  FluentIcons.user_window,
+                                  size: 16,
+                                  color: GlobalTheme.instance.buttonIconColor,
                                 ),
-                                focusNode: controller.focusNodeUserName,
-                                controller: controller.userNameController,
-                                placeholder: '请输入用户名',
-                                // placeholderStyle: TextStyle(
-                                //   fontSize: 16.sp,
-                                // ),
-                                expands: false,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return '请输入用户名';
-                                  }
-                                  return null;
-                                },
-                                onSaved: (value) {
-                                  controller.user.userName = value ?? '';
-                                },
-                                onFieldSubmitted: (value) {
-                                  controller.focusNodePassword.requestFocus();
-                                },
                               ),
-                            )),
-                        Container(
-                            padding: EdgeInsets.fromLTRB(20.r, 0, 20.r, 20.r),
-                            child: InfoLabel(
-                              label: '密码:',
-                              labelStyle: TextStyle(
-                                fontSize: 20.sp,
-                              ),
-                              child: PasswordFormBox(
-                                focusNode: controller.focusNodePassword,
-                                revealMode: PasswordRevealMode.peekAlways,
-                                controller: controller.passwordController,
-                                leadingIcon: Padding(
-                                  padding: EdgeInsets.only(left: 10.r),
-                                  child: Icon(
-                                    FluentIcons.lock,
-                                    size: 20.sp,
-                                    color: GlobalTheme.instance.buttonIconColor,
-                                  ),
+                              controller: controller.userNameController,
+                              placeholder: '请输入用户名',
+                              expands: false,
+                              onChanged: (value) {
+                                controller.user.userName = value;
+                              },
+                            ),
+                          )),
+                      Container(
+                          padding: EdgeInsets.fromLTRB(20.r, 0, 20.r, 20.r),
+                          child: InfoLabel(
+                            label: '密码:',
+                            labelStyle: TextStyle(
+                              fontSize: 20.sp,
+                            ),
+                            child: PasswordBox(
+                              revealMode: PasswordRevealMode.peekAlways,
+                              controller: controller.passwordController,
+                              leadingIcon: Padding(
+                                padding: EdgeInsets.only(left: 10.r),
+                                child: Icon(
+                                  FluentIcons.lock,
+                                  size: 16,
+                                  color: GlobalTheme.instance.buttonIconColor,
                                 ),
-                                placeholder: '请输入密码',
-                                // placeholderStyle: TextStyle(fontSize: 16.sp),
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return '请输入密码';
-                                  }
-                                  return null;
-                                },
-                                onSaved: (value) {
-                                  controller.user.password = value ?? '';
-                                },
-                                onFieldSubmitted: (value) {
-                                  controller.login();
-                                },
                               ),
-                            )),
-                        Padding(
-                          padding: EdgeInsets.only(right: 20.r),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Checkbox(
-                                checked: controller.rememberPassword.value,
-                                onChanged: (bool? value) {
-                                  controller.rememberPassword.value = value!;
-                                  controller.update(["login"]);
-                                },
-                              ),
-                              10.horizontalSpaceRadius,
-                              const Text('记住密码').fontSize(16.sp),
-                            ],
-                          ),
-                        ),
-                        Row(
+                              placeholder: '请输入密码',
+                              onChanged: (value) {
+                                controller.user.password = value;
+                              },
+                            ),
+                          )),
+                      Padding(
+                        padding: EdgeInsets.only(right: 20.r),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.all(20.r),
-                                child: FilledButton(
-                                  child: Text('登录').fontSize(20.sp),
-                                  onPressed: controller.login,
-                                ),
-                              ),
-                            )
+                            Checkbox(
+                              checked: controller.rememberPassword.value,
+                              onChanged: (bool? value) {
+                                controller.rememberPassword.value = value!;
+                                controller.update(["login"]);
+                              },
+                            ),
+                            10.horizontalSpaceRadius,
+                            const Text('记住密码').fontSize(14),
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.all(20.r),
+                              child: FilledButton(
+                                child: Text('登录').fontSize(20.sp),
+                                onPressed: controller.login,
+                              ),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
                   )
+                  // Form(
+                  //   key: controller.formKey,
+                  //   child: ,
+                  // )
                 ],
               ))
             ]),
@@ -228,8 +224,9 @@ class LoginPage extends GetView<LoginController> {
       init: LoginController(),
       id: "login",
       builder: (_) {
-        return material.Scaffold(
-          body: _buildView(context),
+        return ScaffoldPage(
+          padding: EdgeInsets.zero,
+          content: _buildView(context),
         );
       },
     );
