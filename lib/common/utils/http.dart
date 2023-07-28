@@ -38,9 +38,9 @@ class HttpUtil {
     data = data ?? {};
     method = method ?? Method.POST.value;
 
-    if (requestToken && !UserStore.instance.isLogin) {
-      UserStore.instance.onLogout();
-    }
+    // if (requestToken && !UserStore.instance.isLogin) {
+    //   UserStore.instance.onLogout();
+    // }
 
     Dio dio = createInstance()!;
     dio.options.method = method;

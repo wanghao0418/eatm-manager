@@ -2,10 +2,11 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-20 10:25:25
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-27 09:33:00
+ * @LastEditTime: 2023-07-28 10:25:53
  * @FilePath: /iniConfig/lib/common/style/global_theme.dart
  * @Description: 全局主题控制器
  */
+import 'package:eatm_manager/pages/system/main/widgets/navigation_bar.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -48,6 +49,15 @@ class GlobalTheme extends GetxController {
   set navigationIndicator(PaneDisplayMode mode) {
     _navigationIndicator = mode;
     _storage.write('navigationIndicator', mode.toString());
+    Get.forceAppUpdate();
+  }
+
+  // 导航显示模式
+  NavigationBarDisplayType _navigationBarType = NavigationBarDisplayType.normal;
+  NavigationBarDisplayType get navigationBarType => _navigationBarType;
+  set navigationBarType(NavigationBarDisplayType type) {
+    _navigationBarType = type;
+    _storage.write('navigationIndicator', type.value);
     Get.forceAppUpdate();
   }
 
@@ -103,14 +113,18 @@ class GlobalTheme extends GetxController {
   _initStore() {
     int readAccentColorIndex = _storage.read('accentColorIndex') ?? 5;
     bool readIsDarkMode = _storage.read('isDarkMode') ?? false;
-    String readNavigationIndicator =
-        _storage.read('navigationIndicator') ?? 'PaneDisplayMode.auto';
+    String readNavigationBarType =
+        _storage.read('navigationIndicator') ?? 'normal';
+    // String readNavigationIndicator =
+    //     _storage.read('navigationIndicator') ?? 'PaneDisplayMode.auto';
 
     Future.delayed(Duration.zero).then((value) {
       isDarkMode = readIsDarkMode;
       accentColor = Colors.accentColors[readAccentColorIndex];
-      navigationIndicator = PaneDisplayMode.values.firstWhere(
-          (element) => element.toString() == readNavigationIndicator);
+      navigationBarType = NavigationBarDisplayType.values
+          .firstWhere((element) => element.value == readNavigationBarType);
+      // navigationIndicator = PaneDisplayMode.values.firstWhere(
+      //     (element) => element.toString() == readNavigationIndicator);
     });
   }
 

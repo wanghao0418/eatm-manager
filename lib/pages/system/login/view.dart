@@ -2,9 +2,9 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-26 16:37:19
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-26 16:39:54
+ * @LastEditTime: 2023-07-28 10:52:24
  * @FilePath: /eatm_manager/lib/pages/system/login/view.dart
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @Description: 登录页面视图层
  */
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/common/widgets/window_button.dart';
@@ -23,14 +23,9 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return const _LoginViewGetX();
   }
 }

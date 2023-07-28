@@ -38,13 +38,6 @@ class RoutePages {
         RouteAuthMiddleware(priority: 1),
       ],
     ),
-    GetPage(
-      name: RouteNames.main,
-      page: () => const MainPage(),
-      middlewares: [
-        RouteAuthMiddleware(priority: 1),
-      ],
-    ),
   ];
 }
 

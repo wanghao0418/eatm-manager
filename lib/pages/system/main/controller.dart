@@ -1,7 +1,6 @@
 import 'package:eatm_manager/common/api/menu.dart';
 import 'package:eatm_manager/common/extension/main.dart';
 import 'package:eatm_manager/common/index.dart';
-import 'package:eatm_manager/pages/system/main/view.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Tab;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -21,7 +20,11 @@ class MainController extends GetxController {
   final searchController = TextEditingController();
   late PageController pageController;
   var currentTabIndex = 0.obs;
+  // 是否全屏
   var isFullScreen = false.obs;
+  // 是否收缩导航
+  var isCollapseNavigation = false.obs;
+
   Key? currentTabKey;
   String? currentTabUrl;
   List<Tab> tabs = [];

@@ -2,11 +2,12 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-20 10:03:36
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-24 17:46:32
+ * @LastEditTime: 2023-07-28 10:06:15
  * @FilePath: /iniConfig/lib/pages/system/home/widgets/setting_view.dart
  * @Description: 全局设置组件
  */
 import 'package:eatm_manager/common/style/global_theme.dart';
+import 'package:eatm_manager/pages/system/main/widgets/navigation_bar.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -82,7 +83,7 @@ class _SettingViewState extends State<SettingView> {
       Divider(),
       5.verticalSpacingRadius,
       Container(
-        padding: EdgeInsets.symmetric(vertical: 10.h),
+        padding: EdgeInsets.symmetric(vertical: 20.r),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -101,15 +102,42 @@ class _SettingViewState extends State<SettingView> {
       5.verticalSpacingRadius,
       Divider(),
       5.verticalSpacingRadius,
-      Wrap(children: [
-        ...List.generate(Colors.accentColors.length, (index) {
-          final color = Colors.accentColors[index];
-          return Tooltip(
-            message: accentColorNames[index],
-            child: _buildColorBlock(color, index),
-          );
-        }),
-      ]),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 20.r),
+        child: Wrap(children: [
+          ...List.generate(Colors.accentColors.length, (index) {
+            final color = Colors.accentColors[index];
+            return Tooltip(
+              message: accentColorNames[index],
+              child: _buildColorBlock(color, index),
+            );
+          }),
+        ]),
+      ),
+      20.verticalSpacingRadius,
+      Text('导航方式', style: FluentTheme.of(context).typography.subtitle),
+      5.verticalSpacingRadius,
+      Divider(),
+      Padding(
+          padding: EdgeInsets.symmetric(vertical: 20.r),
+          child: Wrap(spacing: 20.r, children: [
+            RadioButton(
+                checked: GlobalTheme.instance.navigationBarType ==
+                    NavigationBarDisplayType.normal,
+                onChanged: (value) {
+                  GlobalTheme.instance.navigationBarType =
+                      NavigationBarDisplayType.normal;
+                },
+                content: Text('正常')),
+            RadioButton(
+                checked: GlobalTheme.instance.navigationBarType ==
+                    NavigationBarDisplayType.drawer,
+                onChanged: (value) {
+                  GlobalTheme.instance.navigationBarType =
+                      NavigationBarDisplayType.drawer;
+                },
+                content: Text('抽屉')),
+          ])),
     ]);
   }
 }

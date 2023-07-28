@@ -2,15 +2,25 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-24 11:10:08
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-27 18:10:35
+ * @LastEditTime: 2023-07-28 10:30:08
  * @FilePath: /eatm_manager/lib/pages/system/main/widgets/navigation_bar.dart
  * @Description: 导航栏组件
  */
 import 'package:eatm_manager/common/extension/main.dart';
 import 'package:eatm_manager/common/routers/pages.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
+import 'package:eatm_manager/pages/system/main/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
+import 'package:get/get.dart';
+
+enum NavigationBarDisplayType {
+  normal(value: 'normal'),
+  drawer(value: 'drawer');
+
+  const NavigationBarDisplayType({required this.value});
+  final String value;
+}
 
 class NavigationBar extends StatefulWidget {
   const NavigationBar(
@@ -28,9 +38,10 @@ class NavigationBar extends StatefulWidget {
 
 const double expandWidth = 240;
 const double collapseWidth = 100;
+get globalTheme => GlobalTheme.instance;
 
 class _NavigationBarState extends State<NavigationBar> {
-  bool expandMenu = true;
+  MainController get mainController => Get.find<MainController>();
   bool isHover = false;
 
   bool isCurrentMenu(MenuItem menu) {
@@ -43,9 +54,9 @@ class _NavigationBarState extends State<NavigationBar> {
       padding: const EdgeInsets.fromLTRB(0, 0, 15, 5),
       child: Image(
         height: 78,
-        image: AssetImage(expandMenu
-            ? 'assets/images/layout/eman.png'
-            : 'assets/images/layout/eman_short.png'),
+        image: AssetImage(mainController.isCollapseNavigation.value
+            ? 'assets/images/layout/eman_short.png'
+            : 'assets/images/layout/eman.png'),
       ),
     );
   }
@@ -81,17 +92,18 @@ class _NavigationBarState extends State<NavigationBar> {
           size: 20,
         ),
         title: Text(
-          !expandMenu ? '' : menu.name!,
+          mainController.isCollapseNavigation.value ? '' : menu.name!,
           style: TextStyle(
               color: isChildCurrent ? Colors.white : Color(0xffacb1b9)),
         ),
-        childrenPadding: EdgeInsets.only(left: expandMenu ? 20 : 0),
+        childrenPadding: EdgeInsets.only(
+            left: mainController.isCollapseNavigation.value ? 0 : 20),
         children:
             menu.children!.map((e) => _buildNavigationMenuItem(e)).toList(),
       );
     }
     return Tooltip(
-      message: expandMenu ? '' : menu.name,
+      message: mainController.isCollapseNavigation.value ? menu.name : '',
       textStyle: const TextStyle(
         fontSize: 14.0,
         color: Colors.white,
@@ -110,7 +122,7 @@ class _NavigationBarState extends State<NavigationBar> {
           size: 20,
         ),
         title: Text(
-          !expandMenu ? '' : menu.name!,
+          mainController.isCollapseNavigation.value ? '' : menu.name!,
           style: TextStyle(color: isCurrent ? Colors.white : Color(0xffacb1b9)),
         ),
         onTap: () {
@@ -124,7 +136,9 @@ class _NavigationBarState extends State<NavigationBar> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        width: expandMenu ? expandWidth : collapseWidth,
+        width: mainController.isCollapseNavigation.value
+            ? collapseWidth
+            : expandWidth,
         child: Stack(
           children: [
             Row(
@@ -194,13 +208,15 @@ class _NavigationBarState extends State<NavigationBar> {
                       onTap: () {
                         // 处理按钮点击事件
                         setState(() {
-                          expandMenu = !expandMenu;
+                          mainController.isCollapseNavigation.value =
+                              !mainController.isCollapseNavigation.value;
+                          mainController.update(["main"]);
                         });
                       },
                       child: Icon(
-                        expandMenu
-                            ? fluent.FluentIcons.chevron_left
-                            : fluent.FluentIcons.chevron_right,
+                        mainController.isCollapseNavigation.value
+                            ? fluent.FluentIcons.chevron_right
+                            : fluent.FluentIcons.chevron_left,
                         size: 10,
                         color: isHover
                             ? Colors.white

@@ -144,6 +144,22 @@ class _MainViewGetX extends GetView<MainController> {
                     controller.currentTabUrl = controller.tabs[value].url;
                     controller.update(['main']);
                   },
+                  header: GlobalTheme.instance.navigationBarType ==
+                          NavigationBarDisplayType.drawer
+                      ? Builder(builder: (BuildContext context) {
+                          return IconButton(
+                              icon: Icon(
+                                material.Icons.menu,
+                                size: 16,
+                                color: GlobalTheme.instance.buttonIconColor,
+                              ),
+                              onPressed: () {
+                                // controller.isFullScreen.value = true;
+                                material.Scaffold.of(context).openDrawer();
+                                // controller.update(['main']);
+                              });
+                        })
+                      : null,
                   footer: Wrap(
                       crossAxisAlignment: WrapCrossAlignment.center,
                       spacing: 5,
@@ -254,15 +270,9 @@ class _MainViewGetX extends GetView<MainController> {
       child: Stack(children: [
         Row(
           children: [
-            // if (!controller.isFullScreen.value)
-            //   controller.isFullScreen.value
-            //       ? Container()
-            //       : NavigationBar(
-            //           currentTabUrl: controller.currentTabUrl,
-            //           menuDataList: controller.menuDataList,
-            //           onMenuClick: controller.onMenuTap,
-            //         ),
-            if (!controller.isFullScreen.value)
+            if (!controller.isFullScreen.value &&
+                GlobalTheme.instance.navigationBarType !=
+                    NavigationBarDisplayType.drawer)
               SlideTransition(
                 position: slideAnimation,
                 child: FadeTransition(
@@ -274,12 +284,14 @@ class _MainViewGetX extends GetView<MainController> {
                   ),
                 ),
               ),
-
             Expanded(child: _buildTabView(context)),
           ],
         ),
       ]),
     );
+
+    // fluent_ui NavigationView
+
     // return NavigationView(
     //   key: controller.viewKey,
     //   // appBar: kIsWeb
@@ -366,16 +378,23 @@ class _MainViewGetX extends GetView<MainController> {
       id: "main",
       builder: (_) {
         return material.Scaffold(
+          drawer: material.Drawer(
+            width: controller.isCollapseNavigation.value ? 100 : 240,
+            backgroundColor: Colors.transparent,
+            child: NavigationBar(
+              currentTabUrl: controller.currentTabUrl,
+              menuDataList: controller.menuDataList,
+              onMenuClick: controller.onMenuTap,
+            ),
+          ),
           floatingActionButton: controller.isFullScreen.value
               ? material.FloatingActionButton(
                   backgroundColor: GlobalTheme.instance.accentColor,
-                  child: Icon(
+                  child: const Icon(
                     material.Icons.fullscreen_exit,
                     size: 24,
-                    // color: GlobalTheme.instance.buttonIconColor,
                   ),
                   onPressed: () {
-                    // controller.isFullScreen.value = true;
                     controller.isFullScreen.value = false;
                     animationController.reverse();
                     controller.update(['main']);
