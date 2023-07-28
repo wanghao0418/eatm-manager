@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-20 10:25:25
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-28 10:25:53
+ * @LastEditTime: 2023-07-28 13:55:16
  * @FilePath: /iniConfig/lib/common/style/global_theme.dart
  * @Description: 全局主题控制器
  */
@@ -119,9 +119,9 @@ class GlobalTheme extends GetxController {
     //     _storage.read('navigationIndicator') ?? 'PaneDisplayMode.auto';
 
     Future.delayed(Duration.zero).then((value) {
-      isDarkMode = readIsDarkMode;
-      accentColor = Colors.accentColors[readAccentColorIndex];
-      navigationBarType = NavigationBarDisplayType.values
+      _isDarkMode.value = readIsDarkMode;
+      _accentColor = Colors.accentColors[readAccentColorIndex];
+      _navigationBarType = NavigationBarDisplayType.values
           .firstWhere((element) => element.value == readNavigationBarType);
       // navigationIndicator = PaneDisplayMode.values.firstWhere(
       //     (element) => element.toString() == readNavigationIndicator);
