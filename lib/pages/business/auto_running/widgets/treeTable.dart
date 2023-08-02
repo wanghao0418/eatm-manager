@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'package:eatm_manager/common/style/global_theme.dart';
+import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:flutter/material.dart';
 // import 'package:flutter_admin/data/data_color_custom_setting.dart';
 // import 'package:flutter_admin/utils/log.dart';
@@ -56,6 +58,7 @@ class TreeTableState extends State<TreeTable> {
 
   Map<String, TreeTableShowItem> _showItemsMap = {};
   late double _maxWidth;
+  GlobalTheme get globalTheme => GlobalTheme.instance;
 
   // 获取行背景色
   Color _getRowBackgroundColor(int index, {bool expanded = false}) {
@@ -229,6 +232,7 @@ class TreeTableState extends State<TreeTable> {
                     icon: Icon(
                       Icons.settings,
                       size: 20,
+                      color: globalTheme.buttonIconColor,
                     ),
                     onPressed: () {
                       var resullt = showDialog(
@@ -326,7 +330,12 @@ class TreeTableState extends State<TreeTable> {
                                 padding: EdgeInsets.only(left: 10),
                                 height: _headerHeight,
                                 alignment: Alignment.center,
-                                child: Text(currentItem.labelText!),
+                                child: Text(
+                                  currentItem.labelText!,
+                                  style: fluent.FluentTheme.of(context)
+                                      .typography
+                                      .body,
+                                ),
                               )),
                               GestureDetector(
                                 onHorizontalDragDown: (details) {
@@ -416,8 +425,13 @@ class TreeTableState extends State<TreeTable> {
                                     width: currentItem.width!,
                                     height: _rowHeight,
                                     alignment: Alignment.center,
-                                    child: Text(_getFieldValue(
-                                        currentItem.field!, '$rowIndex')),
+                                    child: Text(
+                                      _getFieldValue(
+                                          currentItem.field!, '$rowIndex'),
+                                      style: fluent.FluentTheme.of(context)
+                                          .typography
+                                          .body,
+                                    ),
                                   )
                                 : Container();
                           })

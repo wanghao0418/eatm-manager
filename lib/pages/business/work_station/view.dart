@@ -268,7 +268,13 @@ class _WorkStationViewGetX extends GetView<WorkStationController> {
                                       label: '工件编号',
                                       child: Padding(
                                         padding: EdgeInsets.only(left: 40.sp),
-                                        child: Text('123').fontSize(16.sp),
+                                        child: Text(
+                                          '123',
+                                          style: FluentTheme.of(context)
+                                              .typography
+                                              .body!
+                                              .copyWith(fontSize: 16.sp),
+                                        ),
                                       ),
                                       labelStyle: TextStyle(
                                           color: Colors.yellow.darkest),
@@ -277,7 +283,13 @@ class _WorkStationViewGetX extends GetView<WorkStationController> {
                                       label: '当前工步',
                                       child: Padding(
                                         padding: EdgeInsets.only(left: 40.sp),
-                                        child: Text('123').fontSize(16.sp),
+                                        child: Text(
+                                          '123',
+                                          style: FluentTheme.of(context)
+                                              .typography
+                                              .body!
+                                              .copyWith(fontSize: 16.sp),
+                                        ),
                                       ),
                                       labelStyle: TextStyle(
                                           color: Colors.yellow.darkest),
@@ -286,7 +298,11 @@ class _WorkStationViewGetX extends GetView<WorkStationController> {
                                       label: '当前工序',
                                       child: Padding(
                                         padding: EdgeInsets.only(left: 40.sp),
-                                        child: Text('123').fontSize(16.sp),
+                                        child: Text('123',
+                                                style: FluentTheme.of(context)
+                                                    .typography
+                                                    .body!)
+                                            .fontSize(16.sp),
                                       ),
                                       labelStyle: TextStyle(
                                           color: Colors.yellow.darkest),
@@ -295,7 +311,11 @@ class _WorkStationViewGetX extends GetView<WorkStationController> {
                                       label: '物料信息',
                                       child: Padding(
                                         padding: EdgeInsets.only(left: 40.sp),
-                                        child: Text('123').fontSize(16.sp),
+                                        child: Text('123',
+                                                style: FluentTheme.of(context)
+                                                    .typography
+                                                    .body!)
+                                            .fontSize(16.sp),
                                       ),
                                       labelStyle: TextStyle(
                                           color: Colors.yellow.darkest),

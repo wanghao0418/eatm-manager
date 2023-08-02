@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-06-01 09:46:10
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-27 18:15:36
+ * @LastEditTime: 2023-08-02 14:03:39
  * @FilePath: /eatm_manager/lib/global.dart
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -50,7 +50,7 @@ class Global {
         );
         await windowManager.setSize(const Size(1200, 800));
         await windowManager.setMinimumSize(const Size(1200, 800));
-        await windowManager.setPreventClose(true);
+        // await windowManager.setPreventClose(true);
         await windowManager.setSkipTaskbar(false);
         await windowManager.maximize();
         await windowManager.show();

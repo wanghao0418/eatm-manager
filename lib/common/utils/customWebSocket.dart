@@ -2,11 +2,12 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-05-11 09:45:37
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-05-11 10:24:00
+ * @LastEditTime: 2023-08-02 16:22:19
  * @FilePath: /mesui/lib/pages/common/customWebSocket.dart
  * @Description: websocket
  */
 import 'dart:async';
+import 'package:eatm_manager/common/utils/popup_message.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class CustomWebSocket {
@@ -36,6 +37,7 @@ class CustomWebSocket {
         onMessage(message);
       }, onError: (error) {
         print('WebSocket error: $error');
+        PopupMessage.showFailInfoBar(error.toString());
         onError!(error);
       }, onDone: () {
         print('WebSocket connection closed');
@@ -43,6 +45,7 @@ class CustomWebSocket {
       });
     } catch (e) {
       print('WebSocket connect error: $e');
+      PopupMessage.showFailInfoBar(e.toString());
     }
   }
 

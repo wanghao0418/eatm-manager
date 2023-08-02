@@ -1,3 +1,4 @@
+import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -84,9 +85,9 @@ class _AutoRunningViewGetX extends GetView<AutoRunningController> {
           height: 20,
           child: Text(listIcon[i],
               overflow: TextOverflow.ellipsis, // 显示不完，就在后面显示点点
-              style: const TextStyle(
-                fontSize: 10.0,
-              ))));
+              style: FluentTheme.of(Get.context!).typography.body!.copyWith(
+                    fontSize: 12.0,
+                  ))));
       ary.add(const SizedBox(width: 15));
     }
 
@@ -415,143 +416,138 @@ class _AutoRunningViewGetX extends GetView<AutoRunningController> {
   Widget _buildView() {
     var context = Get.context;
     return Container(
+        padding: GlobalTheme.instance.pagePadding,
         child: Column(children: [
-      !controller.expandTop
-          ? Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.fromLTRB(15.r, 15.r, 15.r, 0),
-              // padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
-              //背景颜色
-              decoration: BoxDecoration(
-                  // color: _colorCustomSetting.isDarkMode
-                  //     ? _colorCustomSetting.ColorWidget
-                  //     : _colorCustomSetting.ColorWidgetLight,
-                  // boxShadow: [_colorCustomSetting.boxShadow],
-                  ),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
-                        child: Wrap(
-                            alignment: WrapAlignment.start,
-                            children: IconMeaningShow())),
-                    Column(children: [
-                      Container(
-                        child: Row(children: ButtonMeaningShow()),
-                      ),
-                      material.Divider(height: 0.5),
-                      Container(
-                        // margin: const EdgeInsets.fromLTRB(5, 0, 5, 5),
-                        width: MediaQuery.of(context!).size.width,
-                        height: (MediaQuery.of(context!).size.height) / 2,
-                        child: PaperNewStateShow()[controller.nShelfNo],
-                      ),
-                    ])
-                  ]))
-          : Container(),
-      Expanded(
-          child: Container(
-              margin: EdgeInsets.fromLTRB(
-                  15.r,
-                  15.r,
-                  15.r,
-                  // _colorCustomSetting.BorderDistance,
-                  // _colorCustomSetting.BorderDistance,
-                  // _colorCustomSetting.BorderDistance,
-                  0),
-              width: MediaQuery.of(context!).size.width,
-              // height: MediaQuery.of(context).size.height) / 2-145),
-              decoration: BoxDecoration(
-                  // color: _colorCustomSetting.isDarkMode
-                  //     ? _colorCustomSetting.ColorWidget
-                  //     : _colorCustomSetting.ColorWidgetLight,
-                  // boxShadow: [_colorCustomSetting.boxShadow],
-                  ),
+          !controller.expandTop
+              ? Container(
+                  alignment: Alignment.centerLeft,
+                  decoration: GlobalTheme.instance.contentDecoration,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
+                            child: Wrap(
+                                alignment: WrapAlignment.start,
+                                children: IconMeaningShow())),
+                        Column(children: [
+                          Container(
+                            child: Row(children: ButtonMeaningShow()),
+                          ),
+                          material.Divider(height: 0.5),
+                          Container(
+                            // margin: const EdgeInsets.fromLTRB(5, 0, 5, 5),
+                            width: MediaQuery.of(context!).size.width,
+                            height: (MediaQuery.of(context!).size.height) / 2,
+                            child: PaperNewStateShow()[controller.nShelfNo],
+                          ),
+                        ])
+                      ]))
+              : Container(),
+          GlobalTheme.instance.contentDistance.verticalSpace,
+          Expanded(
               child: Container(
-                  child: LayoutBuilder(builder: (context, constraints) {
-                return TreeTable(
-                  key: controller.treeTableKey,
-                  dataList: controller.treeDataList,
-                  maxWidth: constraints.maxWidth,
-                  cellFieldsMap: {
-                    'Id': '序号',
-                    'StorageIndex': '库位号',
-                    'BarCode': '扫描ID',
-                    'MouldSN': '模号',
-                    'PartSN': '件号',
-                    'Specifications': '规格',
-                    'ProcessRoute': '工艺路线',
-                    'CurProcessType': '当前路线',
-                    'PriorityStatus': '优先状态',
-                    'ElectrodeSatusInfo': '当前状态',
-                  },
-                  defaultColumnWidthMap: {
-                    'MouldSN': 300,
-                    'PartSN': 300,
-                    'Specifications': 150
-                  },
-                );
-              })))),
-      Container(
-          height: 77,
-          // margin: EdgeInsets.all(15.r),
-          decoration: BoxDecoration(
-              // color: _colorCustomSetting.isDarkMode
-              //     ? _colorCustomSetting.ColorWidget
-              //     : _colorCustomSetting.ColorWidgetLight,
-              // boxShadow: [_colorCustomSetting.boxShadow],
-              ),
-          child: Column(
-            children: [
-              Row(children: [
-                Container(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 2, 0),
-                    child: Row(
-                      children: BottomButtonShow(),
-                    )),
-                Expanded(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
+                  // margin: EdgeInsets.fromLTRB(
+                  //     15.r,
+                  //     15.r,
+                  //     15.r,
+                  //     // _colorCustomSetting.BorderDistance,
+                  //     // _colorCustomSetting.BorderDistance,
+                  //     // _colorCustomSetting.BorderDistance,
+                  //     0),
+                  width: MediaQuery.of(context!).size.width,
+                  // height: MediaQuery.of(context).size.height) / 2-145),
+                  decoration: GlobalTheme.instance.contentDecoration,
+                  child: Container(
+                      child: LayoutBuilder(builder: (context, constraints) {
+                    return TreeTable(
+                      key: controller.treeTableKey,
+                      dataList: controller.treeDataList,
+                      maxWidth: constraints.maxWidth,
+                      cellFieldsMap: {
+                        'Id': '序号',
+                        'StorageIndex': '库位号',
+                        'BarCode': '扫描ID',
+                        'MouldSN': '模号',
+                        'PartSN': '件号',
+                        'Specifications': '规格',
+                        'ProcessRoute': '工艺路线',
+                        'CurProcessType': '当前路线',
+                        'PriorityStatus': '优先状态',
+                        'ElectrodeSatusInfo': '当前状态',
+                      },
+                      defaultColumnWidthMap: {
+                        'MouldSN': 300,
+                        'PartSN': 300,
+                        'Specifications': 150
+                      },
+                    );
+                  })))),
+          GlobalTheme.instance.contentDistance.verticalSpace,
+          Container(
+              height: 77,
+              decoration: GlobalTheme.instance.contentDecoration,
+              child: Column(
+                children: [
+                  Row(children: [
                     Container(
                         padding: const EdgeInsets.fromLTRB(0, 5, 2, 0),
-                        alignment: Alignment.center,
-                        child: Text("气压: ${controller.dAirPressure} bar",
-                            overflow: TextOverflow.ellipsis, // 显示不完，就在后面显示点点
-                            style: const TextStyle(
-                              fontSize: 12.0,
-                            )))
-                  ],
-                ))
-              ]),
-              Row(children: [
-                Container(
-                    padding: const EdgeInsets.fromLTRB(2, 5, 0, 0),
-                    child: Text(controller.strMessage,
-                        overflow: TextOverflow.ellipsis, // 显示不完，就在后面显示点点
-                        style: const TextStyle(
-                          fontSize: 12.0,
-                        ))),
-                Expanded(
-                    child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
+                        child: Row(
+                          children: BottomButtonShow(),
+                        )),
+                    Expanded(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                            padding: const EdgeInsets.fromLTRB(0, 5, 2, 0),
+                            alignment: Alignment.center,
+                            child: Text("气压: ${controller.dAirPressure} bar",
+                                overflow:
+                                    TextOverflow.ellipsis, // 显示不完，就在后面显示点点
+                                style: FluentTheme.of(context)
+                                    .typography
+                                    .body!
+                                    .copyWith(
+                                      fontSize: 12.0,
+                                    )))
+                      ],
+                    ))
+                  ]),
+                  Row(children: [
                     Container(
-                        height: 20,
-                        padding: const EdgeInsets.fromLTRB(0, 5, 2, 0),
-                        alignment: Alignment.centerRight,
-                        child: Text(controller.strDataTime,
+                        padding: const EdgeInsets.fromLTRB(2, 5, 0, 0),
+                        child: Text(controller.strMessage,
                             overflow: TextOverflow.ellipsis, // 显示不完，就在后面显示点点
-                            style: const TextStyle(
-                              fontSize: 12.0,
-                            )))
-                  ],
-                ))
-              ]),
-            ],
-          )),
-    ]));
+                            style: FluentTheme.of(context)
+                                .typography
+                                .body!
+                                .copyWith(
+                                  fontSize: 12.0,
+                                ))),
+                    Expanded(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                            height: 20,
+                            padding: const EdgeInsets.fromLTRB(0, 5, 2, 0),
+                            alignment: Alignment.centerRight,
+                            child: Text(controller.strDataTime,
+                                overflow:
+                                    TextOverflow.ellipsis, // 显示不完，就在后面显示点点
+                                style: FluentTheme.of(context)
+                                    .typography
+                                    .body!
+                                    .copyWith(
+                                      fontSize: 12.0,
+                                    )))
+                      ],
+                    ))
+                  ]),
+                ],
+              )),
+        ]));
   }
 
   @override
@@ -561,6 +557,7 @@ class _AutoRunningViewGetX extends GetView<AutoRunningController> {
       id: "auto_running",
       builder: (_) {
         return ScaffoldPage(
+          padding: EdgeInsets.zero,
           content: _buildView(),
         );
       },

@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-20 10:25:25
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-28 13:55:16
+ * @LastEditTime: 2023-08-02 16:05:54
  * @FilePath: /iniConfig/lib/common/style/global_theme.dart
  * @Description: 全局主题控制器
  */
@@ -107,6 +107,7 @@ class GlobalTheme extends GetxController {
           iconColor: buttonIconColor,
           menuBackgroundColor: pageContentBackgroundColor,
           gridBorderRadius: BorderRadius.circular(5.0),
+          activatedColor: isDarkMode ? Colors.black : Colors.blue.lightest,
         ),
       );
 
