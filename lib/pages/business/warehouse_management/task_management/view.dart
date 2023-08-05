@@ -2,13 +2,16 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-27 16:09:22
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-27 16:20:39
+ * @LastEditTime: 2023-08-05 13:44:23
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/task_management/view.dart
  * @Description: 任务管理视图层
  */
+import 'package:eatm_manager/common/components/filled_icon_button.dart';
 import 'package:eatm_manager/common/components/line_form_label.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
+import 'package:eatm_manager/common/utils/popup_message.dart';
 import 'package:eatm_manager/common/widgets/pop_date_picker.dart';
+import 'package:eatm_manager/pages/business/warehouse_management/task_management/enum.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -40,101 +43,337 @@ class _TaskManagementViewGetX extends GetView<TaskManagementController> {
   GlobalTheme get globalTheme => GlobalTheme.instance;
 
   // 顶部搜索栏
-  Widget _buildSearchBar() {
+  Widget _buildSearchBar(BuildContext context) {
     return Container(
       width: double.infinity,
       decoration: globalTheme.contentDecoration,
       padding: globalTheme.pagePadding,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
-          // spacing: 10,
-          // crossAxisAlignment: WrapCrossAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            LineFormLabel(
-                label: '时间范围',
-                child: Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  spacing: 5,
-                  children: [
-                    SizedBox(
-                        width: 150.0,
-                        child: PopDatePicker(
-                          value: controller.search.startTime,
-                          placeholder: '开始时间',
-                          onChange: (value) {
-                            print(value);
-                            controller.search.startTime = value;
-                          },
-                        )),
-                    Text(
-                      '至',
-                      style: FluentTheme.of(Get.context!).typography.body,
-                    ),
-                    SizedBox(
-                      width: 150.0,
-                      child: PopDatePicker(
-                        value: controller.search.endTime,
-                        placeholder: '结束时间',
-                        onChange: (value) {
-                          print(value);
-                          controller.search.endTime = value;
+            Wrap(
+              spacing: 10,
+              children: [
+                LineFormLabel(
+                    label: '时间范围',
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 5,
+                      children: [
+                        SizedBox(
+                            width: 150.0,
+                            child: PopDatePicker(
+                              value: controller.search.startTime,
+                              placeholder: '开始时间',
+                              onChange: (value) {
+                                print(value);
+                                controller.search.startTime = value;
+                              },
+                            )),
+                        Text(
+                          '至',
+                          style: FluentTheme.of(Get.context!).typography.body,
+                        ),
+                        SizedBox(
+                          width: 150.0,
+                          child: PopDatePicker(
+                            value: controller.search.endTime,
+                            placeholder: '结束时间',
+                            onChange: (value) {
+                              print(value);
+                              controller.search.endTime = value;
+                            },
+                          ),
+                        ),
+                      ],
+                    )),
+                LineFormLabel(
+                    label: '执行状态',
+                    child: SizedBox(
+                      width: 150,
+                      child: ComboBox<int?>(
+                        placeholder: Text('请选择'),
+                        value: controller.search.executionStatus,
+                        items: ExecutionStatus.toSelectOptionList()
+                            .map((e) => ComboBoxItem<int?>(
+                                value: e.value,
+                                child: Tooltip(
+                                  message: e.label,
+                                  child: Text(
+                                    e.label!,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                )))
+                            .toList(),
+                        onChanged: (val) {
+                          controller.search.executionStatus = val;
+                          controller.update(['task_management']);
                         },
                       ),
+                    )),
+              ],
+            ),
+            10.horizontalSpace,
+            Wrap(
+              spacing: 10,
+              children: [
+                LineFormLabel(
+                  label: '工件类型',
+                  isRequired: true,
+                  child: SizedBox(
+                    width: 150,
+                    child: ComboBox<int?>(
+                      placeholder: const Text('请选择'),
+                      value: controller.artifactType,
+                      items: controller.artifactTypeList
+                          .map((e) => ComboBoxItem<int?>(
+                              value: e.value,
+                              child: Tooltip(
+                                message: e.label,
+                                child: Text(
+                                  e.label!,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              )))
+                          .toList(),
+                      onChanged: (val) {
+                        controller.artifactType = val;
+                        controller.update(['task_management']);
+                      },
                     ),
-                  ],
-                )),
+                  ),
+                ),
+                LineFormLabel(
+                  label: '工件状态',
+                  isRequired: true,
+                  child: SizedBox(
+                    width: 150,
+                    child: ComboBox<int?>(
+                      placeholder: const Text('请选择'),
+                      value: controller.workpieceStatus,
+                      items: controller.workpieceStatusList
+                          .map((e) => ComboBoxItem<int?>(
+                              value: e.value,
+                              child: Tooltip(
+                                message: e.label,
+                                child: Text(
+                                  e.label!,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              )))
+                          .toList(),
+                      onChanged: (val) {
+                        controller.workpieceStatus = val;
+                        controller.update(['task_management']);
+                      },
+                    ),
+                  ),
+                )
+              ],
+            ),
           ],
         ),
         10.verticalSpace,
-        Wrap(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            FilledButton(
-                child: const Text(
-                  '取消任务',
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: [
+                FilledIconButton(
+                    icon: FluentIcons.search,
+                    label: '搜索',
+                    onPressed: controller.query),
+                FilledIconButton(
+                    label: '取消任务',
+                    icon: FluentIcons.cancel,
+                    onPressed: controller.cancelTask),
+              ],
+            ),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: [
+                FilledButton(
+                    onPressed: controller.trayIn, child: const Text('托盘入库')),
+                FilledButton(
+                    onPressed: controller.workpieceIn,
+                    child: const Text('工件入库')),
+                FilledIconButton(
+                  onPressed: controller.out,
+                  label: '出库',
+                  icon: FluentIcons.open_pane_mirrored,
                 ),
-                onPressed: () {}),
+                // FilledButton(
+                //     onPressed: controller.workpieceOut,
+                //     child: const Text('货位出库')),
+              ],
+            ),
           ],
         ),
       ]),
     );
   }
 
-  Widget _buildTable() {
+  Widget _buildTable(BuildContext context) {
     return Container(
       decoration: globalTheme.contentDecoration,
       child: PlutoGrid(
           columns: [
             PlutoColumn(
+                title: '序号',
+                field: 'number',
+                readOnly: true,
+                width: 80,
+                type: PlutoColumnType.text()),
+            PlutoColumn(
                 title: '任务编号',
-                field: 'shelfId',
+                field: 'taskCode',
                 readOnly: true,
                 type: PlutoColumnType.text()),
             PlutoColumn(
-                title: '货位号', field: 'shelfType', type: PlutoColumnType.text()),
-            PlutoColumn(
-                title: '任务类型',
-                field: 'shelfColumn',
+                title: '货位号',
+                field: 'storageNum',
+                readOnly: true,
                 type: PlutoColumnType.text()),
             PlutoColumn(
-                title: '托盘SN', field: 'shelfRow', type: PlutoColumnType.text()),
+              title: '勾选',
+              field: 'checked',
+              width: 85,
+              readOnly: true,
+              type: PlutoColumnType.text(),
+              enableEditingMode: false,
+              renderer: (rendererContext) {
+                return Center(
+                  child: SizedBox(
+                    width: 20.0,
+                    height: 20,
+                    child: Checkbox(
+                        checked: rendererContext.cell.value,
+                        onChanged: (val) {
+                          if (rendererContext
+                                  .row.cells['executionStatus']!.value ==
+                              ExecutionStatus.executing.value) {
+                            PopupMessage.showWarningInfoBar('当前任务正在进行');
+                            return;
+                          }
+                          // for (var element in controller.stateManager.rows) {
+                          //   element.cells['checked']!.value = false;
+                          // }
+                          // controller.stateManager.toggleAllRowChecked(false);
+                          rendererContext.cell.value = val;
+                          controller.stateManager.setRowChecked(
+                              rendererContext.row, val!,
+                              notify: true);
+                          controller.update(['task_management']);
+                        }),
+                  ),
+                );
+              },
+              footerRenderer: (renderContext) {
+                return controller.tableLoaded
+                    ? Center(
+                        child: Wrap(
+                          children: [
+                            Text(
+                              '全选',
+                              style: FluentTheme.of(context).typography.body,
+                            ),
+                            10.horizontalSpaceRadius,
+                            Checkbox(
+                                checked: controller.isAllChecked(),
+                                onChanged: (val) {
+                                  if (val!) {
+                                    var needCheckRows = controller
+                                        .stateManager.rows
+                                        .where((element) =>
+                                            !controller.isDisabled(element
+                                                .cells['executionStatus']!));
+                                    for (var element in needCheckRows) {
+                                      element.cells['checked']!.value = val;
+                                      controller.stateManager
+                                          .setRowChecked(element, val);
+                                    }
+                                    controller.update(['task_management']);
+                                  } else {
+                                    controller.stateManager
+                                        .toggleAllRowChecked(val);
+                                    for (var element in controller.rows) {
+                                      element.cells['checked']!.value = val;
+                                    }
+                                    controller.update(['task_management']);
+                                  }
+                                })
+                          ],
+                        ),
+                      )
+                    : Container();
+              },
+            ),
+            PlutoColumn(
+              title: '执行状态',
+              field: 'executionStatus',
+              readOnly: true,
+              type: PlutoColumnType.text(),
+              enableEditingMode: false,
+              renderer: (rendererContext) {
+                final val = rendererContext.cell.value;
+                return Text(
+                  ExecutionStatus.fromValue(val)!.label,
+                  style: FluentTheme.of(Get.context!).typography.body,
+                );
+              },
+            ),
+            // PlutoColumn(
+            //     title: '任务类型',
+            //     field: 'shelfColumn',
+            //     type: PlutoColumnType.text()),
+            // PlutoColumn(
+            //     title: '托盘SN', field: 'shelfRow', type: PlutoColumnType.text()),
             PlutoColumn(
                 title: '工件SN',
-                field: 'shelfStatus',
+                field: 'workpieceSN',
+                readOnly: true,
                 type: PlutoColumnType.text()),
             PlutoColumn(
-                title: '工件类型',
-                field: 'shelfLocation',
-                type: PlutoColumnType.text()),
+              title: '操作类型',
+              field: 'operationType',
+              readOnly: true,
+              enableEditingMode: false,
+              type: PlutoColumnType.text(),
+              renderer: (rendererContext) {
+                final val = rendererContext.cell.value;
+                return Text(
+                  OperationType.fromValue(val)!.label,
+                  style: FluentTheme.of(context).typography.body,
+                );
+              },
+            ),
             PlutoColumn(
                 title: '开始时间',
-                field: 'shelfRow2',
+                field: 'startTime',
+                readOnly: true,
                 type: PlutoColumnType.text()),
             PlutoColumn(
-                title: '完成时间', field: 'field1', type: PlutoColumnType.text()),
+              title: '完成时间',
+              field: 'endTime',
+              type: PlutoColumnType.text(),
+              readOnly: true,
+            ),
             PlutoColumn(
-                title: '任务状态', field: 'field2', type: PlutoColumnType.text()),
+                title: '托盘类型',
+                field: 'trayType',
+                readOnly: true,
+                type: PlutoColumnType.text()),
           ],
-          rows: [],
+          rows: controller.rows,
+          onLoaded: (event) {
+            controller.stateManager = event.stateManager;
+            controller.tableLoaded = true;
+            controller.query();
+          },
           configuration: globalTheme.plutoGridConfig.copyWith(
             columnSize: const PlutoGridColumnSizeConfig(
                 autoSizeMode: PlutoAutoSizeMode.scale),
@@ -143,14 +382,14 @@ class _TaskManagementViewGetX extends GetView<TaskManagementController> {
   }
 
   // 主视图
-  Widget _buildView() {
+  Widget _buildView(context) {
     return Container(
       padding: globalTheme.pagePadding,
       child: Column(
         children: [
-          _buildSearchBar(),
+          _buildSearchBar(context),
           globalTheme.contentDistance.verticalSpace,
-          Expanded(child: _buildTable()),
+          Expanded(child: _buildTable(context)),
         ],
       ),
     );
@@ -164,7 +403,7 @@ class _TaskManagementViewGetX extends GetView<TaskManagementController> {
       builder: (_) {
         return ScaffoldPage(
           padding: EdgeInsets.zero,
-          content: _buildView(),
+          content: _buildView(context),
         );
       },
     );

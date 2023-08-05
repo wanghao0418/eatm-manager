@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-24 11:10:08
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-28 10:30:08
+ * @LastEditTime: 2023-08-04 14:57:36
  * @FilePath: /eatm_manager/lib/pages/system/main/widgets/navigation_bar.dart
  * @Description: 导航栏组件
  */
@@ -85,7 +85,9 @@ class _NavigationBarState extends State<NavigationBar> {
       return ExpansionTile(
         key: Key(menu.id!),
         initiallyExpanded: false,
-        backgroundColor: Colors.transparent,
+        // backgroundColor: isDarkMode ? Color(0xff2b2c41) : Color(0xff2e3a51),
+        // collapsedBackgroundColor:
+        //     isDarkMode ? Color(0xff2b2c41) : Color(0xff2e3a51),
         leading: Icon(
           Icons.menu,
           color: isChildCurrent ? Colors.white : Color(0xffacb1b9),

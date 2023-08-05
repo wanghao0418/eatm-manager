@@ -2,10 +2,11 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-20 10:25:25
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-02 16:05:54
+ * @LastEditTime: 2023-08-05 09:58:49
  * @FilePath: /iniConfig/lib/common/style/global_theme.dart
  * @Description: 全局主题控制器
  */
+// import 'dart:ui';
 import 'package:eatm_manager/pages/system/main/widgets/navigation_bar.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:get/get.dart';
@@ -112,6 +113,7 @@ class GlobalTheme extends GetxController {
       );
 
   _initStore() {
+    // bool isDarkMode = window.platformBrightness == Brightness.dark;
     int readAccentColorIndex = _storage.read('accentColorIndex') ?? 5;
     bool readIsDarkMode = _storage.read('isDarkMode') ?? false;
     String readNavigationBarType =
@@ -120,10 +122,11 @@ class GlobalTheme extends GetxController {
     //     _storage.read('navigationIndicator') ?? 'PaneDisplayMode.auto';
 
     Future.delayed(Duration.zero).then((value) {
-      _isDarkMode.value = readIsDarkMode;
+      _isDarkMode.value = isDarkMode;
       _accentColor = Colors.accentColors[readAccentColorIndex];
       _navigationBarType = NavigationBarDisplayType.values
           .firstWhere((element) => element.value == readNavigationBarType);
+      Get.forceAppUpdate();
       // navigationIndicator = PaneDisplayMode.values.firstWhere(
       //     (element) => element.toString() == readNavigationIndicator);
     });

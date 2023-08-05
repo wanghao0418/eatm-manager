@@ -2,10 +2,12 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-06-01 09:46:10
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-02 14:03:39
+ * @LastEditTime: 2023-08-04 14:29:33
  * @FilePath: /eatm_manager/lib/global.dart
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
+import 'dart:ui';
+
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart';
@@ -36,7 +38,7 @@ class Global {
           TargetPlatform.windows,
           TargetPlatform.android,
         ].contains(defaultTargetPlatform)) {
-      SystemTheme.accentColor.load();
+      // SystemTheme.accentColor.load();
     }
 
     if (isDesktop) {
@@ -62,21 +64,21 @@ class Global {
     Get.put<GlobalTheme>(GlobalTheme());
   }
 
-// 获取系统主题颜色
-  static AccentColor get systemAccentColor {
-    if ((defaultTargetPlatform == TargetPlatform.windows ||
-            defaultTargetPlatform == TargetPlatform.android) &&
-        !kIsWeb) {
-      return AccentColor.swatch({
-        'darkest': SystemTheme.accentColor.darkest,
-        'darker': SystemTheme.accentColor.darker,
-        'dark': SystemTheme.accentColor.dark,
-        'normal': SystemTheme.accentColor.accent,
-        'light': SystemTheme.accentColor.light,
-        'lighter': SystemTheme.accentColor.lighter,
-        'lightest': SystemTheme.accentColor.lightest,
-      });
-    }
-    return Colors.blue;
-  }
+// // 获取系统主题颜色
+//   static AccentColor get systemAccentColor {
+//     if ((defaultTargetPlatform == TargetPlatform.windows ||
+//             defaultTargetPlatform == TargetPlatform.android) &&
+//         !kIsWeb) {
+//       return AccentColor.swatch({
+//         'darkest': SystemTheme.accentColor.darkest,
+//         'darker': SystemTheme.accentColor.darker,
+//         'dark': SystemTheme.accentColor.dark,
+//         'normal': SystemTheme.accentColor.accent,
+//         'light': SystemTheme.accentColor.light,
+//         'lighter': SystemTheme.accentColor.lighter,
+//         'lightest': SystemTheme.accentColor.lightest,
+//       });
+//     }
+//     return Colors.blue;
+//   }
 }

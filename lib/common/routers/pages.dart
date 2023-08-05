@@ -11,9 +11,9 @@ import '../../pages/business/tool_management/mac_tool_magazine_management/index.
     deferred as mac_tool_magazine_management;
 import '../../pages/business/tool_management/tool_magazine_outside_mac/index.dart'
     deferred as tool_magazine_outside_mac;
-import '../../pages/business/warehouse_management/shelf_management/index.dart'
+import '../../pages/business/warehouse_management/inventory_management/index.dart'
     deferred as shelf_management;
-import '../../pages/business/warehouse_management/storage_records/index.dart'
+import '../../pages/business/warehouse_management/exit_storage_records/index.dart'
     deferred as storage_records;
 import '../../pages/business/warehouse_management/exit_records/index.dart'
     deferred as exit_records;
@@ -222,14 +222,14 @@ class MainChildPages {
                 tool_magazine_outside_mac.ToolMagazineOutsideMacPage()), //机外刀库
         icon: MyIcons.tool),
     MainChildPage(
-        url: '/shelfManagement',
+        url: '/inventoryManagement',
         page: DeferredWidget(shelf_management.loadLibrary,
-            () => shelf_management.ShelfManagementPage()), // 货架管理
+            () => shelf_management.InventoryManagementPage()), // 货架管理
         icon: FluentIcons.guid),
     MainChildPage(
         url: '/storageRecords',
         page: DeferredWidget(storage_records.loadLibrary,
-            () => storage_records.StorageRecordsPage()), // 入库记录
+            () => storage_records.ExitStorageRecordsPage()), // 入库记录
         icon: FluentIcons.open_pane_mirrored),
     MainChildPage(
         url: '/exitRecords',

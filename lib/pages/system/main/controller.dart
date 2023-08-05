@@ -28,7 +28,13 @@ class MainController extends GetxController {
   Key? currentTabKey;
   String? currentTabUrl;
   List<Tab> tabs = [];
-  List<MenuItem> menuDataList = [];
+  List<MenuItem> menuDataList = [
+    MenuItem(
+      id: '99',
+      url: '/home',
+      name: '首页',
+    )
+  ];
   // final List<NavigationPaneItem> menuItems = [];
   // final List<NavigationPaneItem> footerItems = [
   //   PaneItemSeparator(),
@@ -51,6 +57,7 @@ class MainController extends GetxController {
     if (response.success == true) {
       var dataList =
           (response.data as List).map((e) => MenuItem.fromJson(e)).toList();
+      dataList.sort((a, b) => a.orderBy!.compareTo(b.orderBy!));
       // menuItems.clear();
       var childrenKeys = [];
       for (var menu in dataList) {
@@ -171,6 +178,7 @@ class MainController extends GetxController {
         icon: Icon(MainChildPages.getIcon(url)),
         url: url,
         id: id,
+        closeIcon: menu.url == '/home' ? null : FluentIcons.chrome_close,
         onClosed: () {
           if (tabs.length == 1) {
             return;

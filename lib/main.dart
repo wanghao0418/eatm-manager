@@ -1,13 +1,12 @@
 import 'dart:ui';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Page;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
-import 'package:system_theme/system_theme.dart';
-import 'package:flutter/material.dart' as material;
 
 import 'common/index.dart';
 import 'global.dart';
@@ -52,6 +51,7 @@ class MyApp extends StatelessWidget {
               iconTheme: const IconThemeData(
                 color: Colors.black,
               ),
+              scaffoldBackgroundColor: Colors.transparent,
             ),
             darkTheme: FluentThemeData(
               brightness: Brightness.dark,
@@ -74,6 +74,9 @@ class MyApp extends StatelessWidget {
               ],
               theme: material.ThemeData(
                 brightness: Brightness.light,
+                cupertinoOverrideTheme: CupertinoThemeData(
+                  brightness: Brightness.light,
+                ),
                 expansionTileTheme:
                     const material.ExpansionTileThemeData().copyWith(
                   iconColor: globalTheme.accentColor,
@@ -83,6 +86,8 @@ class MyApp extends StatelessWidget {
               ),
               darkTheme: material.ThemeData(
                 brightness: Brightness.dark,
+                cupertinoOverrideTheme:
+                    CupertinoThemeData(brightness: Brightness.dark),
                 expansionTileTheme:
                     const material.ExpansionTileThemeData().copyWith(
                   iconColor: globalTheme.accentColor,

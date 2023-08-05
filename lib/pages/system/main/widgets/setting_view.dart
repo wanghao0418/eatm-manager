@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-20 10:03:36
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-28 10:06:15
+ * @LastEditTime: 2023-08-04 10:17:13
  * @FilePath: /iniConfig/lib/pages/system/home/widgets/setting_view.dart
  * @Description: 全局设置组件
  */
@@ -88,7 +88,10 @@ class _SettingViewState extends State<SettingView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('夜晚模式'),
+            Text(
+              '夜晚模式',
+              style: FluentTheme.of(context).typography.body,
+            ),
             ToggleSwitch(
                 checked: GlobalTheme.instance.isDarkMode,
                 onChanged: (value) {
@@ -128,7 +131,10 @@ class _SettingViewState extends State<SettingView> {
                   GlobalTheme.instance.navigationBarType =
                       NavigationBarDisplayType.normal;
                 },
-                content: Text('正常')),
+                content: Text(
+                  '左侧',
+                  style: FluentTheme.of(context).typography.body,
+                )),
             RadioButton(
                 checked: GlobalTheme.instance.navigationBarType ==
                     NavigationBarDisplayType.drawer,
@@ -136,7 +142,10 @@ class _SettingViewState extends State<SettingView> {
                   GlobalTheme.instance.navigationBarType =
                       NavigationBarDisplayType.drawer;
                 },
-                content: Text('抽屉')),
+                content: Text(
+                  '抽屉',
+                  style: FluentTheme.of(context).typography.body,
+                )),
           ])),
     ]);
   }
