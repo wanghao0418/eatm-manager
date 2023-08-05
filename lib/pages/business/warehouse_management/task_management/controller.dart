@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-27 16:09:22
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-05 13:45:44
+ * @LastEditTime: 2023-08-05 16:35:23
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/task_management/controller.dart
  * @Description: 任务管理逻辑层
  */
@@ -24,7 +24,7 @@ class TaskManagementController extends GetxController {
   late final PlutoGridStateManager stateManager;
   List<SelectOption> artifactTypeList = [
     SelectOption(label: '钢件', value: 1),
-    SelectOption(label: '电极', value: 2),
+    // SelectOption(label: '电极', value: 2),
   ];
   List<SelectOption> workpieceStatusList = [
     SelectOption(label: '空托盘', value: -1),

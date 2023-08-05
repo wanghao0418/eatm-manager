@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-27 16:09:22
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-05 13:44:23
+ * @LastEditTime: 2023-08-05 16:33:55
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/task_management/view.dart
  * @Description: 任务管理视图层
  */
@@ -245,6 +245,7 @@ class _TaskManagementViewGetX extends GetView<TaskManagementController> {
               readOnly: true,
               type: PlutoColumnType.text(),
               enableEditingMode: false,
+              frozen: PlutoColumnFrozen.start,
               renderer: (rendererContext) {
                 return Center(
                   child: SizedBox(

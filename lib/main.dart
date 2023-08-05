@@ -64,6 +64,9 @@ class MyApp extends StatelessWidget {
               iconTheme: const IconThemeData(
                 color: Colors.white,
               ),
+              // 资源主题
+              // resources: ResourceDictionary.dark(
+              //     textFillColorPrimary: globalTheme.accentColor),
             ),
             home: GetMaterialApp(
               debugShowCheckedModeBanner: false,
@@ -93,11 +96,11 @@ class MyApp extends StatelessWidget {
                   iconColor: globalTheme.accentColor,
                   collapsedIconColor: Colors.grey[100],
                 ),
-                listTileTheme: const material.ListTileThemeData().copyWith(
-                  tileColor: globalTheme.isDarkMode
-                      ? const Color(0xff303C54)
-                      : const Color(0xffF2F4F8),
-                ),
+                // listTileTheme: const material.ListTileThemeData().copyWith(
+                //   tileColor: globalTheme.isDarkMode
+                //       ? const Color(0xff303C54)
+                //       : const Color(0xffF2F4F8),
+                // ),
                 fontFamily: 'Roboto',
               ),
               initialBinding: AllControllerBinding(),

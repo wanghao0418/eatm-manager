@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-27 11:32:57
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-05 13:52:58
+ * @LastEditTime: 2023-08-05 16:39:08
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/storage_records/view.dart
  * @Description: 入库记录视图层
  */
@@ -93,9 +93,8 @@ class _ExitStorageRecordsViewGetX
                   width: 150.0,
                   child: ComboBox<int?>(
                     value: controller.search.operationType,
-                    placeholder: Text(
+                    placeholder: const Text(
                       '请选择',
-                      style: FluentTheme.of(Get.context!).typography.body,
                     ),
                     items: controller.operationTypeList
                         .map((e) => ComboBoxItem<int?>(
@@ -129,7 +128,7 @@ class _ExitStorageRecordsViewGetX
     );
   }
 
-  Widget _buildTable() {
+  Widget _buildTable(BuildContext context) {
     return Container(
       decoration: globalTheme.contentDecoration,
       child: PlutoGrid(
@@ -160,7 +159,8 @@ class _ExitStorageRecordsViewGetX
               type: PlutoColumnType.text(),
               renderer: (rendererContext) {
                 final val = rendererContext.cell.value;
-                return Text(OperationType.fromValue(val)!.label);
+                return Text(OperationType.fromValue(val)!.label,
+                    style: FluentTheme.of(context).typography.body);
               },
             ),
             PlutoColumn(
@@ -193,14 +193,14 @@ class _ExitStorageRecordsViewGetX
   }
 
   // 主视图
-  Widget _buildView() {
+  Widget _buildView(BuildContext context) {
     return Container(
       padding: globalTheme.pagePadding,
       child: Column(
         children: [
           _buildSearchBar(),
           globalTheme.contentDistance.verticalSpace,
-          Expanded(child: _buildTable()),
+          Expanded(child: _buildTable(context)),
         ],
       ),
     );
@@ -214,7 +214,7 @@ class _ExitStorageRecordsViewGetX
       builder: (_) {
         return ScaffoldPage(
           padding: EdgeInsets.zero,
-          content: _buildView(),
+          content: _buildView(context),
         );
       },
     );
