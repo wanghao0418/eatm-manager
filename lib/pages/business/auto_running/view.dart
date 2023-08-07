@@ -8,7 +8,7 @@ import 'package:flutter/material.dart' as material;
 
 import 'index.dart';
 import 'widgets/paperNew.dart';
-import 'widgets/treeTable.dart';
+import '../../../common/widgets/treeTable.dart';
 
 class AutoRunningPage extends StatefulWidget {
   const AutoRunningPage({Key? key}) : super(key: key);

@@ -228,7 +228,7 @@ class TreeTableState extends State<TreeTable> {
                 height: _headerHeight,
                 alignment: Alignment.center,
                 child: Center(
-                  child: IconButton(
+                  child: fluent.IconButton(
                     icon: Icon(
                       Icons.settings,
                       size: 20,
