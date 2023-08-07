@@ -2,11 +2,12 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-25 13:37:07
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-05 16:33:36
+ * @LastEditTime: 2023-08-07 18:14:10
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/shelf_management/view.dart
  * @Description: 货架管理页面
  */
 import 'package:eatm_manager/common/components/filled_icon_button.dart';
+import 'package:eatm_manager/common/components/line_form_label.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -49,97 +50,30 @@ class _InventoryManagementViewGetX
       spacing: 10.r,
       runSpacing: 10.r,
       children: [
-        SizedBox(
-          width: 250.0,
-          child: Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.only(right: 5),
-                child: RichText(
-                    text: TextSpan(
-                  // text: '*',
-                  // style: TextStyle(color: Colors.redAccent),
-                  children: [
-                    TextSpan(
-                        text: '工件类型:',
-                        style: FluentTheme.of(context).typography.body),
-                  ],
-                )),
-              ),
-              10.horizontalSpaceRadius,
-              Expanded(
-                  child: ComboBox<int?>(
-                // value: controller.currentMachine,
-                isExpanded: true,
-                value: controller.search.artifactType,
-                placeholder: const Text('请选择'),
-                items: controller.artifactTypeList
-                    .map((e) => ComboBoxItem<int?>(
-                        value: e.value,
-                        child: Tooltip(
-                          message: e.label,
-                          child: Text(
-                            e.label!,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        )))
-                    .toList(),
-
-                onChanged: (val) {
-                  controller.search.artifactType = val;
-                  controller.update(['shelf_management']);
-                },
-              ))
-            ],
-          ),
-        ),
-        // SizedBox(
-        //   width: 250.0,
-        //   child: Row(
-        //     children: [
-        //       Container(
-        //         padding: const EdgeInsets.only(right: 5),
-        //         child: RichText(
-        //             text: TextSpan(
-        //           // text: '*',
-        //           // style: TextStyle(color: Colors.redAccent),
-        //           children: [
-        //             TextSpan(
-        //                 text: '入库类型:',
-        //                 style: FluentTheme.of(context).typography.body),
-        //           ],
-        //         )),
-        //       ),
-        //       10.horizontalSpaceRadius,
-        //       Expanded(
-        //           child: ComboBox<dynamic>(
-        //         // value: controller.currentMachine,
-        //         isExpanded: true,
-        //         value: controller.inventoryManagementForm.storageType,
-        //         placeholder: Text(
-        //           '请选择',
-        //           style: FluentTheme.of(context).typography.body,
-        //         ),
-        //         items: controller.storageTypeList
-        //             .map((e) => ComboBoxItem(
-        //                 value: e.value,
-        //                 child: Tooltip(
-        //                   message: e.label,
-        //                   child: Text(
-        //                     e.label!,
-        //                     overflow: TextOverflow.ellipsis,
-        //                   ),
-        //                 )))
-        //             .toList(),
-
-        //         onChanged: (val) {
-        //           controller.inventoryManagementForm.storageType = val;
-        //           controller.update(['shelf_management']);
-        //         },
-        //       ))
-        //     ],
-        //   ),
-        // ),
+        LineFormLabel(
+            label: '工件类型',
+            width: 250,
+            isExpanded: true,
+            child: ComboBox<int?>(
+              isExpanded: true,
+              value: controller.search.artifactType,
+              placeholder: const Text('请选择'),
+              items: controller.artifactTypeList
+                  .map((e) => ComboBoxItem<int?>(
+                      value: e.value,
+                      child: Tooltip(
+                        message: e.label,
+                        child: Text(
+                          e.label!,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      )))
+                  .toList(),
+              onChanged: (val) {
+                controller.search.artifactType = val;
+                controller.update(['shelf_management']);
+              },
+            )),
         if (controller.showAGV.value)
           SizedBox(
             width: 250.0,
@@ -333,10 +267,20 @@ class _InventoryManagementViewGetX
       child: SizedBox(
         width: 150.0,
         child: Column(children: [
-          Text(
-            '全部货架',
-            style: FluentTheme.of(context).typography.bodyLarge,
-          ).fontSize(16).fontWeight(FontWeight.bold),
+          GestureDetector(
+            onTap: () {
+              controller.search.shelfNum = null;
+              controller.query();
+              controller.update(['shelf_management']);
+            },
+            child: MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: Text(
+                '全部货架',
+                style: FluentTheme.of(context).typography.bodyLarge,
+              ).fontSize(16).fontWeight(FontWeight.bold),
+            ),
+          ),
           10.verticalSpace,
           const Divider(),
           10.verticalSpace,

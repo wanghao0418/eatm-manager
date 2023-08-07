@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-27 16:09:22
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-05 16:33:55
+ * @LastEditTime: 2023-08-07 18:02:20
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/task_management/view.dart
  * @Description: 任务管理视图层
  */
@@ -52,46 +52,49 @@ class _TaskManagementViewGetX extends GetView<TaskManagementController> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Wrap(
-              spacing: 10,
-              children: [
-                LineFormLabel(
-                    label: '时间范围',
-                    child: Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      spacing: 5,
-                      children: [
-                        SizedBox(
+            Expanded(
+              child: Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: [
+                  LineFormLabel(
+                      label: '时间范围',
+                      width: 400.0,
+                      child: Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        spacing: 5,
+                        children: [
+                          SizedBox(
+                              width: 150.0,
+                              child: PopDatePicker(
+                                value: controller.search.startTime,
+                                placeholder: '开始时间',
+                                onChange: (value) {
+                                  print(value);
+                                  controller.search.startTime = value;
+                                },
+                              )),
+                          Text(
+                            '至',
+                            style: FluentTheme.of(Get.context!).typography.body,
+                          ),
+                          SizedBox(
                             width: 150.0,
                             child: PopDatePicker(
-                              value: controller.search.startTime,
-                              placeholder: '开始时间',
+                              value: controller.search.endTime,
+                              placeholder: '结束时间',
                               onChange: (value) {
                                 print(value);
-                                controller.search.startTime = value;
+                                controller.search.endTime = value;
                               },
-                            )),
-                        Text(
-                          '至',
-                          style: FluentTheme.of(Get.context!).typography.body,
-                        ),
-                        SizedBox(
-                          width: 150.0,
-                          child: PopDatePicker(
-                            value: controller.search.endTime,
-                            placeholder: '结束时间',
-                            onChange: (value) {
-                              print(value);
-                              controller.search.endTime = value;
-                            },
+                            ),
                           ),
-                        ),
-                      ],
-                    )),
-                LineFormLabel(
-                    label: '执行状态',
-                    child: SizedBox(
-                      width: 150,
+                        ],
+                      )),
+                  LineFormLabel(
+                      label: '执行状态',
+                      width: 220.0,
+                      isExpanded: true,
                       child: ComboBox<int?>(
                         placeholder: Text('请选择'),
                         value: controller.search.executionStatus,
@@ -110,68 +113,69 @@ class _TaskManagementViewGetX extends GetView<TaskManagementController> {
                           controller.search.executionStatus = val;
                           controller.update(['task_management']);
                         },
-                      ),
-                    )),
-              ],
+                      )),
+                ],
+              ),
             ),
             10.horizontalSpace,
-            Wrap(
+            Expanded(
+                child: Wrap(
+              alignment: WrapAlignment.end,
               spacing: 10,
+              runSpacing: 10,
               children: [
                 LineFormLabel(
                   label: '工件类型',
+                  width: 230.0,
                   isRequired: true,
-                  child: SizedBox(
-                    width: 150,
-                    child: ComboBox<int?>(
-                      placeholder: const Text('请选择'),
-                      value: controller.artifactType,
-                      items: controller.artifactTypeList
-                          .map((e) => ComboBoxItem<int?>(
-                              value: e.value,
-                              child: Tooltip(
-                                message: e.label,
-                                child: Text(
-                                  e.label!,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              )))
-                          .toList(),
-                      onChanged: (val) {
-                        controller.artifactType = val;
-                        controller.update(['task_management']);
-                      },
-                    ),
+                  isExpanded: true,
+                  child: ComboBox<int?>(
+                    placeholder: const Text('请选择'),
+                    value: controller.artifactType,
+                    items: controller.artifactTypeList
+                        .map((e) => ComboBoxItem<int?>(
+                            value: e.value,
+                            child: Tooltip(
+                              message: e.label,
+                              child: Text(
+                                e.label!,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )))
+                        .toList(),
+                    onChanged: (val) {
+                      controller.artifactType = val;
+                      controller.update(['task_management']);
+                    },
                   ),
                 ),
                 LineFormLabel(
                   label: '工件状态',
+                  width: 230.0,
                   isRequired: true,
-                  child: SizedBox(
-                    width: 150,
-                    child: ComboBox<int?>(
-                      placeholder: const Text('请选择'),
-                      value: controller.workpieceStatus,
-                      items: controller.workpieceStatusList
-                          .map((e) => ComboBoxItem<int?>(
-                              value: e.value,
-                              child: Tooltip(
-                                message: e.label,
-                                child: Text(
-                                  e.label!,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              )))
-                          .toList(),
-                      onChanged: (val) {
-                        controller.workpieceStatus = val;
-                        controller.update(['task_management']);
-                      },
-                    ),
+                  isExpanded: true,
+                  child: ComboBox<int?>(
+                    placeholder: const Text('请选择'),
+                    value: controller.workpieceStatus,
+                    items: controller.workpieceStatusList
+                        .map((e) => ComboBoxItem<int?>(
+                            value: e.value,
+                            child: Tooltip(
+                              message: e.label,
+                              child: Text(
+                                e.label!,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )))
+                        .toList(),
+                    onChanged: (val) {
+                      controller.workpieceStatus = val;
+                      controller.update(['task_management']);
+                    },
                   ),
-                )
+                ),
               ],
-            ),
+            ))
           ],
         ),
         10.verticalSpace,
@@ -374,6 +378,7 @@ class _TaskManagementViewGetX extends GetView<TaskManagementController> {
             controller.stateManager = event.stateManager;
             controller.tableLoaded = true;
             controller.query();
+            controller.initTimer();
           },
           configuration: globalTheme.plutoGridConfig.copyWith(
             columnSize: const PlutoGridColumnSizeConfig(

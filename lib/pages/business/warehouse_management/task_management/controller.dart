@@ -2,10 +2,12 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-27 16:09:22
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-05 16:35:23
+ * @LastEditTime: 2023-08-07 14:05:29
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/task_management/controller.dart
  * @Description: 任务管理逻辑层
  */
+import 'dart:async';
+
 import 'package:eatm_manager/common/api/warehouse_management/index.dart';
 import 'package:eatm_manager/common/models/selectOption.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
@@ -39,6 +41,7 @@ class TaskManagementController extends GetxController {
   bool tableLoaded = false;
   int? artifactType = 1;
   int? workpieceStatus;
+  late Timer _timer;
 
   _initData() {
     update(["task_management"]);
@@ -46,11 +49,8 @@ class TaskManagementController extends GetxController {
 
   // 查询
   void query() async {
-    // ResponseApiBody res =
-    //     await ShelfManagementApi.query(shelfManagementForm.toJson());
-    ResponseApiBody res = await HttpUtil.post(
-        'http://127.0.0.1:4523/m1/2590441-0-default/Eatm/warehouse/task/query',
-        data: {"params": search.toJson()});
+    ResponseApiBody res =
+        await TaskManagementApi.query({"params": search.toJson()});
     if (res.success!) {
       List<TaskInfo> data =
           (res.data as List).map((e) => TaskInfo.fromJson(e)).toList();
@@ -84,6 +84,14 @@ class TaskManagementController extends GetxController {
     _initData();
   }
 
+  // 定时查询
+  void initTimer() {
+    const duration = Duration(seconds: 5);
+    _timer = Timer.periodic(duration, (Timer timer) {
+      query();
+    });
+  }
+
   bool isDisabled(PlutoCell cell) {
     return cell.value == ExecutionStatus.executing.value;
   }
@@ -102,23 +110,15 @@ class TaskManagementController extends GetxController {
       PopupMessage.showWarningInfoBar('请选择任务');
       return;
     }
-    // ResponseApiBody res = await TaskManagementApi.cancelTask({
-    //   "params": {
-    //     "taskCode":
-    //         stateManager.checkedRows.map((e) => e.cells['taskCode']!.value).toList()
-    //   }
-    // });
-    ResponseApiBody res = await HttpUtil.post(
-        'http://127.0.0.1:4523/m1/2590441-0-default/Eatm/warehouse/cancelTask',
-        data: {
-          "params": {
-            "taskCode": stateManager.checkedRows
-                .map((e) => e.cells['taskCode']!.value)
-                .toList()
-          }
-        });
+    ResponseApiBody res = await TaskManagementApi.cancelTask({
+      "params": {
+        "taskCode": stateManager.checkedRows
+            .map((e) => e.cells['taskCode']!.value)
+            .toList()
+      }
+    });
     if (res.success!) {
-      PopupMessage.showSuccessInfoBar(res.message as String);
+      PopupMessage.showSuccessInfoBar('操作成功');
       query();
     } else {
       PopupMessage.showFailInfoBar(res.message as String);
@@ -182,10 +182,11 @@ class TaskManagementController extends GetxController {
     _initData();
   }
 
-  // @override
-  // void onClose() {
-  //   super.onClose();
-  // }
+  @override
+  void onClose() {
+    super.onClose();
+    _timer.cancel();
+  }
 }
 
 class TaskManagementSearch {

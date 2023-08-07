@@ -2,10 +2,11 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-27 11:32:57
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-05 13:54:28
+ * @LastEditTime: 2023-08-07 13:39:17
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/storage_records/controller.dart
  * @Description: 入库记录逻辑层
  */
+import 'package:eatm_manager/common/api/warehouse_management/exit_storage_records_api.dart';
 import 'package:eatm_manager/common/models/selectOption.dart';
 import 'package:eatm_manager/common/utils/http.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
@@ -29,11 +30,8 @@ class ExitStorageRecordsController extends GetxController {
 
   // 查询
   void query() async {
-    // ResponseApiBody res =
-    //     await ExitStorageRecordsApi.query(search.toJson());
-    ResponseApiBody res = await HttpUtil.post(
-        'http://127.0.0.1:4523/m1/2590441-0-default/Eatm/warehouse/records/query',
-        data: {"params": search.toJson()});
+    ResponseApiBody res =
+        await ExitStorageRecordsApi.query({"params": search.toJson()});
     if (res.success!) {
       List<ExitStorageRecords> data = (res.data as List)
           .map((e) => ExitStorageRecords.fromJson(e))

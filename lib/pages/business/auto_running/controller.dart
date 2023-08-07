@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:eatm_manager/common/store/index.dart';
 import 'package:get/get.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -261,7 +262,9 @@ class AutoRunningController extends GetxController {
   // 初始化websocket
   void initWebSocket() async {
     // String url = await Utils.getConfigField('autoRunWebsocketUrL');
-    String url = "ws://127.0.0.1:8092";
+    // String url = "ws://127.0.0.1:8092";
+    String? url =
+        ConfigStore.instance.autoRunWebsocketUrL ?? "ws://127.0.0.1:8092";
     _customWebSocket = CustomWebSocket(
       connectUrl: url,
       onMessage: (message) {

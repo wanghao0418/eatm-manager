@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-25 13:37:07
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-05 13:56:33
+ * @LastEditTime: 2023-08-07 13:38:13
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/shelf_management/controller.dart
  * @Description: 货架管理逻辑层
  */
@@ -47,9 +47,7 @@ class InventoryManagementController extends GetxController {
 
   // 获取货架列表
   void getShelfList() async {
-    // ResponseApiBody res = await InventoryManagementApi.getShelfCount({});
-    ResponseApiBody res = await HttpUtil.get(
-        'http://127.0.0.1:4523/m1/2590441-0-default/Eatm/warehouse/getShelfCount');
+    ResponseApiBody res = await InventoryManagementApi.getShelfCount({});
     if (res.success!) {
       int count = res.data['ShelfCount'] ?? 0;
       shelfList = List.generate(count, (index) => index + 1);
@@ -61,11 +59,8 @@ class InventoryManagementController extends GetxController {
 
   // 查询
   void query() async {
-    // ResponseApiBody res =
-    //     await InventoryManagementApi.query(InventoryManagementSearch.toJson());
-    ResponseApiBody res = await HttpUtil.post(
-        'http://127.0.0.1:4523/m1/2590441-0-default/Eatm/warehouse/storage/query',
-        data: {"params": search.toJson()});
+    ResponseApiBody res =
+        await InventoryManagementApi.query({"params": search.toJson()});
     if (res.success!) {
       List<LocationInfo> data =
           (res.data as List).map((e) => LocationInfo.fromJson(e)).toList();
