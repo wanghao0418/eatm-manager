@@ -16,6 +16,7 @@ class ConfigStore extends GetxController {
   int? sendTimeout = 5000;
   int? mesPort = 8098;
   String? autoRunWebsocketUrL = 'ws://localhost:8092';
+  String? mockEnv = '';
 
   @override
   void onInit() async {
@@ -35,6 +36,7 @@ class ConfigStore extends GetxController {
     sendTimeout = globalConfig.sendTimeout;
     mesPort = globalConfig.mesPort;
     autoRunWebsocketUrL = globalConfig.autoRunWebsocketUrL;
+    mockEnv = globalConfig.mockEnv;
     _readArguments();
   }
 
@@ -70,6 +72,7 @@ class GlobalConfig {
   int? sendTimeout;
   int? mesPort;
   String? autoRunWebsocketUrL;
+  String? mockEnv;
 
   GlobalConfig(
       {this.localBaseUrl,
@@ -79,7 +82,8 @@ class GlobalConfig {
       this.receiveTimeout,
       this.sendTimeout,
       this.mesPort,
-      this.autoRunWebsocketUrL});
+      this.autoRunWebsocketUrL,
+      this.mockEnv});
 
   GlobalConfig.fromJson(Map<String, dynamic> json) {
     localBaseUrl = json['localBaseUrl'];
@@ -90,6 +94,7 @@ class GlobalConfig {
     sendTimeout = json['sendTimeout'];
     mesPort = json['mesPort'];
     autoRunWebsocketUrL = json['autoRunWebsocketUrL'];
+    mockEnv = json['mockEnv'];
   }
 
   Map<String, dynamic> toJson() {
@@ -102,6 +107,7 @@ class GlobalConfig {
     data['sendTimeout'] = this.sendTimeout;
     data['mesPort'] = this.mesPort;
     data['autoRunWebsocketUrL'] = this.autoRunWebsocketUrL;
+    data['mockEnv'] = this.mockEnv;
     return data;
   }
 }

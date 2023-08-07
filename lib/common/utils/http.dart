@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 // import 'package:get/get.dart' hide FormData;
 
 import '../store/index.dart';
-import '../values/cache.dart';
 
 enum Method {
   GET(value: 'get'),
@@ -23,20 +22,29 @@ class HttpUtil {
   static String? baseUrl;
 
   static Future<ResponseApiBody> get(String url,
-      {data, requestToken = true}) async {
+      {data, requestToken = true, isMock = false}) async {
     return await request(url,
-        data: data, requestToken: requestToken, method: Method.GET.value);
+        data: data,
+        requestToken: requestToken,
+        method: Method.GET.value,
+        isMock: isMock);
   }
 
   static Future<ResponseApiBody> post(String url,
-      {data, requestToken = true}) async {
-    return await request(url, data: data, requestToken: requestToken);
+      {data, requestToken = true, isMock = false}) async {
+    return await request(url,
+        data: data, requestToken: requestToken, isMock: isMock);
   }
 
   static Future<ResponseApiBody> request(String url,
-      {data, method, requestToken = true}) async {
+      {data, method, requestToken = true, isMock = false}) async {
     data = data ?? {};
     method = method ?? Method.POST.value;
+
+    if (isMock) {
+      var mockEnv = ConfigStore.instance.mockEnv!;
+      url = mockEnv + url;
+    }
 
     // if (requestToken && !UserStore.instance.isLogin) {
     //   UserStore.instance.onLogout();
