@@ -101,86 +101,95 @@ class _WorkStationViewGetX extends GetView<WorkStationController> {
             child: Container(
               padding: EdgeInsets.all(10.r),
               alignment: Alignment.center,
-              child: SingleChildScrollView(
-                  child: Wrap(
-                spacing: 10.r,
-                runSpacing: 10.r,
-                children: (controller.shelfList.isNotEmpty)
-                    ? (controller.shelfList[controller.currentShelfIndex]
-                            ['shelves'] as List)
-                        .map((e) {
-                        var index = controller
-                            .shelfList[controller.currentShelfIndex]['shelves']
-                            .indexOf(e);
-                        var good = e;
+              child: SingleChildScrollView(child: LayoutBuilder(
+                builder: (context, constraints) {
+                  var rowNum = 10;
+                  var spaceWidth = 10.r * (rowNum - 1);
+                  var width = (constraints.maxWidth - spaceWidth) / rowNum;
 
-                        return FlyoutTarget(
-                            key: ValueKey("货位$index"),
-                            controller: controller.menuController,
-                            child: GestureDetector(
-                              child: Container(
-                                  width: 120.r,
-                                  height: 120.r,
-                                  padding: EdgeInsets.all(10.r),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Color(0xff73978e),
-                                  ),
-                                  child: Stack(
-                                    children: [
-                                      Container(
-                                        width: 100.r,
-                                        height: 100.r,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          color: GoodsState.findByStatus(
-                                                  good['status'])!
-                                              .color,
-                                        ),
+                  return Wrap(
+                    spacing: 10.r,
+                    runSpacing: 10.r,
+                    children: (controller.shelfList.isNotEmpty)
+                        ? (controller.shelfList[controller.currentShelfIndex]
+                                ['shelves'] as List)
+                            .map((e) {
+                            var index = controller
+                                .shelfList[controller.currentShelfIndex]
+                                    ['shelves']
+                                .indexOf(e);
+                            var good = e;
+
+                            return FlyoutTarget(
+                                key: ValueKey("货位$index"),
+                                controller: controller.menuController,
+                                child: GestureDetector(
+                                  child: Container(
+                                      width: width,
+                                      height: width,
+                                      padding: EdgeInsets.all(10.r),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Color(0xff73978e),
                                       ),
-                                      Positioned(
-                                        left: 5.r,
-                                        bottom: 5.r,
-                                        child: Text(index.toString())
-                                            .fontSize(16.sp)
-                                            .textColor(Colors.white),
-                                      )
-                                    ],
-                                  )
-                                  // padding: EdgeInsets.all(10.r),
-                                  ),
-                              onSecondaryTapDown: (details) {
-                                var dx = (controller.pageKey.currentContext!
-                                        .findRenderObject() as RenderBox)
-                                    .localToGlobal(Offset.zero)
-                                    .dx;
-                                var dy = (controller.pageKey.currentContext!
-                                        .findRenderObject() as RenderBox)
-                                    .localToGlobal(Offset.zero)
-                                    .dy;
-                                controller.menuOffset = Offset(
-                                    details.globalPosition.dx - dx,
-                                    details.globalPosition.dy - dy);
-                                var position = details.globalPosition;
-                                controller.menuController.showFlyout(
-                                    builder: (context) {
-                                      return MenuFlyout(
-                                        elevation: 0,
-                                        items: [
-                                          MenuFlyoutItem(
-                                              text: Text('下料').fontSize(16.sp),
-                                              onPressed: () {
-                                                print('下料');
-                                              }),
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            width: width - 20.r,
+                                            height: width - 20.r,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: GoodsState.findByStatus(
+                                                      good['status'])!
+                                                  .color,
+                                            ),
+                                          ),
+                                          Positioned(
+                                            left: 5.r,
+                                            bottom: 5.r,
+                                            child: Text((index + 1).toString())
+                                                .fontSize(16.sp)
+                                                .textColor(Colors.white),
+                                          )
                                         ],
-                                      );
-                                    },
-                                    position: position);
-                              },
-                            ));
-                      }).toList()
-                    : [],
+                                      )
+                                      // padding: EdgeInsets.all(10.r),
+                                      ),
+                                  onSecondaryTapDown: (details) {
+                                    var dx = (controller.pageKey.currentContext!
+                                            .findRenderObject() as RenderBox)
+                                        .localToGlobal(Offset.zero)
+                                        .dx;
+                                    var dy = (controller.pageKey.currentContext!
+                                            .findRenderObject() as RenderBox)
+                                        .localToGlobal(Offset.zero)
+                                        .dy;
+                                    controller.menuOffset = Offset(
+                                        details.globalPosition.dx - dx,
+                                        details.globalPosition.dy - dy);
+                                    var position = details.globalPosition;
+                                    controller.menuController.showFlyout(
+                                        builder: (context) {
+                                          return MenuFlyout(
+                                            elevation: 0,
+                                            items: [
+                                              MenuFlyoutItem(
+                                                  text: Text('下料')
+                                                      .fontSize(16.sp),
+                                                  onPressed: () {
+                                                    print('下料');
+                                                  }),
+                                            ],
+                                          );
+                                        },
+                                        position: position);
+                                  },
+                                ));
+                          }).toList()
+                        : [],
+                  );
+                },
               )),
             ),
           ))
