@@ -29,11 +29,11 @@ class MainController extends GetxController {
   String? currentTabUrl;
   List<Tab> tabs = [];
   List<MenuItem> menuDataList = [
-    MenuItem(
-      id: '99',
-      url: '/home',
-      name: '首页',
-    )
+    // MenuItem(
+    //   id: '99',
+    //   url: '/home',
+    //   name: '首页',
+    // )
   ];
   // final List<NavigationPaneItem> menuItems = [];
   // final List<NavigationPaneItem> footerItems = [

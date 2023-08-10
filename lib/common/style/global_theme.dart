@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-20 10:25:25
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-05 16:47:38
+ * @LastEditTime: 2023-08-08 10:30:19
  * @FilePath: /iniConfig/lib/common/style/global_theme.dart
  * @Description: 全局主题控制器
  */
@@ -68,8 +68,8 @@ class GlobalTheme extends GetxController {
   Color get buttonIconColor => _isDarkMode.value ? Colors.white : Colors.black;
   // 页面内边距
   get pagePadding => const EdgeInsets.all(10);
-  // 卡片内边距
-  get cardPadding => const EdgeInsets.all(10);
+  // 页面内容模块内边距
+  get contentPadding => const EdgeInsets.all(10);
   // 盒子阴影
   final BoxShadow _boxShadow = const BoxShadow(
       color: material.Colors.black12,

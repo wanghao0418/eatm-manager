@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-26 16:37:19
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-28 10:52:24
+ * @LastEditTime: 2023-08-10 09:44:04
  * @FilePath: /eatm_manager/lib/pages/system/login/view.dart
  * @Description: 登录页面视图层
  */
@@ -13,6 +13,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:styled_widget/styled_widget.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'index.dart';
 
@@ -51,9 +52,20 @@ class _LoginViewGetX extends GetView<LoginController> {
           Positioned(
               right: 0,
               top: 0,
-              child: SizedBox(
-                height: 50.r,
-                child: WindowButtons(),
+              left: 0,
+              child: Row(
+                children: [
+                  Expanded(
+                      child: DragToMoveArea(
+                          child: Container(
+                    height: 50.r,
+                    color: Colors.transparent,
+                  ))),
+                  SizedBox(
+                    height: 50.r,
+                    child: WindowButtons(),
+                  )
+                ],
               )),
         Positioned(
           child: Container(

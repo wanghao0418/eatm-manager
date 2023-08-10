@@ -19,6 +19,9 @@ import '../../pages/business/warehouse_management/exit_records/index.dart'
     deferred as exit_records;
 import '../../pages/business/warehouse_management/task_management/index.dart'
     deferred as task_management;
+import '../../pages/business/task_query/index.dart' deferred as task_query;
+import '../../pages/business/machine_binding/index.dart'
+    deferred as machine_binding;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -182,7 +185,8 @@ class MainChildPages {
         icon: MyIcons.operationStatistics),
     MainChildPage(
         url: '/taskQuery',
-        page: Center(child: Text('任务查询')),
+        page: DeferredWidget(
+            task_query.loadLibrary, () => task_query.TaskQueryPage()),
         icon: FluentIcons.search),
     MainChildPage(
         url: '/dataBoard',
@@ -190,7 +194,8 @@ class MainChildPages {
         icon: MyIcons.kanBan),
     MainChildPage(
         url: '/BindMachine',
-        page: Center(child: Text('机床选择')),
+        page: DeferredWidget(machine_binding.loadLibrary,
+            () => machine_binding.MachineBindingPage()),
         icon: MyIcons.machineTool),
     MainChildPage(
         url: '/taskHistoryQuery',

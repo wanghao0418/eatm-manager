@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-24 11:10:08
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-04 14:57:36
+ * @LastEditTime: 2023-08-10 09:41:22
  * @FilePath: /eatm_manager/lib/pages/system/main/widgets/navigation_bar.dart
  * @Description: 导航栏组件
  */
@@ -13,6 +13,7 @@ import 'package:eatm_manager/pages/system/main/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:get/get.dart';
+import 'package:window_manager/window_manager.dart';
 
 enum NavigationBarDisplayType {
   normal(value: 'normal'),
@@ -50,14 +51,24 @@ class _NavigationBarState extends State<NavigationBar> {
 
   // 头部
   Widget _buildNavigationHeader() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 0, 15, 5),
-      child: Image(
-        height: 78,
-        image: AssetImage(mainController.isCollapseNavigation.value
-            ? 'assets/images/layout/eman_short.png'
-            : 'assets/images/layout/eman.png'),
-      ),
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 15, 5),
+          child: Image(
+            height: 78,
+            image: AssetImage(mainController.isCollapseNavigation.value
+                ? 'assets/images/layout/eman_short.png'
+                : 'assets/images/layout/eman.png'),
+          ),
+        ),
+        DragToMoveArea(
+          child: Container(
+            height: 78,
+            color: Colors.transparent,
+          ),
+        ),
+      ],
     );
   }
 

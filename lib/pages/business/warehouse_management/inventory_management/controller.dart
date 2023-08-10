@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-25 13:37:07
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-07 13:38:13
+ * @LastEditTime: 2023-08-09 15:52:39
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/shelf_management/controller.dart
  * @Description: 货架管理逻辑层
  */
@@ -103,6 +103,13 @@ class InventoryManagementController extends GetxController {
       PopupMessage.showSuccessInfoBar('操作成功');
       // 0 不禁用  其他 禁用
       rendererContext.cell.value = value ? 1 : 0;
+      // 如果当前选中的货位是禁用的，取消选中
+      if (value &&
+          stateManager.checkedRows.first.cells['storageNum']!.value ==
+              rendererContext.row.cells['storageNum']!.value) {
+        stateManager.checkedRows.first.cells['checked']!.value = false;
+        stateManager.setRowChecked(stateManager.checkedRows.first, false);
+      }
       _initData();
     } else {
       PopupMessage.showFailInfoBar(res.message as String);

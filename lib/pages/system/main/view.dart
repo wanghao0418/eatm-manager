@@ -9,6 +9,7 @@ import 'package:flutter/material.dart' as material;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:styled_widget/styled_widget.dart';
+import 'package:window_manager/window_manager.dart';
 
 import '../../../common/widgets/index.dart';
 import 'index.dart';
@@ -132,67 +133,78 @@ class _MainViewGetX extends GetView<MainController> {
           SlideTransition(
               position: slideAnimationTop,
               child: FadeTransition(
-                opacity: fadeAnimation,
-                child: FluentTab(
-                  key: controller.tabViewKey,
-                  currentIndex: controller.currentTabIndex.value,
-                  tabs: controller.tabs,
-                  onChanged: (value) {
-                    if (value == controller.currentTabIndex.value) return;
-                    controller.currentTabIndex.value = value;
-                    controller.currentTabKey = controller.tabs[value].key;
-                    controller.currentTabUrl = controller.tabs[value].url;
-                    controller.update(['main']);
-                  },
-                  header: GlobalTheme.instance.navigationBarType ==
-                          NavigationBarDisplayType.drawer
-                      ? Builder(builder: (BuildContext context) {
-                          return IconButton(
-                              icon: Icon(
-                                material.Icons.menu,
-                                size: 16,
-                                color: GlobalTheme.instance.buttonIconColor,
-                              ),
-                              onPressed: () {
-                                // controller.isFullScreen.value = true;
-                                material.Scaffold.of(context).openDrawer();
-                                // controller.update(['main']);
-                              });
-                        })
-                      : null,
-                  footer: Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      spacing: 5,
-                      children: [
-                        IconButton(
-                            icon: Icon(
-                              FluentIcons.full_screen,
-                              size: 16,
-                              color: GlobalTheme.instance.buttonIconColor,
-                            ),
-                            onPressed: () {
-                              // controller.isFullScreen.value = true;
-                              animationController.forward();
-                              controller.update(['main']);
-                            }),
-                        IconButton(
-                            icon: Icon(
-                              FluentIcons.sign_out,
-                              size: 16,
-                              color: GlobalTheme.instance.buttonIconColor,
-                            ),
-                            onPressed: () => _signOut(context)),
-                        IconButton(
-                            icon: Icon(
-                              FluentIcons.settings,
-                              size: 16,
-                              color: GlobalTheme.instance.buttonIconColor,
-                            ),
-                            onPressed: () => _openSettings(context)),
-                        kIsWeb ? Container() : WindowButtons()
-                      ]),
-                ),
-              )),
+                  opacity: fadeAnimation,
+                  child: Stack(
+                    children: [
+                      FluentTab(
+                        key: controller.tabViewKey,
+                        currentIndex: controller.currentTabIndex.value,
+                        tabs: controller.tabs,
+                        onChanged: (value) {
+                          if (value == controller.currentTabIndex.value) return;
+                          controller.currentTabIndex.value = value;
+                          controller.currentTabKey = controller.tabs[value].key;
+                          controller.currentTabUrl = controller.tabs[value].url;
+                          controller.update(['main']);
+                        },
+                        header: GlobalTheme.instance.navigationBarType ==
+                                NavigationBarDisplayType.drawer
+                            ? Builder(builder: (BuildContext context) {
+                                return IconButton(
+                                    icon: Icon(
+                                      material.Icons.menu,
+                                      size: 16,
+                                      color:
+                                          GlobalTheme.instance.buttonIconColor,
+                                    ),
+                                    onPressed: () {
+                                      // controller.isFullScreen.value = true;
+                                      material.Scaffold.of(context)
+                                          .openDrawer();
+                                      // controller.update(['main']);
+                                    });
+                              })
+                            : null,
+                        footer: Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            spacing: 5,
+                            children: [
+                              IconButton(
+                                  icon: Icon(
+                                    FluentIcons.full_screen,
+                                    size: 16,
+                                    color: GlobalTheme.instance.buttonIconColor,
+                                  ),
+                                  onPressed: () {
+                                    // controller.isFullScreen.value = true;
+                                    animationController.forward();
+                                    controller.update(['main']);
+                                  }),
+                              IconButton(
+                                  icon: Icon(
+                                    FluentIcons.sign_out,
+                                    size: 16,
+                                    color: GlobalTheme.instance.buttonIconColor,
+                                  ),
+                                  onPressed: () => _signOut(context)),
+                              IconButton(
+                                  icon: Icon(
+                                    FluentIcons.settings,
+                                    size: 16,
+                                    color: GlobalTheme.instance.buttonIconColor,
+                                  ),
+                                  onPressed: () => _openSettings(context)),
+                              kIsWeb ? Container() : WindowButtons()
+                            ]),
+                      ),
+                      Positioned(
+                          child: DragToMoveArea(
+                              child: SizedBox(
+                        width: double.infinity,
+                        height: 40,
+                      )))
+                    ],
+                  ))),
         Expanded(child: _buildTabContent())
       ]),
     );

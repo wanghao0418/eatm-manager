@@ -105,7 +105,8 @@ class _WorkStationViewGetX extends GetView<WorkStationController> {
                 builder: (context, constraints) {
                   var rowNum = 10;
                   var spaceWidth = 10.r * (rowNum - 1);
-                  var width = (constraints.maxWidth - spaceWidth) / rowNum;
+                  var width =
+                      (constraints.maxWidth - spaceWidth).floor() / rowNum;
 
                   return Wrap(
                     spacing: 10.r,
