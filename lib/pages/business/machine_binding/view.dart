@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-09 15:34:58
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-10 09:21:42
+ * @LastEditTime: 2023-08-10 13:56:13
  * @FilePath: /eatm_manager/lib/pages/business/machine_binding/view.dart
  * @Description: 机床绑定视图层
  */
@@ -14,6 +14,7 @@ import 'package:eatm_manager/common/widgets/pop_date_picker.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pluto_grid/pluto_grid.dart';
 
 import 'index.dart';
 
@@ -137,6 +138,14 @@ class _MachineBindingViewGetX extends GetView<MachineBindingController> {
                         .toList(),
                     onChanged: (value) {
                       controller.currentMachineType = value;
+                      // 更新机台编号
+                      controller.currentMachineName = controller
+                                  .machineMap[controller.currentMachineType] ==
+                              null
+                          ? null
+                          : controller
+                              .machineMap[controller.currentMachineType]!
+                              .first['MacName'];
                       controller.update(["machine_binding"]);
                     },
                   )),
@@ -174,7 +183,9 @@ class _MachineBindingViewGetX extends GetView<MachineBindingController> {
           spacing: 10,
           children: [
             FilledIconButton(
-                label: '搜索', onPressed: () {}, icon: FluentIcons.search),
+                label: '搜索',
+                onPressed: controller.query,
+                icon: FluentIcons.search),
           ],
         )),
         10.horizontalSpace,
@@ -184,7 +195,9 @@ class _MachineBindingViewGetX extends GetView<MachineBindingController> {
           spacing: 10,
           children: [
             FilledIconButton(
-                label: '绑定', onPressed: () {}, icon: FluentIcons.link),
+                label: '绑定',
+                onPressed: controller.binding,
+                icon: FluentIcons.link),
           ],
         )),
       ],
@@ -205,7 +218,7 @@ class _MachineBindingViewGetX extends GetView<MachineBindingController> {
   // 模号列表
   Widget _buildMouldSNList(BuildContext context) {
     return Container(
-      width: 250.w,
+      width: 200.w,
       padding: globalTheme.contentPadding,
       decoration: globalTheme.contentDecoration,
       child: Column(
@@ -213,19 +226,38 @@ class _MachineBindingViewGetX extends GetView<MachineBindingController> {
           const Padding(
               padding: EdgeInsets.only(bottom: 10),
               child: ThemedText(
-                '模号列表',
+                '模号',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               )),
           const Divider(),
           Expanded(
               child: ListView.builder(
-                  itemCount: 10,
+                  itemCount: controller.mouldSNList.length,
                   itemBuilder: (context, index) {
                     return ListTile.selectable(
                       selectionMode: ListTileSelectionMode.multiple,
-                      selected: false,
-                      title: Text('模号${index + 1}'),
-                      onPressed: () {},
+                      selected: controller.selectedMouldSNList
+                          .contains(controller.mouldSNList[index]),
+                      title: Text(controller.mouldSNList[index]),
+                      onPressed: () {
+                        if (controller.selectedMouldSNList
+                            .contains(controller.mouldSNList[index])) {
+                          controller.selectedMouldSNList
+                              .remove(controller.mouldSNList[index]);
+                        } else {
+                          controller.selectedMouldSNList
+                              .add(controller.mouldSNList[index]);
+                        }
+                        // 更新表格筛选条件
+                        if (controller.selectedMouldSNList.isEmpty) {
+                          controller.stateManager.setFilter(null);
+                        } else {
+                          controller.stateManager.setFilter((element) =>
+                              controller.selectedMouldSNList.contains(
+                                  element.cells['mouldSN']!.value.toString()));
+                        }
+                        controller.update(["machine_binding"]);
+                      },
                     );
                   }))
         ],
@@ -237,6 +269,86 @@ class _MachineBindingViewGetX extends GetView<MachineBindingController> {
   Widget _buildTable(BuildContext context) {
     return Container(
       decoration: globalTheme.contentDecoration,
+      child: PlutoGrid(
+        columns: [
+          PlutoColumn(
+              title: '序号',
+              field: 'number',
+              type: PlutoColumnType.text(),
+              readOnly: true,
+              enableRowChecked: true,
+              width: 150),
+          PlutoColumn(
+            title: '监控编号',
+            field: 'mwpieceCode',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+          ),
+          PlutoColumn(
+            title: '模号',
+            field: 'mouldSN',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+          ),
+          PlutoColumn(
+            title: '件号',
+            field: 'partSN',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+          ),
+          PlutoColumn(
+            title: '芯片Id',
+            field: 'barCode',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+          ),
+          PlutoColumn(
+            title: '机床编号',
+            field: 'machineSN',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+          ),
+          PlutoColumn(
+            title: '工件名称',
+            field: 'mwpieceName',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+          ),
+          PlutoColumn(
+            title: '部门',
+            field: 'resoucenamedept',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+          ),
+          PlutoColumn(
+            title: '类型',
+            field: 'workpieceType',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+          ),
+          PlutoColumn(
+            title: '规格',
+            field: 'spec',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+          ),
+          PlutoColumn(
+            title: '',
+            field: 'data',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+            hide: true,
+          ),
+        ],
+        rows: controller.rows,
+        onLoaded: (PlutoGridOnLoadedEvent event) {
+          controller.stateManager = event.stateManager;
+          controller.query();
+        },
+        configuration: globalTheme.plutoGridConfig.copyWith(
+            columnSize: PlutoGridColumnSizeConfig(
+                autoSizeMode: PlutoAutoSizeMode.scale)),
+      ),
     );
   }
 

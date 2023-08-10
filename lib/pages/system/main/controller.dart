@@ -1,6 +1,7 @@
 import 'package:eatm_manager/common/api/menu.dart';
 import 'package:eatm_manager/common/extension/main.dart';
 import 'package:eatm_manager/common/index.dart';
+import 'package:eatm_manager/common/utils/popup_message.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Tab;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -107,8 +108,13 @@ class MainController extends GetxController {
       menuDataList.removeWhere(
           (element) => childrenKeys.contains(Key('menu-${element.url!}')));
       if (menuDataList.isNotEmpty) {
-        // menuItems.insert(0, PaneItemSeparator());
-        onMenuTap(menuDataList.first);
+        // 打开第一个菜单
+        //如果第一个菜单是父级菜单，则打开第一个子菜单
+        if (menuDataList.first.children == null) {
+          onMenuTap(menuDataList.first);
+        } else {
+          onMenuTap(menuDataList.first.children!.first);
+        }
       }
       // menuItems.removeWhere((element) => childrenKeys.contains(element.key));
       // if (menuItems.isNotEmpty) {
@@ -231,9 +237,9 @@ class MainController extends GetxController {
   void onReady() {
     super.onReady();
     _initData();
-    SmartDialog.showLoading();
+    PopupMessage.showLoading();
     Future.delayed(Duration(seconds: 1), () {
-      SmartDialog.dismiss();
+      PopupMessage.closeLoading();
       getMenuList();
     });
   }

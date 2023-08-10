@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-06-14 14:48:08
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-06-25 17:11:38
+ * @LastEditTime: 2023-08-10 11:33:04
  * @FilePath: /eatm_ini_config/lib/common/utils/popup_message.dart
  * @Description: 弹窗消息
  */
@@ -10,6 +10,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 class PopupMessage {
+  // 显示成功消息
   static void showSuccessInfoBar(String message) {
     SmartDialog.show(
         displayTime: Duration(seconds: 3),
@@ -34,6 +35,7 @@ class PopupMessage {
         });
   }
 
+  // 显示失败消息
   static void showFailInfoBar(String message) {
     SmartDialog.show(
         displayTime: Duration(seconds: 3),
@@ -58,6 +60,7 @@ class PopupMessage {
         });
   }
 
+  // 显示警告消息
   static void showWarningInfoBar(String message) {
     SmartDialog.show(
         displayTime: Duration(seconds: 3),
@@ -80,5 +83,30 @@ class PopupMessage {
             ),
           );
         });
+  }
+
+  // 显示loading
+  static void showLoading({String? message}) {
+    SmartDialog.show(
+        alignment: Alignment.center,
+        debounce: true,
+        builder: (context) {
+          return Center(
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              ProgressRing(),
+              SizedBox(height: 10),
+              Text(
+                message != null ? message : '加载中，请稍候...',
+                style: TextStyle(color: Colors.white, fontSize: 14),
+              ),
+            ]),
+          );
+        });
+  }
+
+  // 关闭loading
+  static void closeLoading() {
+    SmartDialog.dismiss();
   }
 }
