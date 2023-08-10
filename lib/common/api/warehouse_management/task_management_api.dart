@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-04 11:01:57
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-07 13:29:49
+ * @LastEditTime: 2023-08-10 14:16:19
  * @FilePath: /eatm_manager/lib/common/api/warehouse_management/task_management_api.dart
  * @Description:  任务管理api
  */
@@ -10,7 +10,7 @@ import 'package:eatm_manager/common/utils/http.dart';
 
 class TaskManagementApi {
   // 是否启用mock
-  static bool isMock = true;
+  static bool isMock = false;
 
   // 查询
   static Future<ResponseApiBody> query(data) async {
