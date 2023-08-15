@@ -2,7 +2,6 @@ import 'package:eatm_manager/common/routers/names.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:get/get.dart';
 
-import '../../pages/business/ceshi/ceshi.dart';
 import '../../pages/business/work_station/index.dart' deferred as work_station;
 import '../../pages/business/auto_running/index.dart' deferred as auto_running;
 import '../../pages/business/tool_management/standard_tool_management/index.dart'
@@ -15,13 +14,13 @@ import '../../pages/business/warehouse_management/inventory_management/index.dar
     deferred as shelf_management;
 import '../../pages/business/warehouse_management/exit_storage_records/index.dart'
     deferred as storage_records;
-import '../../pages/business/warehouse_management/exit_records/index.dart'
-    deferred as exit_records;
 import '../../pages/business/warehouse_management/task_management/index.dart'
     deferred as task_management;
 import '../../pages/business/task_query/index.dart' deferred as task_query;
 import '../../pages/business/machine_binding/index.dart'
     deferred as machine_binding;
+import '../../pages/business/craft_binding/index.dart'
+    deferred as craft_binding;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -68,7 +67,11 @@ class MainChildPage {
 
 class MainChildPages {
   static List<MainChildPage> list = [
-    MainChildPage(url: '/dashboard', page: Ceshi(), icon: MyIcons.workmanship),
+    MainChildPage(
+        url: '/dashboard',
+        page: DeferredWidget(
+            craft_binding.loadLibrary, () => craft_binding.CraftBindingPage()),
+        icon: MyIcons.workmanship),
     MainChildPage(
         url: '/workStation',
         page: DeferredWidget(work_station.loadLibrary,
@@ -236,11 +239,6 @@ class MainChildPages {
         page: DeferredWidget(storage_records.loadLibrary,
             () => storage_records.ExitStorageRecordsPage()), // 入库记录
         icon: FluentIcons.open_pane_mirrored),
-    MainChildPage(
-        url: '/exitRecords',
-        page: DeferredWidget(exit_records.loadLibrary,
-            () => exit_records.ExitRecordsPage()), // 出库记录
-        icon: FluentIcons.open_pane),
     MainChildPage(
         url: '/taskManagement',
         page: DeferredWidget(task_management.loadLibrary,

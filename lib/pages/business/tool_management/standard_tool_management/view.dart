@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-06 10:11:37
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-27 16:45:36
+ * @LastEditTime: 2023-08-15 14:13:36
  * @FilePath: /mesui/lib/pages/tool_management/standard_tool_management/view.dart
  * @Description: 标准刀库管理页面
  */
@@ -13,6 +13,7 @@ import 'package:eatm_manager/common/utils/http.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
 import 'package:fluent_ui/fluent_ui.dart' as FluentUI;
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:styled_widget/styled_widget.dart';
@@ -211,8 +212,8 @@ class _StandardToolManagementViewGetX
                     children: [Icon(FluentUI.FluentIcons.add), Text('新增')]),
                 onPressed: () {
                   GlobalKey _key = GlobalKey();
-                  FluentUI.showDialog(
-                      context: context,
+                  SmartDialog.show(
+                      tag: 'dialog',
                       builder: (context) {
                         return FluentUI.ContentDialog(
                           constraints: const BoxConstraints(maxWidth: 500),
@@ -226,7 +227,7 @@ class _StandardToolManagementViewGetX
                           actions: [
                             FluentUI.Button(
                                 onPressed: () {
-                                  Navigator.of(context).pop();
+                                  SmartDialog.dismiss(tag: 'dialog');
                                 },
                                 child: const Text('取消')),
                             FluentUI.FilledButton(
@@ -235,7 +236,7 @@ class _StandardToolManagementViewGetX
                                       as UpdateToolFormState);
                                   var flag = state.toolInfo.validator();
                                   if (flag) {
-                                    Navigator.of(context).pop();
+                                    SmartDialog.dismiss(tag: 'dialog');
                                     ResponseApiBody res =
                                         await StandardToolManagementApi.add({
                                       "params": {
@@ -272,8 +273,8 @@ class _StandardToolManagementViewGetX
                     return;
                   }
                   GlobalKey _key = GlobalKey();
-                  FluentUI.showDialog(
-                      context: context,
+                  SmartDialog.show(
+                      tag: 'dialog',
                       builder: (context) {
                         var curRow = controller.stateManager.checkedRows[0];
                         return FluentUI.ContentDialog(
@@ -291,7 +292,7 @@ class _StandardToolManagementViewGetX
                           actions: [
                             FluentUI.Button(
                                 onPressed: () {
-                                  Navigator.of(context).pop();
+                                  SmartDialog.dismiss(tag: 'dialog');
                                 },
                                 child: const Text('取消')),
                             FluentUI.FilledButton(
@@ -300,7 +301,7 @@ class _StandardToolManagementViewGetX
                                       as UpdateToolFormState);
                                   var flag = state.toolInfo.validator();
                                   if (flag) {
-                                    Navigator.of(context).pop();
+                                    SmartDialog.dismiss(tag: 'dialog');
                                     controller.updateTool(
                                         curRow.cells['id']!.value,
                                         ToolInfo(
@@ -326,8 +327,8 @@ class _StandardToolManagementViewGetX
                     PopupMessage.showWarningInfoBar('请选择数据');
                     return;
                   }
-                  FluentUI.showDialog(
-                      context: context,
+                  SmartDialog.show(
+                      tag: 'dialog',
                       builder: (context) {
                         return FluentUI.ContentDialog(
                           title: const Text('删除').fontSize(20),
@@ -335,12 +336,12 @@ class _StandardToolManagementViewGetX
                           actions: [
                             FluentUI.Button(
                                 onPressed: () {
-                                  Navigator.of(context).pop();
+                                  SmartDialog.dismiss(tag: 'dialog');
                                 },
                                 child: const Text('取消')),
                             FluentUI.FilledButton(
                                 onPressed: () async {
-                                  Navigator.of(context).pop();
+                                  SmartDialog.dismiss(tag: 'dialog');
                                   ResponseApiBody res =
                                       await StandardToolManagementApi.delete({
                                     "params": {

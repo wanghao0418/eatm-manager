@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-27 14:48:59
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-27 15:45:31
+ * @LastEditTime: 2023-08-15 14:28:35
  * @FilePath: /eatm_manager/lib/common/widgets/pop_date_picker.dart
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -42,33 +42,37 @@ class _PopDatePickerState extends State<PopDatePicker> {
 
   @override
   Widget build(BuildContext context) {
-    return TextBox(
-      controller: _controller,
-      prefix: Padding(
-        padding: const EdgeInsets.only(left: 5),
-        child: Icon(
-          FluentIcons.calendar,
-          size: 16,
-          color: GlobalTheme.instance.buttonIconColor,
+    return SizedBox(
+      width: 120.0,
+      child: TextBox(
+        controller: _controller,
+        prefix: Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: Icon(
+            FluentIcons.calendar,
+            size: 16,
+            color: GlobalTheme.instance.buttonIconColor,
+          ),
         ),
+        placeholder: '${widget.placeholder ?? '请选择日期'}',
+        readOnly: true,
+        // textAlign: TextAlign.center,
+        onTap: () {
+          material
+              .showDatePicker(
+                  context: Get.context!,
+                  initialDate: DateTime.parse(_controller.text),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime(2100))
+              .then((value) {
+            if (value != null) {
+              var formatDate = value.toString().split(' ')[0];
+              _controller.text = formatDate;
+              widget.onChange(formatDate);
+            }
+          });
+        },
       ),
-      placeholder: '开始时间',
-      readOnly: true,
-      onTap: () {
-        material
-            .showDatePicker(
-                context: Get.context!,
-                initialDate: DateTime.parse(_controller.text),
-                firstDate: DateTime(1900),
-                lastDate: DateTime(2100))
-            .then((value) {
-          if (value != null) {
-            var formatDate = value.toString().split(' ')[0];
-            _controller.text = formatDate;
-            widget.onChange(formatDate);
-          }
-        });
-      },
     );
   }
 }

@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-08 10:21:35
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-09 15:14:15
+ * @LastEditTime: 2023-08-15 14:39:43
  * @FilePath: /eatm_manager/lib/pages/business/task_query/view.dart
  * @Description: 任务查询视图层
  */
@@ -53,7 +53,7 @@ class _TaskQueryViewGetX extends GetView<TaskQueryController> {
           children: [
             LineFormLabel(
                 label: '芯片Id',
-                width: 250,
+                width: 200,
                 isExpanded: true,
                 child: TextBox(
                   placeholder: '请输入芯片Id',
@@ -63,10 +63,10 @@ class _TaskQueryViewGetX extends GetView<TaskQueryController> {
                 )),
             LineFormLabel(
                 label: '出入库状态',
-                width: 250,
+                width: 200,
                 isExpanded: true,
                 child: ComboBox<int?>(
-                  placeholder: Text('请选择'),
+                  placeholder: const Text('请选择'),
                   value: controller.search.agvDispatchState,
                   items: controller.agvDispatchStateOptionList
                       .map((e) => ComboBoxItem<int?>(

@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-06 10:21:53
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-27 16:46:51
+ * @LastEditTime: 2023-08-15 14:12:13
  * @FilePath: /flutter-mesui/lib/pages/tool_management/mac_tool_magazine_management/view.dart
  */
 import 'package:eatm_manager/common/api/tool_management/mac_tool_magazine_management_api.dart';
@@ -13,6 +13,7 @@ import 'package:eatm_manager/common/utils/http.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
 import 'package:fluent_ui/fluent_ui.dart' as FluentUI;
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:styled_widget/styled_widget.dart';
@@ -364,8 +365,8 @@ class _MacToolMagazineManagementViewGetX
                         children: [Icon(FluentUI.FluentIcons.add), Text('新增')]),
                     onPressed: () {
                       GlobalKey _key = GlobalKey();
-                      FluentUI.showDialog(
-                          context: context,
+                      SmartDialog.show(
+                          tag: 'edit_tool_info',
                           builder: (context) {
                             return FluentUI.ContentDialog(
                               constraints: const BoxConstraints(maxWidth: 1000),
@@ -387,7 +388,8 @@ class _MacToolMagazineManagementViewGetX
                                     children: [
                                       FluentUI.Button(
                                           onPressed: () {
-                                            Navigator.of(context).pop();
+                                            SmartDialog.dismiss(
+                                                tag: 'edit_tool_info');
                                           },
                                           child: const Text('取消')),
                                       SizedBox(
@@ -405,7 +407,8 @@ class _MacToolMagazineManagementViewGetX
 
                                               return;
                                             }
-                                            Navigator.of(context).pop();
+                                            SmartDialog.dismiss(
+                                                tag: 'edit_tool_info');
 
                                             var params =
                                                 state.editToolInfo.toJson();
@@ -447,8 +450,8 @@ class _MacToolMagazineManagementViewGetX
                         return;
                       }
                       GlobalKey _key = GlobalKey();
-                      FluentUI.showDialog(
-                          context: context,
+                      SmartDialog.show(
+                          tag: 'edit_tool_info',
                           builder: (context) {
                             var curRow = controller.stateManager.checkedRows[0];
                             return FluentUI.ContentDialog(
@@ -474,7 +477,8 @@ class _MacToolMagazineManagementViewGetX
                                     children: [
                                       FluentUI.Button(
                                           onPressed: () {
-                                            Navigator.of(context).pop();
+                                            SmartDialog.dismiss(
+                                                tag: 'edit_tool_info');
                                           },
                                           child: const Text('取消')),
                                       SizedBox(
@@ -492,7 +496,8 @@ class _MacToolMagazineManagementViewGetX
 
                                               return;
                                             }
-                                            Navigator.of(context).pop();
+                                            SmartDialog.dismiss(
+                                                tag: 'edit_tool_info');
 
                                             var params =
                                                 state.editToolInfo.toJson();
@@ -555,8 +560,8 @@ class _MacToolMagazineManagementViewGetX
                         PopupMessage.showWarningInfoBar('请选择数据');
                         return;
                       }
-                      FluentUI.showDialog(
-                          context: context,
+                      SmartDialog.show(
+                          tag: 'delete_tool_info',
                           builder: (context) {
                             return FluentUI.ContentDialog(
                               title: const Text('删除').fontSize(20),
@@ -564,12 +569,14 @@ class _MacToolMagazineManagementViewGetX
                               actions: [
                                 FluentUI.Button(
                                     onPressed: () {
-                                      Navigator.of(context).pop();
+                                      SmartDialog.dismiss(
+                                          tag: 'delete_tool_info');
                                     },
                                     child: const Text('取消')),
                                 FluentUI.FilledButton(
                                     onPressed: () async {
-                                      Navigator.of(context).pop();
+                                      SmartDialog.dismiss(
+                                          tag: 'delete_tool_info');
                                       ResponseApiBody res =
                                           await MacToolMagazineManagementApi
                                               .delete({

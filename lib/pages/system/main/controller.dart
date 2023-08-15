@@ -220,6 +220,17 @@ class MainController extends GetxController {
     update(["main"]);
   }
 
+  // 切换tab
+  void reorderTabs(int oldIndex, int newIndex) {
+    if (oldIndex < newIndex) {
+      newIndex -= 1;
+    }
+    final item = tabs.removeAt(oldIndex);
+    tabs.insert(newIndex, item);
+    currentTabIndex.value = newIndex;
+    update(["main"]);
+  }
+
   @override
   void onInit() {
     super.onInit();

@@ -2,10 +2,11 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-08 10:21:35
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-09 15:14:11
+ * @LastEditTime: 2023-08-15 15:19:49
  * @FilePath: /eatm_manager/lib/pages/business/task_query/controller.dart
  * @Description: 任务查询逻辑层
  */
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:eatm_manager/common/api/product_task_query_api.dart';
@@ -49,6 +50,26 @@ class TaskQueryController extends GetxController {
   ];
   int? currentStorageStatus;
   int? currentOutboundStatus;
+  // 定时器
+  late Timer timer;
+
+  // 获取出入库状态选项列表
+  void getInOutStateList() async {
+    ResponseApiBody res = await ProductTaskQueryApi.getInOutStateList({});
+    if (res.success!) {
+      var inTaskOptionList = res.data['inTaskList'] as List;
+      var outTaskOptionList = res.data['outTaskList'] as List;
+      storageStatusOptionList = inTaskOptionList
+          .map((e) => SelectOption(label: e['taskName'], value: e['taskNum']))
+          .toList();
+      outboundStatusOptionList = outTaskOptionList
+          .map((e) => SelectOption(label: e['taskName'], value: e['taskNum']))
+          .toList();
+      _initData();
+    } else {
+      PopupMessage.showFailInfoBar(res.message as String);
+    }
+  }
 
   // 查询
   void query() async {
@@ -136,13 +157,19 @@ class TaskQueryController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+    getInOutStateList();
+    // 每五分钟刷新一次
+    timer = Timer.periodic(const Duration(minutes: 5), (timer) {
+      query();
+    });
     _initData();
   }
 
-  // @override
-  // void onClose() {
-  //   super.onClose();
-  // }
+  @override
+  void onClose() {
+    super.onClose();
+    timer.cancel();
+  }
 }
 
 class TaskQuerySearch {

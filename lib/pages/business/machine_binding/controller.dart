@@ -2,14 +2,14 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-09 15:34:58
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-10 14:03:10
+ * @LastEditTime: 2023-08-10 18:19:57
  * @FilePath: /eatm_manager/lib/pages/business/machine_binding/controller.dart
  * @Description: 机床绑定逻辑层
  */
-import 'dart:convert';
 
-import 'package:eatm_manager/common/api/machine_binding_api.dart';
+import 'package:eatm_manager/common/api/work_process_binding_api.dart';
 import 'package:eatm_manager/common/models/selectOption.dart';
+import 'package:eatm_manager/common/models/workProcess.dart';
 import 'package:eatm_manager/common/utils/http.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
 import 'package:get/get.dart';
@@ -17,7 +17,7 @@ import 'package:pluto_grid/pluto_grid.dart';
 
 class MachineBindingController extends GetxController {
   MachineBindingController();
-  MachineBindingSearch search = MachineBindingSearch(
+  WorkProcessSearch search = WorkProcessSearch(
     querySource: 1,
     workpiecetype: 2,
     isSelect: true,
@@ -68,7 +68,7 @@ class MachineBindingController extends GetxController {
 
   // 获取机床资源
   void getMachineResource() async {
-    ResponseApiBody res = await MachineBindingApi.getMachineResource({});
+    ResponseApiBody res = await WorkProcessBindingApi.getMachineResource({});
     if (res.success!) {
       var data = res.data as Map;
       for (var macType in data.keys) {
@@ -102,7 +102,7 @@ class MachineBindingController extends GetxController {
   void query() async {
     PopupMessage.showLoading();
     ResponseApiBody res =
-        await MachineBindingApi.query({"params": search.toJson()});
+        await WorkProcessBindingApi.query({"params": search.toJson()});
     PopupMessage.closeLoading();
     if (res.success!) {
       List<WorkProcessData> data =
@@ -157,15 +157,16 @@ class MachineBindingController extends GetxController {
       PopupMessage.showWarningInfoBar('请选择需要绑定的数据');
       return;
     }
-    PopupMessage.showLoading();
-    ResponseApiBody res = await MachineBindingApi.binding({
-      "params": {
-        "MacName": currentMachineName,
-        "list":
-            stateManager.checkedRows.map((e) => e.cells['data']!.value).toList()
-      }
-    });
-    PopupMessage.closeLoading();
+    ResponseApiBody res = await WorkProcessBindingApi.binding(
+        // stateManager.checkedRows.map((e) => e.cells['data']!.value).toList()
+        {
+          "params": {
+            "MacName": currentMachineName,
+            "list": stateManager.checkedRows
+                .map((e) => e.cells['data']!.value)
+                .toList()
+          }
+        });
     if (res.success!) {
       PopupMessage.showSuccessInfoBar('绑定成功');
       for (var row in stateManager.checkedRows) {
@@ -195,189 +196,4 @@ class MachineBindingController extends GetxController {
   // void onClose() {
   //   super.onClose();
   // }
-}
-
-class MachineBindingSearch {
-  int? workmanship;
-  int? workpiecetype;
-  String? mouldsn;
-  String? partsn;
-  String? startTime;
-  String? endTime;
-  String? barcode;
-  String? mwpiececode;
-  bool? isSelect;
-  int? querySource;
-
-  MachineBindingSearch(
-      {this.workmanship,
-      this.workpiecetype,
-      this.mouldsn,
-      this.partsn,
-      this.startTime,
-      this.endTime,
-      this.barcode,
-      this.mwpiececode,
-      this.isSelect,
-      this.querySource});
-
-  MachineBindingSearch.fromJson(Map<String, dynamic> json) {
-    workmanship = json['workmanship'];
-    workpiecetype = json['workpiecetype'];
-    mouldsn = json['mouldsn'];
-    partsn = json['partsn'];
-    startTime = json['startTime'];
-    endTime = json['endTime'];
-    barcode = json['barcode'];
-    mwpiececode = json['Mwpiececode'];
-    isSelect = json['isSelect'];
-    querySource = json['querySource'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['workmanship'] = this.workmanship;
-    data['workpiecetype'] = this.workpiecetype;
-    data['mouldsn'] = this.mouldsn;
-    data['partsn'] = this.partsn;
-    data['startTime'] = this.startTime;
-    data['endTime'] = this.endTime;
-    data['barcode'] = this.barcode;
-    data['Mwpiececode'] = this.mwpiececode;
-    data['isSelect'] = this.isSelect;
-    data['querySource'] = this.querySource;
-    return data;
-  }
-}
-
-///工艺流程信息
-class WorkProcessData {
-  WorkProcessData({
-    this.barCode,
-    this.bomType,
-    this.clamptype,
-    this.curprocorder,
-    this.curprocstate,
-    this.machineSn,
-    this.mouldsn,
-    this.mwcount,
-    this.mwpiececode,
-    this.mwpiecename,
-    this.partsn,
-    this.procedurename,
-    this.processroute,
-    this.procetotal,
-    this.pstePid,
-    this.recordtime,
-    this.resoucenamedept,
-    this.resourceName,
-    this.sn,
-    this.spec,
-    this.trayType,
-    this.workpieceType,
-    this.wpstate,
-  });
-
-  ///芯片Id
-  String? barCode;
-  String? bomType;
-  String? clamptype;
-  int? curprocorder;
-  int? curprocstate;
-
-  ///机床编号
-  String? machineSn;
-
-  ///模号
-  String? mouldsn;
-  String? mwcount;
-
-  ///监控编号
-  String? mwpiececode;
-
-  ///工件名称
-  String? mwpiecename;
-
-  ///件号
-  String? partsn;
-  String? procedurename;
-  String? processroute;
-  int? procetotal;
-  int? pstePid;
-  String? recordtime;
-
-  ///资源名称
-  String? resoucenamedept;
-
-  ///资源名称
-  String? resourceName;
-
-  ///编号
-  String? sn;
-
-  ///规格
-  String? spec;
-  String? trayType;
-
-  ///工件类型
-  String? workpieceType;
-  String? wpstate;
-
-  factory WorkProcessData.fromRawJson(String str) =>
-      WorkProcessData.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory WorkProcessData.fromJson(Map<String, dynamic> json) =>
-      WorkProcessData(
-        barCode: json["BarCode"],
-        bomType: json["bomType"],
-        clamptype: json["clamptype"],
-        curprocorder: json["CURPROCORDER"],
-        curprocstate: json["CURPROCSTATE"],
-        machineSn: json["MachineSn"],
-        mouldsn: json["MOULDSN"],
-        mwcount: json["mwcount"],
-        mwpiececode: json["Mwpiececode"],
-        mwpiecename: json["mwpiecename"],
-        partsn: json["PARTSN"],
-        procedurename: json["procedurename"],
-        processroute: json["PROCESSROUTE"],
-        procetotal: json["PROCETOTAL"],
-        pstePid: json["PstePid"],
-        recordtime: json["RECORDTIME"],
-        resoucenamedept: json["resoucenamedept"],
-        resourceName: json["ResourceName"],
-        sn: json["SN"],
-        spec: json["SPEC"],
-        trayType: json["TrayType"],
-        workpieceType: json["WorkpieceType"],
-        wpstate: json["wpstate"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "BarCode": barCode,
-        "bomType": bomType,
-        "clamptype": clamptype,
-        "CURPROCORDER": curprocorder,
-        "CURPROCSTATE": curprocstate,
-        "MachineSn": machineSn,
-        "MOULDSN": mouldsn,
-        "mwcount": mwcount,
-        "Mwpiececode": mwpiececode,
-        "mwpiecename": mwpiecename,
-        "PARTSN": partsn,
-        "procedurename": procedurename,
-        "PROCESSROUTE": processroute,
-        "PROCETOTAL": procetotal,
-        "PstePid": pstePid,
-        "RECORDTIME": recordtime,
-        "resoucenamedept": resoucenamedept,
-        "ResourceName": resourceName,
-        "SN": sn,
-        "SPEC": spec,
-        "TrayType": trayType,
-        "WorkpieceType": workpieceType,
-        "wpstate": wpstate,
-      };
 }

@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-27 16:09:22
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-07 18:02:20
+ * @LastEditTime: 2023-08-15 14:33:14
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/task_management/view.dart
  * @Description: 任务管理视图层
  */
@@ -59,35 +59,30 @@ class _TaskManagementViewGetX extends GetView<TaskManagementController> {
                 children: [
                   LineFormLabel(
                       label: '时间范围',
-                      width: 400.0,
+                      width: 350.0,
                       child: Wrap(
                         crossAxisAlignment: WrapCrossAlignment.center,
                         spacing: 5,
                         children: [
-                          SizedBox(
-                              width: 150.0,
-                              child: PopDatePicker(
-                                value: controller.search.startTime,
-                                placeholder: '开始时间',
-                                onChange: (value) {
-                                  print(value);
-                                  controller.search.startTime = value;
-                                },
-                              )),
+                          PopDatePicker(
+                            value: controller.search.startTime,
+                            placeholder: '开始时间',
+                            onChange: (value) {
+                              print(value);
+                              controller.search.startTime = value;
+                            },
+                          ),
                           Text(
                             '至',
                             style: FluentTheme.of(Get.context!).typography.body,
                           ),
-                          SizedBox(
-                            width: 150.0,
-                            child: PopDatePicker(
-                              value: controller.search.endTime,
-                              placeholder: '结束时间',
-                              onChange: (value) {
-                                print(value);
-                                controller.search.endTime = value;
-                              },
-                            ),
+                          PopDatePicker(
+                            value: controller.search.endTime,
+                            placeholder: '结束时间',
+                            onChange: (value) {
+                              print(value);
+                              controller.search.endTime = value;
+                            },
                           ),
                         ],
                       )),
