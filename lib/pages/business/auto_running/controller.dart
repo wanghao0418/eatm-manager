@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-import '../../../common/utils/customWebSocket.dart';
+import '../../../common/utils/webSocket_utility.dart';
 import 'widgets/StorageMessageState.dart';
 
 class AutoRunningController extends GetxController {
@@ -82,7 +82,7 @@ class AutoRunningController extends GetxController {
   List treeDataList = [];
   // 折叠上方部分
   bool expandTop = false;
-  late CustomWebSocket _customWebSocket;
+  late WebSocketUtility _webSocketUtility;
   //声明星期变量
   var weekday = [" ", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
   //加一个定时器 更新时间
@@ -265,7 +265,7 @@ class AutoRunningController extends GetxController {
     // String url = "ws://127.0.0.1:8092";
     String? url =
         ConfigStore.instance.autoRunWebsocketUrL ?? "ws://127.0.0.1:8092";
-    _customWebSocket = CustomWebSocket(
+    _webSocketUtility = WebSocketUtility(
       connectUrl: url,
       onMessage: (message) {
         // print('message: $message');
@@ -281,13 +281,13 @@ class AutoRunningController extends GetxController {
 
             if (!_bIsClickButton) {
               //发送通讯,获取所有货位信息
-              _customWebSocket.send('{"sigSetStorageUiStatus": {}}');
+              _webSocketUtility.sendMessage('{"sigSetStorageUiStatus": {}}');
               // _webSocketUtilityAutoRunView
               //     .sendMessage('{"sigSetStorageUiStatus": {}}');
 
               //增加一个延时
               Future.delayed(const Duration(milliseconds: 100), () {
-                _customWebSocket.send('{"sigInitZiDongList": {}}');
+                _webSocketUtility.sendMessage('{"sigInitZiDongList": {}}');
                 // _webSocketUtilityAutoRunView
                 //     .sendMessage('{"sigInitZiDongList": {}}');
               });
@@ -327,7 +327,7 @@ class AutoRunningController extends GetxController {
       },
       onOpen: () {
         // print('WebSocket连接成功');
-        _customWebSocket.send('{"ShelfInfo": {}}');
+        _webSocketUtility.sendMessage('{"ShelfInfo": {}}');
       },
       onClose: () {
         print('WebSocket连接关闭');
@@ -336,7 +336,7 @@ class AutoRunningController extends GetxController {
         print('WebSocket连接错误: $error');
       },
     );
-    _customWebSocket.connect();
+    _webSocketUtility.connect();
   }
 
   start() {}
@@ -389,7 +389,7 @@ class AutoRunningController extends GetxController {
     if (_timer != null) {
       _timer.cancel();
     }
-    _customWebSocket.close();
+    _webSocketUtility.closeSocket();
   }
 }
 

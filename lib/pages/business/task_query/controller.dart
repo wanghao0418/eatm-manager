@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-08 10:21:35
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-15 15:19:49
+ * @LastEditTime: 2023-08-15 17:39:46
  * @FilePath: /eatm_manager/lib/pages/business/task_query/controller.dart
  * @Description: 任务查询逻辑层
  */
@@ -25,6 +25,7 @@ class TaskQueryController extends GetxController {
   bool tableLoaded = false;
   // 出入库状态
   List<SelectOption> agvDispatchStateOptionList = [
+    SelectOption(value: null, label: '全部'),
     SelectOption(value: 0, label: '未入库'),
     SelectOption(value: 1, label: '已入库'),
     SelectOption(value: 2, label: '待出库')

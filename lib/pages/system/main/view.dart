@@ -147,9 +147,11 @@ class _MainViewGetX extends GetView<MainController> {
                           controller.currentTabUrl = controller.tabs[value].url;
                           controller.update(['main']);
                         },
-                        // onReorder: (oldIndex, newIndex) {
-                        //   controller.reorderTabs(oldIndex, newIndex);
-                        // },
+                        onReorder: kIsWeb
+                            ? (oldIndex, newIndex) {
+                                controller.reorderTabs(oldIndex, newIndex);
+                              }
+                            : null,
                         header: GlobalTheme.instance.navigationBarType ==
                                 NavigationBarDisplayType.drawer
                             ? Builder(builder: (BuildContext context) {
