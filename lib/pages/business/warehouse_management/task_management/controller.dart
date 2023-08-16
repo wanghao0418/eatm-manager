@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-27 16:09:22
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-07 14:05:29
+ * @LastEditTime: 2023-08-16 14:34:02
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/task_management/controller.dart
  * @Description: 任务管理逻辑层
  */
@@ -161,7 +161,7 @@ class TaskManagementController extends GetxController {
   // 工件入库
   void workpieceIn() async {
     ResponseApiBody res = await WarehouseCommonApi.warehouse({
-      "params": {"storageType": artifactType}
+      "params": {"workpieceType": artifactType}
     });
     if (res.success!) {
       PopupMessage.showSuccessInfoBar(res.message as String);
