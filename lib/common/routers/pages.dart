@@ -21,6 +21,8 @@ import '../../pages/business/machine_binding/index.dart'
     deferred as machine_binding;
 import '../../pages/business/craft_binding/index.dart'
     deferred as craft_binding;
+import '../../pages/business/scheduling/single_machine_operation/index.dart'
+    deferred as single_machine_operation;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -67,15 +69,17 @@ class MainChildPage {
 
 class MainChildPages {
   static List<MainChildPage> list = [
+    // 工艺绑定
     MainChildPage(
         url: '/dashboard',
         page: DeferredWidget(
             craft_binding.loadLibrary, () => craft_binding.CraftBindingPage()),
         icon: MyIcons.workmanship),
+    // 接驳站管理
     MainChildPage(
         url: '/workStation',
-        page: DeferredWidget(work_station.loadLibrary,
-            () => work_station.WorkStationPage()), // 接驳站管理
+        page: DeferredWidget(
+            work_station.loadLibrary, () => work_station.WorkStationPage()),
         icon: MyIcons.kanBan),
     MainChildPage(
         url: '/userInfoList',
@@ -152,7 +156,8 @@ class MainChildPages {
         icon: MyIcons.equipmentManage),
     MainChildPage(
         url: '/MachineKanBan',
-        page: Center(child: Text('单机负荷')),
+        page: DeferredWidget(single_machine_operation.loadLibrary,
+            () => single_machine_operation.SingleMachineOperationPage()),
         icon: MyIcons.loadControl),
     MainChildPage(
         url: '/DataEntry',
@@ -208,41 +213,41 @@ class MainChildPages {
         url: '/ChipBindingStl',
         page: Center(child: Text('多钢件绑定')),
         icon: MyIcons.binding),
+    //标准刀具管理
     MainChildPage(
         url: '/standardToolManagement',
-        page: DeferredWidget(
-            standard_tool_management.loadLibrary,
-            () =>
-                standard_tool_management.StandardToolManagementPage()), //标准刀具管理
+        page: DeferredWidget(standard_tool_management.loadLibrary,
+            () => standard_tool_management.StandardToolManagementPage()),
         icon: MyIcons.tool),
+    //机床刀库管理
     MainChildPage(
         url: '/macToolMagazine',
-        page: DeferredWidget(
-            mac_tool_magazine_management.loadLibrary,
-            () => mac_tool_magazine_management
-                .MacToolMagazineManagementPage()), //机床刀库管理
+        page: DeferredWidget(mac_tool_magazine_management.loadLibrary,
+            () => mac_tool_magazine_management.MacToolMagazineManagementPage()),
         icon: MyIcons.tool),
+    //机外刀库
     MainChildPage(
         url: '/toolMagazineOutsideMac',
-        page: DeferredWidget(
-            tool_magazine_outside_mac.loadLibrary,
-            () =>
-                tool_magazine_outside_mac.ToolMagazineOutsideMacPage()), //机外刀库
+        page: DeferredWidget(tool_magazine_outside_mac.loadLibrary,
+            () => tool_magazine_outside_mac.ToolMagazineOutsideMacPage()),
         icon: MyIcons.tool),
+    // 货架管理
     MainChildPage(
         url: '/inventoryManagement',
         page: DeferredWidget(shelf_management.loadLibrary,
-            () => shelf_management.InventoryManagementPage()), // 货架管理
+            () => shelf_management.InventoryManagementPage()),
         icon: FluentIcons.guid),
+    // 入库记录
     MainChildPage(
         url: '/storageRecords',
         page: DeferredWidget(storage_records.loadLibrary,
-            () => storage_records.ExitStorageRecordsPage()), // 入库记录
+            () => storage_records.ExitStorageRecordsPage()),
         icon: FluentIcons.open_pane_mirrored),
+    // 任务管理
     MainChildPage(
         url: '/taskManagement',
         page: DeferredWidget(task_management.loadLibrary,
-            () => task_management.TaskManagementPage()), // 任务管理
+            () => task_management.TaskManagementPage()),
         icon: FluentIcons.page_list_solid),
   ];
 
