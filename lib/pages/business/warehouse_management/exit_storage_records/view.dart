@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-27 11:32:57
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-05 16:39:08
+ * @LastEditTime: 2023-08-15 14:34:44
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/storage_records/view.dart
  * @Description: 入库记录视图层
  */
@@ -49,70 +49,65 @@ class _ExitStorageRecordsViewGetX
       decoration: globalTheme.contentDecoration,
       padding: globalTheme.pagePadding,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          // spacing: 10,
-          // crossAxisAlignment: WrapCrossAlignment.center,
+        Wrap(
+          spacing: 10,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          runSpacing: 10,
           children: [
             LineFormLabel(
                 label: '时间范围',
+                width: 350.0,
                 child: Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   spacing: 5,
                   children: [
-                    SizedBox(
-                        width: 150.0,
-                        child: PopDatePicker(
-                          value: controller.search.startTime,
-                          placeholder: '开始时间',
-                          onChange: (value) {
-                            print(value);
-                            controller.search.startTime = value;
-                          },
-                        )),
+                    PopDatePicker(
+                      value: controller.search.startTime,
+                      placeholder: '开始时间',
+                      onChange: (value) {
+                        print(value);
+                        controller.search.startTime = value;
+                      },
+                    ),
                     Text(
                       '至',
                       style: FluentTheme.of(Get.context!).typography.body,
                     ),
-                    SizedBox(
-                      width: 150.0,
-                      child: PopDatePicker(
-                        value: controller.search.endTime,
-                        placeholder: '结束时间',
-                        onChange: (value) {
-                          print(value);
-                          controller.search.endTime = value;
-                        },
-                      ),
+                    PopDatePicker(
+                      value: controller.search.endTime,
+                      placeholder: '结束时间',
+                      onChange: (value) {
+                        print(value);
+                        controller.search.endTime = value;
+                      },
                     ),
                   ],
                 )),
-            10.horizontalSpace,
             LineFormLabel(
-              label: '操作类型',
-              child: SizedBox(
-                  width: 150.0,
-                  child: ComboBox<int?>(
-                    value: controller.search.operationType,
-                    placeholder: const Text(
-                      '请选择',
-                    ),
-                    items: controller.operationTypeList
-                        .map((e) => ComboBoxItem<int?>(
-                            value: e.value,
-                            child: Tooltip(
-                              message: e.label,
-                              child: Text(
-                                e.label!,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            )))
-                        .toList(),
-                    onChanged: (value) {
-                      controller.search.operationType = value;
-                      controller.update(['storage_records']);
-                    },
-                  )),
-            )
+                label: '操作类型',
+                width: 200.0,
+                isExpanded: true,
+                child: ComboBox<int?>(
+                  value: controller.search.operationType,
+                  placeholder: const Text(
+                    '请选择',
+                  ),
+                  items: controller.operationTypeList
+                      .map((e) => ComboBoxItem<int?>(
+                          value: e.value,
+                          child: Tooltip(
+                            message: e.label,
+                            child: Text(
+                              e.label!,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          )))
+                      .toList(),
+                  onChanged: (value) {
+                    controller.search.operationType = value;
+                    controller.update(['storage_records']);
+                  },
+                ))
           ],
         ),
         10.verticalSpace,

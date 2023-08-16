@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-06-14 14:48:08
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-10 11:33:04
+ * @LastEditTime: 2023-08-15 11:37:56
  * @FilePath: /eatm_ini_config/lib/common/utils/popup_message.dart
  * @Description: 弹窗消息
  */
@@ -87,9 +87,9 @@ class PopupMessage {
 
   // 显示loading
   static void showLoading({String? message}) {
-    SmartDialog.show(
+    SmartDialog.showLoading(
         alignment: Alignment.center,
-        debounce: true,
+        // usePenetrate: true,
         builder: (context) {
           return Center(
             child:
@@ -107,6 +107,37 @@ class PopupMessage {
 
   // 关闭loading
   static void closeLoading() {
-    SmartDialog.dismiss();
+    SmartDialog.dismiss(status: SmartStatus.loading);
+  }
+
+  // 显示确认框
+  static void showConfirmDialog(
+      {required String title,
+      required String message,
+      required Function onConfirm}) {
+    SmartDialog.show(
+        alignment: Alignment.center,
+        debounce: true,
+        builder: (context) {
+          return ContentDialog(
+            title: Text(title),
+            content: Text(message),
+            actions: [
+              Button(
+                child: const Text('取消'),
+                onPressed: () {
+                  SmartDialog.dismiss();
+                },
+              ),
+              FilledButton(
+                child: const Text('确定'),
+                onPressed: () {
+                  SmartDialog.dismiss();
+                  onConfirm();
+                },
+              ),
+            ],
+          );
+        });
   }
 }

@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-10 13:33:12
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-27 16:48:16
+ * @LastEditTime: 2023-08-15 14:16:14
  * @FilePath: /flutter-mesui/lib/pages/tool_management/tool_magazine_outside_mac/view.dart
  */
 import 'package:eatm_manager/common/api/tool_management/externalToolMagazine_api.dart';
@@ -11,6 +11,7 @@ import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/common/utils/http.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:fluent_ui/fluent_ui.dart' as FluentUI;
 import 'package:pluto_grid/pluto_grid.dart';
@@ -93,8 +94,8 @@ class _ToolMagazineOutsideMacViewGetX
                 onPressed: () {
                   GlobalKey _key = GlobalKey();
                   var widgetContext = context;
-                  FluentUI.showDialog(
-                      context: context,
+                  SmartDialog.show(
+                      tag: 'addTool',
                       builder: (context) {
                         return FluentUI.ContentDialog(
                           constraints: const BoxConstraints(maxWidth: 600),
@@ -118,7 +119,7 @@ class _ToolMagazineOutsideMacViewGetX
                                 children: [
                                   FluentUI.Button(
                                       onPressed: () {
-                                        Navigator.of(context).pop();
+                                        SmartDialog.dismiss(tag: 'addTool');
                                       },
                                       child: const Text('取消')),
                                   SizedBox(
@@ -130,7 +131,7 @@ class _ToolMagazineOutsideMacViewGetX
                                             as AddToolFormState);
 
                                         if (state.confirm() == true) {
-                                          Navigator.of(context).pop();
+                                          SmartDialog.dismiss(tag: 'addTool');
 
                                           ResponseApiBody res =
                                               await ExternalToolMagazineApi

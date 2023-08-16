@@ -147,6 +147,11 @@ class _MainViewGetX extends GetView<MainController> {
                           controller.currentTabUrl = controller.tabs[value].url;
                           controller.update(['main']);
                         },
+                        onReorder: kIsWeb
+                            ? (oldIndex, newIndex) {
+                                controller.reorderTabs(oldIndex, newIndex);
+                              }
+                            : null,
                         header: GlobalTheme.instance.navigationBarType ==
                                 NavigationBarDisplayType.drawer
                             ? Builder(builder: (BuildContext context) {
@@ -197,7 +202,7 @@ class _MainViewGetX extends GetView<MainController> {
                               kIsWeb ? Container() : WindowButtons()
                             ]),
                       ),
-                      Positioned(
+                      const Positioned(
                           child: DragToMoveArea(
                               child: SizedBox(
                         width: double.infinity,

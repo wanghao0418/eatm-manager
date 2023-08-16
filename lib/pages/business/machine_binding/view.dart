@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-09 15:34:58
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-10 13:56:13
+ * @LastEditTime: 2023-08-15 14:38:28
  * @FilePath: /eatm_manager/lib/pages/business/machine_binding/view.dart
  * @Description: 机床绑定视图层
  */
@@ -53,10 +53,10 @@ class _MachineBindingViewGetX extends GetView<MachineBindingController> {
           children: [
             LineFormLabel(
                 label: '工件类型',
-                width: 250,
+                width: 200,
                 isExpanded: true,
                 child: ComboBox<int?>(
-                  placeholder: const Text('请选择工件类型'),
+                  placeholder: const Text('请选择'),
                   value: controller.search.workpiecetype,
                   items: controller.workpieceTypeList
                       .map((e) => ComboBoxItem<int?>(
@@ -76,35 +76,31 @@ class _MachineBindingViewGetX extends GetView<MachineBindingController> {
                 )),
             LineFormLabel(
                 label: '时间范围',
-                width: 400.0,
+                width: 350.0,
+                isExpanded: true,
                 child: Wrap(
                   crossAxisAlignment: WrapCrossAlignment.center,
                   spacing: 5,
                   children: [
-                    SizedBox(
-                        width: 150.0,
-                        child: PopDatePicker(
-                          value: controller.search.startTime,
-                          placeholder: '开始时间',
-                          onChange: (value) {
-                            print(value);
-                            controller.search.startTime = value;
-                          },
-                        )),
+                    PopDatePicker(
+                      value: controller.search.startTime,
+                      placeholder: '开始时间',
+                      onChange: (value) {
+                        print(value);
+                        controller.search.startTime = value;
+                      },
+                    ),
                     Text(
                       '至',
                       style: FluentTheme.of(Get.context!).typography.body,
                     ),
-                    SizedBox(
-                      width: 150.0,
-                      child: PopDatePicker(
-                        value: controller.search.endTime,
-                        placeholder: '结束时间',
-                        onChange: (value) {
-                          print(value);
-                          controller.search.endTime = value;
-                        },
-                      ),
+                    PopDatePicker(
+                      value: controller.search.endTime,
+                      placeholder: '结束时间',
+                      onChange: (value) {
+                        print(value);
+                        controller.search.endTime = value;
+                      },
                     ),
                   ],
                 )),
@@ -119,11 +115,11 @@ class _MachineBindingViewGetX extends GetView<MachineBindingController> {
                 children: [
               LineFormLabel(
                   label: '机床类型',
-                  width: 250,
+                  width: 200,
                   isRequired: true,
                   isExpanded: true,
                   child: ComboBox<String?>(
-                    placeholder: const Text('请选择机床类型'),
+                    placeholder: const Text('请选择'),
                     value: controller.currentMachineType,
                     items: controller.machineTypeList
                         .map((e) => ComboBoxItem<String?>(
@@ -151,11 +147,11 @@ class _MachineBindingViewGetX extends GetView<MachineBindingController> {
                   )),
               LineFormLabel(
                   label: '机台编号',
-                  width: 250,
+                  width: 200,
                   isRequired: true,
                   isExpanded: true,
                   child: ComboBox<String?>(
-                    placeholder: const Text('请选择机台编号'),
+                    placeholder: const Text('请选择'),
                     value: controller.currentMachineName,
                     items: controller.machineNameList
                         .map((e) => ComboBoxItem<String?>(
