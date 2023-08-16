@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 10:59:00
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-16 14:37:37
+ * @LastEditTime: 2023-08-16 15:00:46
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/single_machine_operation/view.dart
  * @Description:  单机负荷视图层
  */
@@ -48,7 +48,7 @@ class _SingleMachineOperationViewGetX
             title: "机床信息",
             cardBackgroundColor: const Color(0xffd9ecff),
             headBorderColor: Colors.white,
-            headTextColor: globalTheme.buttonIconColor,
+            headTextColor: Colors.black,
             titleRight: Container(
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(3)),
