@@ -39,10 +39,10 @@ class ReportingController extends GetxController {
       ];
 
   // 机床编号
-  List<SelectOption> get machineList => [];
+  List<SelectOption> machineList = [];
 
   // 人员
-  List<SelectOption> get personList => [];
+  List<SelectOption> personList = [];
 
   // 选中模号
   List<String> selectedMouldSNList = [];
@@ -66,8 +66,7 @@ class ReportingController extends GetxController {
       List<SelectOption> data = (res.data as List)
           .map((e) => SelectOption(label: e, value: e))
           .toList();
-      personList.clear();
-      personList.addAll(data);
+      personList = data;
       _initData();
     } else {
       PopupMessage.showFailInfoBar(res.message as String);
@@ -118,13 +117,15 @@ class ReportingController extends GetxController {
       stateManager.appendRows([
         PlutoRow(cells: {
           'number': PlutoCell(value: index + 1),
-          'workpieceType': PlutoCell(value: e.bomtype),
-          'mouldSN': PlutoCell(value: e.mouldbasenums),
-          'partSN': PlutoCell(value: e.partnums),
+          'resourcenames': PlutoCell(value: e.resourcenames),
+          'traytype': PlutoCell(value: e.traytype),
+          'identnumber': PlutoCell(value: e.identnumber),
+          'mouldnums': PlutoCell(value: e.mouldnums),
+          'partnums': PlutoCell(value: e.partnums),
           'mwpieceCode': PlutoCell(value: e.mwpiececode),
-          'mwpieceName': PlutoCell(value: e.mwpiecename),
-          // 'resoucenamedept': PlutoCell(value: e.resoucenamedept),
-          'spec': PlutoCell(value: e.standard),
+          'pstepid': PlutoCell(value: e.pstepid),
+          'norms': PlutoCell(value: e.norms),
+          'wpstate': PlutoCell(value: e.wpstate),
           'data': PlutoCell(value: e),
         })
       ]);
@@ -158,7 +159,7 @@ class ReportingController extends GetxController {
   void onReady() {
     super.onReady();
     getPersonList();
-    getMachineList();
+    // getMachineList();
     _initData();
   }
 
