@@ -23,6 +23,7 @@ import '../../pages/business/craft_binding/index.dart'
     deferred as craft_binding;
 import '../../pages/business/scheduling/single_machine_operation/index.dart'
     deferred as single_machine_operation;
+import '../../pages/business/reporting/index.dart' deferred as reporting;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -249,6 +250,12 @@ class MainChildPages {
         page: DeferredWidget(task_management.loadLibrary,
             () => task_management.TaskManagementPage()),
         icon: FluentIcons.page_list_solid),
+    // 报工
+    MainChildPage(
+        url: '/reporting',
+        page: DeferredWidget(
+            reporting.loadLibrary, () => reporting.ReportingPage()),
+        icon: FluentIcons.report_add),
   ];
 
   static Widget getPage(String url) {
