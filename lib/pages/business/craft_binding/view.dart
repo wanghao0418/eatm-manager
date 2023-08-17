@@ -2,13 +2,14 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-10 15:41:34
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-15 14:29:35
+ * @LastEditTime: 2023-08-17 09:52:42
  * @FilePath: /eatm_manager/lib/pages/business/craft_binding/view.dart
  * @Description: 工艺绑定视图层
  */
 import 'package:eatm_manager/common/components/filled_icon_button.dart';
 import 'package:eatm_manager/common/components/line_form_label.dart';
 import 'package:eatm_manager/common/components/themed_text.dart';
+import 'package:eatm_manager/common/components/title_card.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/common/widgets/pop_date_picker.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -252,7 +253,7 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
           runSpacing: 10,
           children: [
             FilledIconButton(
-                label: '搜索',
+                label: '查询',
                 onPressed: controller.query,
                 icon: FluentIcons.search),
           ],
@@ -290,50 +291,42 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
   Widget _buildMouldSNList(BuildContext context) {
     return Container(
       width: 200.w,
-      padding: globalTheme.contentPadding,
+      // padding: globalTheme.contentPadding,
       decoration: globalTheme.contentDecoration,
-      child: Column(
-        children: [
-          const Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: ThemedText(
-                '模号',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              )),
-          const Divider(),
-          Expanded(
-              child: ListView.builder(
-                  itemCount: controller.mouldSNList.length,
-                  itemBuilder: (context, index) {
-                    return ListTile.selectable(
-                      key: ValueKey(controller.mouldSNList[index]),
-                      selectionMode: ListTileSelectionMode.multiple,
-                      selected: controller.selectedMouldSNList
-                          .contains(controller.mouldSNList[index]),
-                      title: Text(controller.mouldSNList[index]),
-                      onPressed: () {
-                        if (controller.selectedMouldSNList
-                            .contains(controller.mouldSNList[index])) {
-                          controller.selectedMouldSNList
-                              .remove(controller.mouldSNList[index]);
-                        } else {
-                          controller.selectedMouldSNList
-                              .add(controller.mouldSNList[index]);
-                        }
-                        // 更新表格筛选条件
-                        if (controller.selectedMouldSNList.isEmpty) {
-                          controller.stateManager.setFilter(null);
-                        } else {
-                          controller.stateManager.setFilter((element) =>
-                              controller.selectedMouldSNList.contains(
-                                  element.cells['mouldSN']!.value.toString()));
-                        }
-                        controller.update(["craft_binding"]);
-                      },
-                    );
-                  }))
-        ],
-      ),
+      child: TitleCard(
+          title: '模号',
+          cardBackgroundColor: globalTheme.pageContentBackgroundColor,
+          containChild: ListView.builder(
+              padding: EdgeInsets.all(10),
+              itemCount: controller.mouldSNList.length,
+              itemBuilder: (context, index) {
+                return ListTile.selectable(
+                  key: ValueKey(controller.mouldSNList[index]),
+                  selectionMode: ListTileSelectionMode.multiple,
+                  selected: controller.selectedMouldSNList
+                      .contains(controller.mouldSNList[index]),
+                  title: Text(controller.mouldSNList[index]),
+                  onPressed: () {
+                    if (controller.selectedMouldSNList
+                        .contains(controller.mouldSNList[index])) {
+                      controller.selectedMouldSNList
+                          .remove(controller.mouldSNList[index]);
+                    } else {
+                      controller.selectedMouldSNList
+                          .add(controller.mouldSNList[index]);
+                    }
+                    // 更新表格筛选条件
+                    if (controller.selectedMouldSNList.isEmpty) {
+                      controller.stateManager.setFilter(null);
+                    } else {
+                      controller.stateManager.setFilter((element) =>
+                          controller.selectedMouldSNList.contains(
+                              element.cells['mouldSN']!.value.toString()));
+                    }
+                    controller.update(["craft_binding"]);
+                  },
+                );
+              })),
     );
   }
 
