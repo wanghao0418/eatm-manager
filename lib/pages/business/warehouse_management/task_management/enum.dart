@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-04 13:34:16
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-05 11:33:45
+ * @LastEditTime: 2023-08-17 17:30:54
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/task_management/enum.dart
  * @Description: 枚举集合
  */
@@ -15,7 +15,11 @@ enum ExecutionStatus {
   // 执行中
   executing(value: 2, label: '执行中'),
   // 已完成
-  completed(value: 3, label: '已完成');
+  completed(value: 3, label: '已完成'),
+  // 任务取消
+  canceled(value: 4, label: '任务取消'),
+  // 任务失败
+  failed(value: -1, label: '任务失败');
 
   final int value;
   final String label;
@@ -29,6 +33,10 @@ enum ExecutionStatus {
         return ExecutionStatus.executing;
       case 3:
         return ExecutionStatus.completed;
+      case 4:
+        return ExecutionStatus.canceled;
+      case -1:
+        return ExecutionStatus.failed;
       default:
         return null;
     }
@@ -40,6 +48,8 @@ enum ExecutionStatus {
       SelectOption(label: '待执行', value: 1),
       SelectOption(label: '执行中', value: 2),
       SelectOption(label: '已完成', value: 3),
+      SelectOption(label: '任务取消', value: 4),
+      SelectOption(label: '任务失败', value: -1),
     ];
   }
 }
