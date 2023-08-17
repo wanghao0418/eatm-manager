@@ -2,13 +2,12 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 15:08:21
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-17 17:59:11
+ * @LastEditTime: 2023-08-17 18:17:06
  * @FilePath: /eatm_manager/lib/pages/business/reporting/view.dart
  * @Description: 报工视图层
  */
 import 'package:eatm_manager/common/components/filled_icon_button.dart';
 import 'package:eatm_manager/common/components/line_form_label.dart';
-import 'package:eatm_manager/common/components/themed_text.dart';
 import 'package:eatm_manager/common/components/title_card.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -289,9 +288,9 @@ class _ReportingViewGetX extends GetView<ReportingController> {
                     } else {
                       controller.stateManager.setFilter((element) =>
                           controller.selectedMouldSNList.contains(
-                              element.cells['mouldSN']!.value.toString()));
+                              element.cells['mouldnums']!.value.toString()));
                     }
-                    controller.update(["craft_binding"]);
+                    controller.update(["reporting"]);
                   },
                 );
               })),
@@ -312,63 +311,56 @@ class _ReportingViewGetX extends GetView<ReportingController> {
               enableRowChecked: true,
               width: 150),
           PlutoColumn(
+            title: '机床名称',
+            field: 'resourcenames',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+          ),
+          PlutoColumn(
+            title: '托盘类型',
+            field: 'traytype',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+          ),
+          PlutoColumn(
+            title: '芯片Id',
+            field: 'identnumber',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+          ),
+          PlutoColumn(
+            title: '模号',
+            field: 'mouldnums',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+          ),
+          PlutoColumn(
+            title: '件号',
+            field: 'partnums',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+          ),
+          PlutoColumn(
             title: '监控编号',
             field: 'mwpieceCode',
             type: PlutoColumnType.text(),
             readOnly: true,
           ),
           PlutoColumn(
-            title: '模号',
-            field: 'mouldSN',
+            title: '工步Id',
+            field: 'pstepid',
             type: PlutoColumnType.text(),
             readOnly: true,
           ),
           PlutoColumn(
-            title: '件号',
-            field: 'partSN',
-            type: PlutoColumnType.text(),
-            readOnly: true,
-          ),
-          // PlutoColumn(
-          //   title: '芯片Id',
-          //   field: 'barCode',
-          //   type: PlutoColumnType.text(),
-          //   readOnly: true,
-          // ),
-
-          PlutoColumn(
-            title: '工件名称',
-            field: 'mwpieceName',
-            type: PlutoColumnType.text(),
-            readOnly: true,
-          ),
-          // PlutoColumn(
-          //   title: '装夹方式',
-          //   field: 'clampType',
-          //   type: PlutoColumnType.text(),
-          //   readOnly: true,
-          // ),
-          // PlutoColumn(
-          //   title: '托盘类型',
-          //   field: 'trayType',
-          //   type: PlutoColumnType.text(),
-          //   readOnly: true,
-          // ),
-          // PlutoColumn(
-          //   title: '部门',
-          //   field: 'resoucenamedept',
-          //   type: PlutoColumnType.text(),
-          //   readOnly: true,
-          // ),
-          PlutoColumn(
-            title: '类型',
-            field: 'workpieceType',
+            title: '工件尺寸',
+            field: 'norms',
             type: PlutoColumnType.text(),
             readOnly: true,
           ),
           PlutoColumn(
-            title: '尺寸',
-            field: 'spec',
+            title: '工序状态',
+            field: 'wpstate',
             type: PlutoColumnType.text(),
             readOnly: true,
           ),

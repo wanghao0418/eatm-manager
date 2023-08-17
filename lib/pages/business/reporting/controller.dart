@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 15:08:21
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-17 18:05:33
+ * @LastEditTime: 2023-08-17 18:16:23
  * @FilePath: /eatm_manager/lib/pages/business/reporting/controller.dart
  * @Description: 报工逻辑层
  */
@@ -159,7 +159,7 @@ class ReportingController extends GetxController {
   void onReady() {
     super.onReady();
     getPersonList();
-    // getMachineList();
+    getMachineList();
     _initData();
   }
 
