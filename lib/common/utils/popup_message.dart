@@ -2,11 +2,12 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-06-14 14:48:08
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-15 11:37:56
+ * @LastEditTime: 2023-08-17 14:58:22
  * @FilePath: /eatm_ini_config/lib/common/utils/popup_message.dart
  * @Description: 弹窗消息
  */
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 
 class PopupMessage {
@@ -90,12 +91,13 @@ class PopupMessage {
     SmartDialog.showLoading(
         alignment: Alignment.center,
         // usePenetrate: true,
+        clickMaskDismiss: true,
         builder: (context) {
           return Center(
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              ProgressRing(),
-              SizedBox(height: 10),
+              const ProgressRing(),
+              10.verticalSpace,
               Text(
                 message != null ? message : '加载中，请稍候...',
                 style: TextStyle(color: Colors.white, fontSize: 14),
