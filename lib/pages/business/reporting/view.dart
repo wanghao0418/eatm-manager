@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 15:08:21
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-17 14:52:31
+ * @LastEditTime: 2023-08-17 17:59:11
  * @FilePath: /eatm_manager/lib/pages/business/reporting/view.dart
  * @Description: 报工视图层
  */
@@ -202,7 +202,7 @@ class _ReportingViewGetX extends GetView<ReportingController> {
             ),
             LineFormLabel(
               label: '机床编号',
-              width: 200,
+              width: 250,
               isExpanded: true,
               isRequired: true,
               child: ComboBox<String?>(

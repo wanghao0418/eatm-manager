@@ -2,11 +2,13 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 15:08:21
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-17 14:54:01
+ * @LastEditTime: 2023-08-17 17:54:58
  * @FilePath: /eatm_manager/lib/pages/business/reporting/controller.dart
  * @Description: 报工逻辑层
  */
+import 'package:eatm_manager/common/api/line_body_api.dart';
 import 'package:eatm_manager/common/api/reporting_api.dart';
+import 'package:eatm_manager/common/models/machineInfo.dart';
 import 'package:eatm_manager/common/models/selectOption.dart';
 import 'package:eatm_manager/common/utils/http.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
@@ -74,14 +76,14 @@ class ReportingController extends GetxController {
   // 获取机床列表
   void getMachineList() async {
     PopupMessage.showLoading();
-    ResponseApiBody res = await ReportingApi.getMachineResource({});
+    ResponseApiBody res = await LineBodyApi.getMachineList();
     PopupMessage.closeLoading();
     if (res.success!) {
       List<SelectOption> data = (res.data as List)
-          .map((e) => SelectOption(label: e, value: e))
+          .map((e) => MachineInfo.fromJson(e))
+          .map((e) => SelectOption(label: e.machineName, value: e.machineName))
           .toList();
-      machineList.clear();
-      machineList.addAll(data);
+      machineList = data;
       _initData();
     } else {
       PopupMessage.showFailInfoBar(res.message as String);
@@ -157,7 +159,7 @@ class ReportingController extends GetxController {
   void onReady() {
     super.onReady();
     getPersonList();
-    // getMachineList();
+    getMachineList();
     _initData();
   }
 
