@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 15:08:21
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-17 17:38:44
+ * @LastEditTime: 2023-08-17 18:05:33
  * @FilePath: /eatm_manager/lib/pages/business/reporting/controller.dart
  * @Description: 报工逻辑层
  */
@@ -77,15 +77,14 @@ class ReportingController extends GetxController {
   // 获取机床列表
   void getMachineList() async {
     PopupMessage.showLoading();
-    ResponseApiBody res = await LineBodyApi.getMachineList({});
+    ResponseApiBody res = await LineBodyApi.getMachineList();
     PopupMessage.closeLoading();
     if (res.success!) {
       List<SelectOption> data = (res.data as List)
           .map((e) => MachineInfo.fromJson(e))
           .map((e) => SelectOption(label: e.machineName, value: e.machineName))
           .toList();
-      machineList.clear();
-      machineList.addAll(data);
+      machineList = data;
       _initData();
     } else {
       PopupMessage.showFailInfoBar(res.message as String);
