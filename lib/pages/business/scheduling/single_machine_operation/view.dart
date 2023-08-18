@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 10:59:00
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-17 17:13:34
+ * @LastEditTime: 2023-08-18 08:57:28
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/single_machine_operation/view.dart
  * @Description:  单机负荷视图层
  */
@@ -305,15 +305,16 @@ class _SingleMachineOperationViewGetX
             ),
             containChild: Stack(children: [
               Container(
-                  padding: const EdgeInsets.only(bottom: 50),
+                  padding: EdgeInsets.only(bottom: 50.r),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    padding: EdgeInsets.fromLTRB(20.r, 10.r, 20.r, 10.r),
                     child: Row(
                       children: [
                         Expanded(
                           flex: 0,
                           child: Container(
                               // margin: const EdgeInsets.only(right: 30),
+                              width: 100.r,
                               child: Center(
                                   child:
                                       //     Image.asset(
@@ -323,10 +324,10 @@ class _SingleMachineOperationViewGetX
                                       //   fit: BoxFit.cover,
                                       // )
                                       Icon(
-                            FluentIcons.settings,
-                            size: 50,
-                            color: globalTheme.accentColor,
-                          ))),
+                                FluentIcons.settings,
+                                size: 50.r,
+                                color: globalTheme.accentColor,
+                              ))),
                         ),
                         Expanded(
                             child: Column(
@@ -334,20 +335,20 @@ class _SingleMachineOperationViewGetX
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                                margin: const EdgeInsets.only(bottom: 20),
+                                margin: EdgeInsets.only(bottom: 20.r),
                                 child: Column(
                                   children: [
                                     Text(
                                       '工件模号',
                                       // maxLines: 2,
                                       style: TextStyle(
-                                          fontSize: 14.sp,
+                                          fontSize: 14.spMin,
                                           fontWeight: FontWeight.bold,
                                           color: Color(0xff606266),
                                           overflow: TextOverflow.ellipsis),
                                     ),
-                                    const SizedBox(
-                                      height: 5,
+                                    SizedBox(
+                                      height: 5.r,
                                     ),
                                     Text(
                                       // _nCountWorkPiece == 0
@@ -356,7 +357,7 @@ class _SingleMachineOperationViewGetX
                                       //         .toString(),
                                       '',
                                       style: TextStyle(
-                                          fontSize: 14.sp,
+                                          fontSize: 14.spMin,
                                           color: Color(0xff606266),
                                           overflow: TextOverflow.ellipsis),
                                     ),
@@ -369,13 +370,13 @@ class _SingleMachineOperationViewGetX
                                   '工件件号',
                                   // maxLines: 2,
                                   style: TextStyle(
-                                      fontSize: 14.sp,
+                                      fontSize: 14.spMin,
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xff606266),
                                       overflow: TextOverflow.ellipsis),
                                 ),
-                                const SizedBox(
-                                  height: 5,
+                                SizedBox(
+                                  height: 5.r,
                                 ),
                                 Text(
                                   // _nCountWorkPiece == 0
@@ -383,7 +384,7 @@ class _SingleMachineOperationViewGetX
                                   //     : currentWorkpieceInfo!.partSn.toString(),
                                   '',
                                   style: TextStyle(
-                                      fontSize: 14.sp,
+                                      fontSize: 14.spMin,
                                       color: Color(0xff606266),
                                       overflow: TextOverflow.ellipsis),
                                 ),
@@ -397,20 +398,20 @@ class _SingleMachineOperationViewGetX
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                                margin: const EdgeInsets.only(bottom: 20),
+                                margin: EdgeInsets.only(bottom: 20.r),
                                 child: Column(
                                   children: [
                                     Text(
                                       '计划开始时间',
                                       // maxLines: 2,
                                       style: TextStyle(
-                                          fontSize: 14.sp,
+                                          fontSize: 14.spMin,
                                           fontWeight: FontWeight.bold,
                                           color: Color(0xff606266),
                                           overflow: TextOverflow.ellipsis),
                                     ),
-                                    const SizedBox(
-                                      height: 5,
+                                    SizedBox(
+                                      height: 5.r,
                                     ),
                                     Text(
                                       // _nCountWorkPiece == 0
@@ -419,7 +420,7 @@ class _SingleMachineOperationViewGetX
                                       //         .toString(),
                                       '',
                                       style: TextStyle(
-                                          fontSize: 14.sp,
+                                          fontSize: 14.spMin,
                                           color: Color(0xff606266),
                                           overflow: TextOverflow.ellipsis),
                                     ),
@@ -432,13 +433,13 @@ class _SingleMachineOperationViewGetX
                                   '计划结束时间',
                                   // maxLines: 2,
                                   style: TextStyle(
-                                      fontSize: 14.sp,
+                                      fontSize: 14.spMin,
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xff606266),
                                       overflow: TextOverflow.ellipsis),
                                 ),
-                                const SizedBox(
-                                  height: 5,
+                                SizedBox(
+                                  height: 5.r,
                                 ),
                                 Text(
                                   // _nCountWorkPiece == 0
@@ -446,7 +447,7 @@ class _SingleMachineOperationViewGetX
                                   //     : currentWorkpieceInfo!.endTime.toString(),
                                   '',
                                   style: TextStyle(
-                                      fontSize: 14.sp,
+                                      fontSize: 14.spMin,
                                       color: Color(0xff606266),
                                       overflow: TextOverflow.ellipsis),
                                 ),
@@ -462,15 +463,15 @@ class _SingleMachineOperationViewGetX
                 bottom: 0,
                 right: 0,
                 child: Container(
-                    height: 50,
+                    height: 50.r,
                     decoration:
                         const BoxDecoration(color: Color.fromARGB(70, 0, 0, 0)),
-                    padding: const EdgeInsets.all(5),
+                    padding: EdgeInsets.all(5.r),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 5),
+                          padding: EdgeInsets.symmetric(horizontal: 5.r),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -478,7 +479,7 @@ class _SingleMachineOperationViewGetX
                                   flex: 1,
                                   child: ProgressBar(
                                       value: percentageNum,
-                                      strokeWidth: 5,
+                                      strokeWidth: 5.r,
                                       backgroundColor: const Color(0xfff4f4f5),
                                       activeColor: percentageNum == 1.0
                                           ? Color.fromARGB(255, 248, 185, 91)
@@ -495,7 +496,7 @@ class _SingleMachineOperationViewGetX
                                 child: Text(
                                   '${(percentageNum).toStringAsFixed(1)}%',
                                   style: const TextStyle(color: Colors.white),
-                                ).fontSize(16.spMin),
+                                ).fontSize(14.spMin),
                               )
                             ],
                           ),
@@ -510,7 +511,7 @@ class _SingleMachineOperationViewGetX
                                   style: TextStyle(
                                       color: Colors.white,
                                       overflow: TextOverflow.ellipsis,
-                                      fontSize: 16.spMin),
+                                      fontSize: 14.r),
                                 ),
                               ),
                               Expanded(
@@ -521,7 +522,7 @@ class _SingleMachineOperationViewGetX
                                     style: TextStyle(
                                         color: Colors.white,
                                         overflow: TextOverflow.ellipsis,
-                                        fontSize: 16.spMin),
+                                        fontSize: 14.r),
                                   ))
                             ]),
                       ],
@@ -564,10 +565,91 @@ class _SingleMachineOperationViewGetX
   }
 
   // 排产
+  Widget _buildProductionScheduling() {
+    return Container(
+      decoration: globalTheme.contentDecoration,
+      child: TitleCard(
+        title: '排产',
+        containChild: Container(),
+        cardBackgroundColor: globalTheme.pageContentBackgroundColor,
+      ),
+    );
+  }
 
   // 状态提示
+  Widget _renderStatusInfo() {
+    return Container(
+      width: 400.r,
+      decoration: globalTheme.contentDecoration,
+      child: TitleCard(
+          containChild: Stack(children: [
+            Container(
+                padding: EdgeInsets.only(bottom: 50.r),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        flex: 0,
+                        child: Container(
+                            margin: const EdgeInsets.only(right: 30),
+                            child: Center(
+                                // child: _nCount == 0
+                                //     ? statusIcon[0]
+                                //     : statusIcon[currentMachine!.colorStatus],
+                                )),
+                      ),
+                      Expanded(
+                          child: Text(
+                        // _nCount == 0 ? '' : currentMachine!.planStatus.toString(),
+                        '',
+                        style: TextStyle(
+                            fontSize: 16.spMin, color: Color(0xff666666)),
+                      ))
+                    ],
+                  ),
+                )),
+            Positioned(
+              left: 0,
+              bottom: 0,
+              right: 0,
+              child: Container(
+                  height: 50.r,
+                  decoration:
+                      const BoxDecoration(color: Color.fromARGB(70, 0, 0, 0)),
+                  padding: const EdgeInsets.all(5),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: Text(
+                              // _nCount == 0
+                              //     ? ''
+                              //     : currentMachine!.statusReason.toString(),
+                              '',
+                              style: TextStyle(
+                                  fontSize: 16.spMin, color: Colors.white),
+                              overflow: TextOverflow.ellipsis))
+                    ],
+                  )),
+            ),
+          ]),
+          cardBackgroundColor: globalTheme.pageContentBackgroundColor),
+    );
+  }
 
   // 刀具
+  Widget _renderToolTable() {
+    return Container(
+      decoration: globalTheme.contentDecoration,
+      child: TitleCard(
+        title: '刀具',
+        containChild: Container(),
+        cardBackgroundColor: globalTheme.pageContentBackgroundColor,
+      ),
+    );
+  }
 
   // 主视图
   Widget _buildView() {
@@ -576,7 +658,7 @@ class _SingleMachineOperationViewGetX
         child: Column(
           children: [
             SizedBox(
-              height: 240,
+              height: 240.r,
               child: Row(
                 children: [
                   _buildMacInfo(),
@@ -597,22 +679,15 @@ class _SingleMachineOperationViewGetX
                     child: Column(
                   children: [
                     Expanded(
-                        child: Container(
-                      decoration: globalTheme.contentDecoration,
-                    )),
+                      child: _buildProductionScheduling(),
+                    ),
                     globalTheme.contentDistance.verticalSpace,
                     Expanded(
                         child: Row(
                       children: [
-                        Container(
-                          width: 300,
-                          decoration: globalTheme.contentDecoration,
-                        ),
+                        _renderStatusInfo(),
                         globalTheme.contentDistance.horizontalSpace,
-                        Expanded(
-                            child: Container(
-                          decoration: globalTheme.contentDecoration,
-                        ))
+                        Expanded(child: _renderToolTable())
                       ],
                     ))
                   ],
