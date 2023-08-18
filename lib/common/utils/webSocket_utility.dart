@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-05-11 09:45:37
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-15 18:27:12
+ * @LastEditTime: 2023-08-18 10:15:04
  * @FilePath: /mesui/lib/pages/common/customWebSocket.dart
  * @Description: websocket
  */
@@ -24,7 +24,7 @@ class WebSocketUtility {
   final Function(String message) onMessage;
   Function onOpen = () {};
   Function onClose = () {};
-  Function onError = () {};
+  Function(String? error) onError = (error) {};
 
   WebSocketUtility(
       {required this.connectUrl,
