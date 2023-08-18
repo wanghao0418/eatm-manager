@@ -2,14 +2,16 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 15:08:21
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-17 18:17:06
+ * @LastEditTime: 2023-08-18 11:31:23
  * @FilePath: /eatm_manager/lib/pages/business/reporting/view.dart
  * @Description: 报工视图层
  */
 import 'package:eatm_manager/common/components/filled_icon_button.dart';
 import 'package:eatm_manager/common/components/line_form_label.dart';
+import 'package:eatm_manager/common/components/themed_text.dart';
 import 'package:eatm_manager/common/components/title_card.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
+import 'package:eatm_manager/pages/business/reporting/enum.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -73,30 +75,30 @@ class _ReportingViewGetX extends GetView<ReportingController> {
                 },
               ),
             ),
-            LineFormLabel(
-              label: '机床编号',
-              width: 200,
-              isExpanded: true,
-              child: ComboBox<int?>(
-                placeholder: const Text('请选择'),
-                value: controller.search.workpieceType,
-                items: controller.workpieceTypeList
-                    .map((e) => ComboBoxItem<int?>(
-                        value: e.value,
-                        child: Tooltip(
-                          message: e.label,
-                          child: Text(
-                            e.label!,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        )))
-                    .toList(),
-                onChanged: (value) {
-                  controller.search.workpieceType = value;
-                  controller.update(["reporting"]);
-                },
-              ),
-            ),
+            // LineFormLabel(
+            //   label: '机床编号',
+            //   width: 200,
+            //   isExpanded: true,
+            //   child: ComboBox<int?>(
+            //     placeholder: const Text('请选择'),
+            //     value: controller.search.workpieceType,
+            //     items: controller.workpieceTypeList
+            //         .map((e) => ComboBoxItem<int?>(
+            //             value: e.value,
+            //             child: Tooltip(
+            //               message: e.label,
+            //               child: Text(
+            //                 e.label!,
+            //                 overflow: TextOverflow.ellipsis,
+            //               ),
+            //             )))
+            //         .toList(),
+            //     onChanged: (value) {
+            //       controller.search.workpieceType = value;
+            //       controller.update(["reporting"]);
+            //     },
+            //   ),
+            // ),
             LineFormLabel(
               label: '监控编号',
               width: 200,
@@ -363,6 +365,11 @@ class _ReportingViewGetX extends GetView<ReportingController> {
             field: 'wpstate',
             type: PlutoColumnType.text(),
             readOnly: true,
+            renderer: (rendererContext) {
+              return ThemedText(
+                WpState.fromValue(rendererContext.cell.value)!.label,
+              );
+            },
           ),
           PlutoColumn(
             title: '',

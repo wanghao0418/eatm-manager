@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-17 09:22:02
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-17 13:29:48
+ * @LastEditTime: 2023-08-18 10:27:56
  * @FilePath: /eatm_manager/lib/common/api/reporting_api.dart
  * @Description: 报工接口
  */
@@ -10,7 +10,7 @@ import 'package:eatm_manager/common/utils/http.dart';
 
 class ReportingApi {
   // 是否启用mock
-  static bool isMock = true;
+  static bool isMock = false;
 
   // 查询
   static Future<ResponseApiBody> query(Map<String, dynamic> params) async {

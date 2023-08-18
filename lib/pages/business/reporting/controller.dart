@@ -135,12 +135,19 @@ class ReportingController extends GetxController {
 
   // 报工
   void report() async {
+    if (stateManager.checkedRows.isEmpty) {
+      PopupMessage.showWarningInfoBar("请选择报工数据");
+      return;
+    }
     if (!reporting.validate()) {
       return;
     }
     PopupMessage.showLoading();
-    ResponseApiBody res =
-        await ReportingApi.reporting({"params": reporting.toJson()});
+    var pstepIds =
+        stateManager.checkedRows.map((e) => e.cells['pstepid']!.value).toList();
+    var params = reporting.toJson();
+    params.addAll({"pstepid": pstepIds});
+    ResponseApiBody res = await ReportingApi.reporting({"params": params});
     PopupMessage.closeLoading();
     if (res.success!) {
       PopupMessage.showSuccessInfoBar("报工成功");
@@ -211,14 +218,14 @@ class Reporting {
 
   Reporting.fromJson(Map<String, dynamic> json) {
     person = json['person'];
-    machineSn = json['mouldSN'];
+    machineSn = json['machineSN'];
     reportType = json['reportType'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['person'] = person;
-    data['mouldSN'] = machineSn;
+    data['machineSN'] = machineSn;
     data['reportType'] = reportType;
     return data;
   }
