@@ -51,6 +51,7 @@ dependencies:
   pluto_grid: ^7.0.2
   excel: 2.0.4
   file_selector: ^0.9.2+4
+  dotted_border: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:

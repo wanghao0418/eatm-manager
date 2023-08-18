@@ -2,18 +2,21 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 10:59:00
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-18 08:57:28
+ * @LastEditTime: 2023-08-18 18:29:18
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/single_machine_operation/view.dart
  * @Description:  单机负荷视图层
  */
 import 'package:eatm_manager/common/components/title_card.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/common/style/icons.dart';
+import 'package:eatm_manager/pages/business/scheduling/single_machine_operation/enum.dart';
+import 'package:eatm_manager/pages/business/scheduling/single_machine_operation/widgets/scheduling_gantt_chart.dart';
 import 'package:eatm_manager/pages/business/scheduling/single_machine_operation/widgets/time_now.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pluto_grid/pluto_grid.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import 'index.dart';
@@ -61,7 +64,7 @@ class _SingleMachineOperationViewGetX
                 ),
                 padding: const EdgeInsets.fromLTRB(5, 3, 5, 3),
                 child: Text(
-                  '', // _nCount == 0 ? '' : currentMachine!.curStatus.toString(),
+                  controller.currentMachine?.curStatus ?? '',
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 12.sp,
@@ -86,14 +89,12 @@ class _SingleMachineOperationViewGetX
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      '',
-                                      // _nCount == 0
-                                      //     ? ''
-                                      //     : currentMachine!.deviceName.toString(),
+                                      controller.currentMachine?.deviceName ??
+                                          '',
                                       style: TextStyle(
                                           fontSize: 24.sp,
                                           fontWeight: FontWeight.bold,
-                                          color: Color(0xff333333)),
+                                          color: const Color(0xff333333)),
                                     ),
                                     const TimeNow()
                                   ],
@@ -118,21 +119,19 @@ class _SingleMachineOperationViewGetX
                                       style: TextStyle(
                                           fontSize: 14.sp,
                                           fontWeight: FontWeight.bold,
-                                          color: Color(0xff606266),
+                                          color: const Color(0xff606266),
                                           overflow: TextOverflow.ellipsis),
                                     ),
                                     const SizedBox(
                                       height: 5,
                                     ),
                                     Text(
-                                      '',
-                                      // _nCount == 0
-                                      //     ? ''
-                                      //     : currentMachine!.todayOnlineTimes
-                                      //         .toString(),
+                                      controller.currentMachine
+                                              ?.todayOnlineTimes ??
+                                          '',
                                       style: TextStyle(
                                           fontSize: 14.sp,
-                                          color: Color(0xff606266),
+                                          color: const Color(0xff606266),
                                           overflow: TextOverflow.ellipsis),
                                     ),
                                   ],
@@ -147,21 +146,18 @@ class _SingleMachineOperationViewGetX
                                   style: TextStyle(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.bold,
-                                      color: Color(0xff606266),
+                                      color: const Color(0xff606266),
                                       overflow: TextOverflow.ellipsis),
                                 ),
                                 const SizedBox(
                                   height: 5,
                                 ),
                                 Text(
-                                  '',
-                                  // _nCount == 0
-                                  //     ? ''
-                                  //     : currentMachine!.allRunTimes.toString(),
+                                  controller.currentMachine?.allRunTimes ?? '',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       fontSize: 14.sp,
-                                      color: Color(0xff606266),
+                                      color: const Color(0xff606266),
                                       overflow: TextOverflow.ellipsis),
                                 ),
                               ],
@@ -184,20 +180,18 @@ class _SingleMachineOperationViewGetX
                                       style: TextStyle(
                                           fontSize: 14.sp,
                                           fontWeight: FontWeight.bold,
-                                          color: Color(0xff606266),
+                                          color: const Color(0xff606266),
                                           overflow: TextOverflow.ellipsis),
                                     ),
                                     const SizedBox(
                                       height: 5,
                                     ),
                                     Text(
-                                      '',
-                                      // _nCount == 0
-                                      //     ? ''
-                                      //     : currentMachine!.systemType.toString(),
+                                      controller.currentMachine?.systemType ??
+                                          '',
                                       style: TextStyle(
                                           fontSize: 14.sp,
-                                          color: Color(0xff606266),
+                                          color: const Color(0xff606266),
                                           overflow: TextOverflow.ellipsis),
                                     ),
                                   ],
@@ -211,18 +205,15 @@ class _SingleMachineOperationViewGetX
                                   style: TextStyle(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.bold,
-                                      color: Color(0xff606266),
+                                      color: const Color(0xff606266),
                                       overflow: TextOverflow.ellipsis),
                                 ),
                                 const SizedBox(
                                   height: 5,
                                 ),
                                 Text(
-                                  '',
-                                  // _nCount == 0
-                                  //     ? ''
-                                  //     : currentMachine!.chuckCraftLimit
-                                  //         .toString(),
+                                  controller.currentMachine?.chuckCraftLimit ??
+                                      '',
                                   style: TextStyle(
                                       fontSize: 14.sp,
                                       color: Color(0xff606266),
@@ -258,22 +249,18 @@ class _SingleMachineOperationViewGetX
                     height: 100.r,
                     child: ProgressRing(
                       activeColor: globalTheme.accentColor,
-                      // valueColor:
-                      //     const AlwaysStoppedAnimation(Color(0xff409eff)),
-                      value: 50,
-                      // value: _nCount == 0
-                      //     ? 0
-                      //     : currentMachine!.utilizationRate!.toInt() / 100,
+                      value: controller.currentMachine?.utilizationRate
+                              ?.toDouble() ??
+                          0,
                       strokeWidth: 18.0.r,
                       backgroundColor: Color(0xfff4f4f5),
                     )),
                 Text(
-                  // '${_nCount == 0 ? '' : currentMachine!.utilizationRate}%',
-                  '50%',
+                  '${controller.currentMachine?.utilizationRate.toString() ?? '0'}%',
                   style: TextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xff333333)),
+                      color: const Color(0xff333333)),
                 )
               ],
             )),
@@ -283,7 +270,12 @@ class _SingleMachineOperationViewGetX
 
   // 工件信息
   Widget _buildWorkpieceInfo() {
-    double percentageNum = 50;
+    double denominator =
+        controller.currentProductionOrder?.processFenmu?.toDouble() ?? 0.0;
+    double numerator =
+        controller.currentProductionOrder?.processFenzi?.toDouble() ?? 0.0;
+    double percentageNum =
+        numerator < denominator ? numerator / denominator * 100 : 1.0;
 
     return Expanded(
       flex: 9,
@@ -295,10 +287,7 @@ class _SingleMachineOperationViewGetX
             headBorderColor: Colors.white,
             headTextColor: Colors.black,
             titleRight: Text(
-              // _nCountWorkPiece == 0
-              //     ? ''
-              //     : currentWorkpieceInfo!.workpieceSn.toString(),
-              '',
+              controller.currentProductionOrder?.workpieceSn ?? '',
               style: TextStyle(
                   fontSize: 16.sp,
                   color: FluentTheme.of(Get.context!).typography.body!.color),
@@ -310,25 +299,14 @@ class _SingleMachineOperationViewGetX
                     padding: EdgeInsets.fromLTRB(20.r, 10.r, 20.r, 10.r),
                     child: Row(
                       children: [
-                        Expanded(
-                          flex: 0,
-                          child: Container(
-                              // margin: const EdgeInsets.only(right: 30),
-                              width: 100.r,
-                              child: Center(
-                                  child:
-                                      //     Image.asset(
-                                      //   'assets/img/setting.png',
-                                      //   width: 50,
-                                      //   height: 50,
-                                      //   fit: BoxFit.cover,
-                                      // )
-                                      Icon(
-                                FluentIcons.settings,
-                                size: 50.r,
-                                color: globalTheme.accentColor,
-                              ))),
-                        ),
+                        SizedBox(
+                            width: 100.r,
+                            child: Center(
+                                child: Icon(
+                              FluentIcons.settings,
+                              size: 50.r,
+                              color: globalTheme.accentColor,
+                            ))),
                         Expanded(
                             child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -344,18 +322,16 @@ class _SingleMachineOperationViewGetX
                                       style: TextStyle(
                                           fontSize: 14.spMin,
                                           fontWeight: FontWeight.bold,
-                                          color: Color(0xff606266),
+                                          color: const Color(0xff606266),
                                           overflow: TextOverflow.ellipsis),
                                     ),
                                     SizedBox(
                                       height: 5.r,
                                     ),
                                     Text(
-                                      // _nCountWorkPiece == 0
-                                      //     ? ''
-                                      //     : currentWorkpieceInfo!.mouldSn
-                                      //         .toString(),
-                                      '',
+                                      controller.currentProductionOrder
+                                              ?.mouldSn ??
+                                          '',
                                       style: TextStyle(
                                           fontSize: 14.spMin,
                                           color: Color(0xff606266),
@@ -372,20 +348,18 @@ class _SingleMachineOperationViewGetX
                                   style: TextStyle(
                                       fontSize: 14.spMin,
                                       fontWeight: FontWeight.bold,
-                                      color: Color(0xff606266),
+                                      color: const Color(0xff606266),
                                       overflow: TextOverflow.ellipsis),
                                 ),
                                 SizedBox(
                                   height: 5.r,
                                 ),
                                 Text(
-                                  // _nCountWorkPiece == 0
-                                  //     ? ''
-                                  //     : currentWorkpieceInfo!.partSn.toString(),
-                                  '',
+                                  controller.currentProductionOrder?.partSn ??
+                                      '',
                                   style: TextStyle(
                                       fontSize: 14.spMin,
-                                      color: Color(0xff606266),
+                                      color: const Color(0xff606266),
                                       overflow: TextOverflow.ellipsis),
                                 ),
                               ],
@@ -407,21 +381,20 @@ class _SingleMachineOperationViewGetX
                                       style: TextStyle(
                                           fontSize: 14.spMin,
                                           fontWeight: FontWeight.bold,
-                                          color: Color(0xff606266),
+                                          color: const Color(0xff606266),
                                           overflow: TextOverflow.ellipsis),
                                     ),
                                     SizedBox(
                                       height: 5.r,
                                     ),
                                     Text(
-                                      // _nCountWorkPiece == 0
-                                      //     ? ''
-                                      //     : currentWorkpieceInfo!.startTime
-                                      //         .toString(),
-                                      '',
+                                      controller
+                                              .currentProductionOrder?.startTime
+                                              .toString() ??
+                                          '',
                                       style: TextStyle(
                                           fontSize: 14.spMin,
-                                          color: Color(0xff606266),
+                                          color: const Color(0xff606266),
                                           overflow: TextOverflow.ellipsis),
                                     ),
                                   ],
@@ -435,20 +408,19 @@ class _SingleMachineOperationViewGetX
                                   style: TextStyle(
                                       fontSize: 14.spMin,
                                       fontWeight: FontWeight.bold,
-                                      color: Color(0xff606266),
+                                      color: const Color(0xff606266),
                                       overflow: TextOverflow.ellipsis),
                                 ),
                                 SizedBox(
                                   height: 5.r,
                                 ),
                                 Text(
-                                  // _nCountWorkPiece == 0
-                                  //     ? ''
-                                  //     : currentWorkpieceInfo!.endTime.toString(),
-                                  '',
+                                  controller.currentProductionOrder?.endTime
+                                          .toString() ??
+                                      '',
                                   style: TextStyle(
                                       fontSize: 14.spMin,
-                                      color: Color(0xff606266),
+                                      color: const Color(0xff606266),
                                       overflow: TextOverflow.ellipsis),
                                 ),
                               ],
@@ -483,13 +455,7 @@ class _SingleMachineOperationViewGetX
                                       backgroundColor: const Color(0xfff4f4f5),
                                       activeColor: percentageNum == 1.0
                                           ? Color.fromARGB(255, 248, 185, 91)
-                                          : const Color(0xff67c23a)
-                                      // valueColor: AlwaysStoppedAnimation(
-                                      //     percentageNum == 1.0
-                                      //         ? Color.fromARGB(
-                                      //             255, 248, 185, 91)
-                                      //         : const Color(0xff67c23a)),
-                                      )),
+                                          : const Color(0xff67c23a))),
                               10.horizontalSpace,
                               Container(
                                 padding: const EdgeInsets.only(right: 20),
@@ -507,7 +473,7 @@ class _SingleMachineOperationViewGetX
                               Expanded(
                                 flex: 1,
                                 child: Text(
-                                  '已加工时间： ',
+                                  '已加工时间:${controller.currentProductionOrder?.hasWorkTime ?? 0}',
                                   style: TextStyle(
                                       color: Colors.white,
                                       overflow: TextOverflow.ellipsis,
@@ -517,7 +483,7 @@ class _SingleMachineOperationViewGetX
                               Expanded(
                                   flex: 1,
                                   child: Text(
-                                    "计划剩余时间： ",
+                                    "计划剩余时间:${controller.currentProductionOrder?.leftWorkTime ?? 0}",
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
                                         color: Colors.white,
@@ -551,7 +517,7 @@ class _SingleMachineOperationViewGetX
                     color: globalTheme.buttonIconColor,
                   ),
                   title: Text(value),
-                  selected: controller.currentMachine == value,
+                  selected: controller.currentMachine?.deviceName == value,
                   onPressed: () {
                     controller.selectMachine(value);
                   },
@@ -570,7 +536,7 @@ class _SingleMachineOperationViewGetX
       decoration: globalTheme.contentDecoration,
       child: TitleCard(
         title: '排产',
-        containChild: Container(),
+        containChild: SchedulingGanttChart(),
         cardBackgroundColor: globalTheme.pageContentBackgroundColor,
       ),
     );
@@ -585,6 +551,9 @@ class _SingleMachineOperationViewGetX
           containChild: Stack(children: [
             Container(
                 padding: EdgeInsets.only(bottom: 50.r),
+                color: OperatingStatus.fromValue(
+                        controller.currentMachine?.colorStatus ?? 0)!
+                    .backgroundColor,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                   child: Row(
@@ -596,17 +565,17 @@ class _SingleMachineOperationViewGetX
                         child: Container(
                             margin: const EdgeInsets.only(right: 30),
                             child: Center(
-                                // child: _nCount == 0
-                                //     ? statusIcon[0]
-                                //     : statusIcon[currentMachine!.colorStatus],
-                                )),
+                              child: OperatingStatus.fromValue(
+                                      controller.currentMachine?.colorStatus ??
+                                          0)!
+                                  .icon,
+                            )),
                       ),
                       Expanded(
                           child: Text(
-                        // _nCount == 0 ? '' : currentMachine!.planStatus.toString(),
-                        '',
+                        controller.currentMachine?.planStatus ?? '',
                         style: TextStyle(
-                            fontSize: 16.spMin, color: Color(0xff666666)),
+                            fontSize: 16.spMin, color: const Color(0xff666666)),
                       ))
                     ],
                   ),
@@ -624,10 +593,7 @@ class _SingleMachineOperationViewGetX
                     children: [
                       Expanded(
                           child: Text(
-                              // _nCount == 0
-                              //     ? ''
-                              //     : currentMachine!.statusReason.toString(),
-                              '',
+                              controller.currentMachine?.statusReason ?? '',
                               style: TextStyle(
                                   fontSize: 16.spMin, color: Colors.white),
                               overflow: TextOverflow.ellipsis))
@@ -644,9 +610,47 @@ class _SingleMachineOperationViewGetX
     return Container(
       decoration: globalTheme.contentDecoration,
       child: TitleCard(
-        title: '刀具',
-        containChild: Container(),
+        title: '预警刀具',
         cardBackgroundColor: globalTheme.pageContentBackgroundColor,
+        containChild: PlutoGrid(
+          columns: [
+            PlutoColumn(
+                title: '刀具名称',
+                field: 'toolTypeNo',
+                type: PlutoColumnType.text(),
+                readOnly: true),
+            PlutoColumn(
+                title: '理论时间',
+                field: 'theoreticalTime',
+                type: PlutoColumnType.text(),
+                readOnly: true),
+            PlutoColumn(
+                title: '使用时间',
+                field: 'usedTime',
+                type: PlutoColumnType.text(),
+                readOnly: true),
+            PlutoColumn(
+                title: '原因',
+                field: 'alarmTip',
+                type: PlutoColumnType.text(),
+                readOnly: true),
+          ],
+          rows: controller.currentAlarmTools!
+              .map((e) => PlutoRow(cells: {
+                    'toolTypeNo': PlutoCell(value: e.toolTypeNo),
+                    'theoreticalTime': PlutoCell(value: e.theoreticalTime),
+                    'usedTime': PlutoCell(value: e.usedTime),
+                    'alarmTip': PlutoCell(value: e.alarmTip),
+                  }))
+              .toList(),
+          onLoaded: (event) {
+            controller.stateManager = event.stateManager;
+            // controller.updateRows();
+          },
+          configuration: globalTheme.plutoGridConfig.copyWith(
+              columnSize: const PlutoGridColumnSizeConfig(
+                  autoSizeMode: PlutoAutoSizeMode.scale)),
+        ),
       ),
     );
   }

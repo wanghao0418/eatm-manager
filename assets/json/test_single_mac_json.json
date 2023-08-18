@@ -6,7 +6,7 @@
       "PictureStatus": 1,
       "ColorStatus": 1,
       "SystemType": "TEST",
-      "UtilizationRate": 0,
+      "UtilizationRate": 33,
       "chipRemoval": [
         {
           "theoreticalTime": 0,
