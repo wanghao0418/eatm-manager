@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-08 10:21:35
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-15 14:39:43
+ * @LastEditTime: 2023-08-18 11:15:26
  * @FilePath: /eatm_manager/lib/pages/business/task_query/view.dart
  * @Description: 任务查询视图层
  */
@@ -402,7 +402,7 @@ class _TaskQueryViewGetX extends GetView<TaskQueryController> {
             readOnly: true,
             width: 120,
             renderer: (rendererContext) {
-              return Text(rendererContext.cell.value,
+              return Text(rendererContext.cell.value ?? '',
                   style: FluentTheme.of(context).typography.body!.copyWith(
                         color: rendererContext.cell.value == '已入库'
                             ? Color(0xff47C93A)

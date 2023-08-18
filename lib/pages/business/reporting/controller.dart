@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 15:08:21
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-18 09:20:28
+ * @LastEditTime: 2023-08-18 11:13:30
  * @FilePath: /eatm_manager/lib/pages/business/reporting/controller.dart
  * @Description: 报工逻辑层
  */
@@ -148,7 +148,6 @@ class ReportingController extends GetxController {
     var params = reporting.toJson();
     params.addAll({"pstepid": pstepIds});
     ResponseApiBody res = await ReportingApi.reporting({"params": params});
-    print(params);
     PopupMessage.closeLoading();
     if (res.success!) {
       PopupMessage.showSuccessInfoBar("报工成功");
