@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 15:08:21
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-17 17:54:58
+ * @LastEditTime: 2023-08-18 09:20:28
  * @FilePath: /eatm_manager/lib/pages/business/reporting/controller.dart
  * @Description: 报工逻辑层
  */
@@ -135,12 +135,20 @@ class ReportingController extends GetxController {
 
   // 报工
   void report() async {
+    if (stateManager.checkedRows.isEmpty) {
+      PopupMessage.showWarningInfoBar("请选择报工数据");
+      return;
+    }
     if (!reporting.validate()) {
       return;
     }
     PopupMessage.showLoading();
-    ResponseApiBody res =
-        await ReportingApi.reporting({"params": reporting.toJson()});
+    var pstepIds =
+        stateManager.checkedRows.map((e) => e.cells['pstepid']!.value).toList();
+    var params = reporting.toJson();
+    params.addAll({"pstepid": pstepIds});
+    ResponseApiBody res = await ReportingApi.reporting({"params": params});
+    print(params);
     PopupMessage.closeLoading();
     if (res.success!) {
       PopupMessage.showSuccessInfoBar("报工成功");
@@ -211,14 +219,14 @@ class Reporting {
 
   Reporting.fromJson(Map<String, dynamic> json) {
     person = json['person'];
-    machineSn = json['mouldSN'];
+    machineSn = json['machineSN'];
     reportType = json['reportType'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['person'] = person;
-    data['mouldSN'] = machineSn;
+    data['machineSN'] = machineSn;
     data['reportType'] = reportType;
     return data;
   }
