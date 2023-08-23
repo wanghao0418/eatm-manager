@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-18 13:50:06
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-18 18:51:01
+ * @LastEditTime: 2023-08-21 13:21:54
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/single_machine_operation/enum.dart
  * @Description: 枚举
  */
@@ -55,7 +55,8 @@ enum SchedulingStatus {
   // 运行中
   scheduled(value: 1, label: '运行中', color: Color.fromARGB(180, 123, 155, 225)),
   // 报警
-  completed(value: 2, label: '已完成', color: Color.fromARGB(180, 189, 109, 108));
+  completed(
+      value: 2, label: '刀具寿命告警', color: Color.fromARGB(180, 189, 109, 108));
 
   final int value;
   final String label;
@@ -73,6 +74,35 @@ enum SchedulingStatus {
         return SchedulingStatus.completed;
       default:
         return SchedulingStatus.unscheduled;
+    }
+  }
+}
+
+// 机床运行状态
+enum MachineStatus {
+  // 异常
+  abnormal(value: 0, label: '异常', color: Color.fromARGB(255, 255, 30, 30)),
+  // 空闲
+  idle(value: 1, label: '空闲', color: Color.fromARGB(255, 158, 167, 188)),
+  // 运行
+  running(value: 2, label: '运行', color: Color.fromARGB(255, 76, 123, 241));
+
+  final int value;
+  final String label;
+  final Color? color;
+  const MachineStatus(
+      {required this.value, required this.label, required this.color});
+
+  static MachineStatus? fromValue(int? value) {
+    switch (value) {
+      case -1:
+        return MachineStatus.abnormal;
+      case 0:
+        return MachineStatus.idle;
+      case 1:
+        return MachineStatus.running;
+      default:
+        return MachineStatus.idle;
     }
   }
 }

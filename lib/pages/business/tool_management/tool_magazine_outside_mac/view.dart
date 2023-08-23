@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-10 13:33:12
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-15 14:16:14
+ * @LastEditTime: 2023-08-23 13:51:24
  * @FilePath: /flutter-mesui/lib/pages/tool_management/tool_magazine_outside_mac/view.dart
  */
 import 'package:eatm_manager/common/api/tool_management/externalToolMagazine_api.dart';
@@ -11,6 +11,7 @@ import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/common/utils/http.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:fluent_ui/fluent_ui.dart' as FluentUI;
@@ -122,9 +123,7 @@ class _ToolMagazineOutsideMacViewGetX
                                         SmartDialog.dismiss(tag: 'addTool');
                                       },
                                       child: const Text('取消')),
-                                  SizedBox(
-                                    width: 20.0,
-                                  ),
+                                  20.horizontalSpace,
                                   FluentUI.FilledButton(
                                       onPressed: () async {
                                         var state = (_key.currentState!

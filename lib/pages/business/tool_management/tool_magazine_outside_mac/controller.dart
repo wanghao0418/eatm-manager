@@ -15,7 +15,7 @@ class ToolMagazineOutsideMacController extends GetxController {
   // 获取刀库列表
   void getToolMagazineList() async {
     List<Future> futures = [
-      ExternalToolMagazineApi.getMachineOutToolBaseInfo({}),
+      ExternalToolMagazineApi.getMachineOutToolBaseInfo(),
       ExternalToolMagazineApi.getMachineOutToolQuery({}),
     ];
     // ResponseBodyApi res =

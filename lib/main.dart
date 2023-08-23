@@ -41,33 +41,38 @@ class MyApp extends StatelessWidget {
             themeMode: globalTheme.mode,
             color: globalTheme.accentColor,
             theme: FluentThemeData(
-              brightness: Brightness.light,
-              accentColor: globalTheme.accentColor,
-              fontFamily: 'Roboto',
-              visualDensity: VisualDensity.standard,
-              focusTheme: FocusThemeData(
-                glowFactor: is10footScreen(context) ? 2.0 : 0.0,
-              ),
-              iconTheme: const IconThemeData(
-                color: Colors.black,
-              ),
-              scaffoldBackgroundColor: Colors.transparent,
-            ),
+                brightness: Brightness.light,
+                accentColor: globalTheme.accentColor,
+                fontFamily: 'Roboto',
+                visualDensity: VisualDensity.standard,
+                focusTheme: FocusThemeData(
+                  glowFactor: is10footScreen(context) ? 2.0 : 0.0,
+                ),
+                iconTheme: const IconThemeData(
+                  color: Colors.black,
+                ),
+                scaffoldBackgroundColor: Colors.transparent,
+                dialogTheme: const ContentDialogThemeData(
+                  actionsPadding: EdgeInsets.all(10),
+                )),
             darkTheme: FluentThemeData(
-              brightness: Brightness.dark,
-              accentColor: globalTheme.accentColor,
-              fontFamily: 'Roboto',
-              visualDensity: VisualDensity.standard,
-              focusTheme: FocusThemeData(
-                glowFactor: is10footScreen(context) ? 2.0 : 0.0,
-              ),
-              iconTheme: const IconThemeData(
-                color: Colors.white,
-              ),
-              // 资源主题
-              // resources: ResourceDictionary.dark(
-              //     textFillColorPrimary: globalTheme.accentColor),
-            ),
+                brightness: Brightness.dark,
+                accentColor: globalTheme.accentColor,
+                fontFamily: 'Roboto',
+                visualDensity: VisualDensity.standard,
+                focusTheme: FocusThemeData(
+                  glowFactor: is10footScreen(context) ? 2.0 : 0.0,
+                ),
+                iconTheme: const IconThemeData(
+                  color: Colors.white,
+                ),
+                dialogTheme: const ContentDialogThemeData(
+                  actionsPadding: EdgeInsets.all(10),
+                )
+                // 资源主题
+                // resources: ResourceDictionary.dark(
+                //     textFillColorPrimary: globalTheme.accentColor),
+                ),
             home: GetMaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'EMAN',

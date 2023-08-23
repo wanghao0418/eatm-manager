@@ -23,7 +23,12 @@ import '../../pages/business/craft_binding/index.dart'
     deferred as craft_binding;
 import '../../pages/business/scheduling/single_machine_operation/index.dart'
     deferred as single_machine_operation;
+import '../../pages/business/scheduling/plan_gantt_chart/index.dart'
+    deferred as plan_gantt_chart;
 import '../../pages/business/reporting/index.dart' deferred as reporting;
+import '../../pages/business/scheduling/multiple_machine_operation/index.dart'
+    deferred as multiple_machine_operation;
+import '../../pages/business/data_entry/index.dart' deferred as data_entry;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -102,9 +107,11 @@ class MainChildPages {
         url: '/EDMTask',
         page: Center(child: Text('EDM任务')),
         icon: MyIcons.task),
+    // 计划甘特图
     MainChildPage(
         url: '/gantchart',
-        page: Center(child: Text('计划甘特图')),
+        page: DeferredWidget(plan_gantt_chart.loadLibrary,
+            () => plan_gantt_chart.PlanGanttChartPage()),
         icon: MyIcons.ganttChart),
     MainChildPage(
         url: '/AutoRunView',
@@ -155,6 +162,7 @@ class MainChildPages {
         url: '/EquipmentStatus',
         page: Center(child: Text('设备状态')),
         icon: MyIcons.equipmentManage),
+    // 单机负荷
     MainChildPage(
         url: '/MachineKanBan',
         page: DeferredWidget(single_machine_operation.loadLibrary,
@@ -162,7 +170,8 @@ class MainChildPages {
         icon: MyIcons.loadControl),
     MainChildPage(
         url: '/DataEntry',
-        page: Center(child: Text('数据录入')),
+        page: DeferredWidget(
+            data_entry.loadLibrary, () => data_entry.DataEntryPage()),
         icon: MyIcons.dataEntry),
     MainChildPage(
         url: '/AutomaticHandling',
@@ -184,14 +193,17 @@ class MainChildPages {
         url: '/MaintenanceManagement',
         page: Center(child: Text('维保设置')),
         icon: MyIcons.maintenance),
+    // 多机负荷
     MainChildPage(
         url: '/AllMachine',
-        page: Center(child: Text('多机负荷')),
+        page: DeferredWidget(multiple_machine_operation.loadLibrary,
+            () => multiple_machine_operation.MultipleMachineOperationPage()),
         icon: MyIcons.loadAnalysis),
     MainChildPage(
         url: '/projectOverview',
         page: Center(child: Text('项目运行统计')),
         icon: MyIcons.operationStatistics),
+    // 任务查询
     MainChildPage(
         url: '/taskQuery',
         page: DeferredWidget(
@@ -201,6 +213,7 @@ class MainChildPages {
         url: '/dataBoard',
         page: Center(child: Text('大屏看板')),
         icon: MyIcons.kanBan),
+    // 机床绑定
     MainChildPage(
         url: '/BindMachine',
         page: DeferredWidget(machine_binding.loadLibrary,

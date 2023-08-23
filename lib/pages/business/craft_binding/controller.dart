@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-10 15:41:34
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-15 14:19:22
+ * @LastEditTime: 2023-08-23 15:23:54
  * @FilePath: /eatm_manager/lib/pages/business/craft_binding/controller.dart
  * @Description: 工艺绑定逻辑层
  */
@@ -255,7 +255,9 @@ class CraftBindingController extends GetxController {
             list.add(data.toJson());
           }
           ResponseApiBody res = await WorkProcessBindingApi.binding({
-            "list": list,
+            "params": {
+              "list": list,
+            }
           });
           if (res.success!) {
             PopupMessage.showSuccessInfoBar("绑定成功");

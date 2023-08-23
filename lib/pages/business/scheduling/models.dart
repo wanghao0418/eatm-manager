@@ -1,17 +1,19 @@
-class SingleMacSchedulingData {
+class MacSchedulingData {
   List<DeviceResources>? deviceResources;
   List<String>? allMachineName;
 
-  SingleMacSchedulingData({this.deviceResources, this.allMachineName});
+  MacSchedulingData({this.deviceResources, this.allMachineName});
 
-  SingleMacSchedulingData.fromJson(Map<String, dynamic> json) {
+  MacSchedulingData.fromJson(Map<String, dynamic> json) {
     if (json['deviceResources'] != null) {
       deviceResources = <DeviceResources>[];
       json['deviceResources'].forEach((v) {
         deviceResources!.add(new DeviceResources.fromJson(v));
       });
     }
-    allMachineName = json['AllMachineName'].cast<String>();
+    if (json['AllMachineName'] != null) {
+      allMachineName = json['AllMachineName'].cast<String>();
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -20,7 +22,9 @@ class SingleMacSchedulingData {
       data['deviceResources'] =
           this.deviceResources!.map((v) => v.toJson()).toList();
     }
-    data['AllMachineName'] = this.allMachineName;
+    if (this.allMachineName != null) {
+      data['AllMachineName'] = this.allMachineName;
+    }
     return data;
   }
 }
@@ -46,6 +50,7 @@ class DeviceResources {
   int? useStatus;
   String? todayOnlineTimes;
   String? types;
+  int? deviceInlineStatus;
 
   DeviceResources(
       {this.allRunTimes,
@@ -67,7 +72,8 @@ class DeviceResources {
       this.statusReason,
       this.useStatus,
       this.todayOnlineTimes,
-      this.types});
+      this.types,
+      this.deviceInlineStatus});
 
   DeviceResources.fromJson(Map<String, dynamic> json) {
     allRunTimes = json['AllRunTimes'];
@@ -115,6 +121,7 @@ class DeviceResources {
     useStatus = json['useStatus'];
     todayOnlineTimes = json['todayOnlineTimes'];
     types = json['types'];
+    deviceInlineStatus = json['deviceInlineStatus'];
   }
 
   Map<String, dynamic> toJson() {
@@ -152,6 +159,7 @@ class DeviceResources {
     data['useStatus'] = this.useStatus;
     data['todayOnlineTimes'] = this.todayOnlineTimes;
     data['types'] = this.types;
+    data['deviceInlineStatus'] = this.deviceInlineStatus;
     return data;
   }
 }

@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-09 15:34:58
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-17 09:57:15
+ * @LastEditTime: 2023-08-23 10:56:12
  * @FilePath: /eatm_manager/lib/pages/business/machine_binding/view.dart
  * @Description: 机床绑定视图层
  */
@@ -10,6 +10,7 @@ import 'package:eatm_manager/common/components/filled_icon_button.dart';
 import 'package:eatm_manager/common/components/line_form_label.dart';
 import 'package:eatm_manager/common/components/themed_text.dart';
 import 'package:eatm_manager/common/components/title_card.dart';
+import 'package:eatm_manager/common/models/machineInfo.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/common/widgets/pop_date_picker.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -136,13 +137,12 @@ class _MachineBindingViewGetX extends GetView<MachineBindingController> {
                     onChanged: (value) {
                       controller.currentMachineType = value;
                       // 更新机台编号
-                      controller.currentMachineName = controller
+                      controller.currentMachine = controller
                                   .machineMap[controller.currentMachineType] ==
                               null
                           ? null
                           : controller
-                              .machineMap[controller.currentMachineType]!
-                              .first['MacName'];
+                              .machineMap[controller.currentMachineType]!.first;
                       controller.update(["machine_binding"]);
                     },
                   )),
@@ -151,11 +151,11 @@ class _MachineBindingViewGetX extends GetView<MachineBindingController> {
                   width: 200,
                   isRequired: true,
                   isExpanded: true,
-                  child: ComboBox<String?>(
+                  child: ComboBox<MachineInfo?>(
                     placeholder: const Text('请选择'),
-                    value: controller.currentMachineName,
+                    value: controller.currentMachine,
                     items: controller.machineNameList
-                        .map((e) => ComboBoxItem<String?>(
+                        .map((e) => ComboBoxItem<MachineInfo?>(
                             value: e.value,
                             child: Tooltip(
                               message: e.label,
@@ -166,7 +166,7 @@ class _MachineBindingViewGetX extends GetView<MachineBindingController> {
                             )))
                         .toList(),
                     onChanged: (value) {
-                      controller.currentMachineName = value;
+                      controller.currentMachine = value;
                       controller.update(["machine_binding"]);
                     },
                   )),

@@ -2,14 +2,14 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 10:59:00
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-18 18:29:18
+ * @LastEditTime: 2023-08-22 10:22:32
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/single_machine_operation/view.dart
  * @Description:  单机负荷视图层
  */
 import 'package:eatm_manager/common/components/title_card.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/common/style/icons.dart';
-import 'package:eatm_manager/pages/business/scheduling/single_machine_operation/enum.dart';
+import 'package:eatm_manager/pages/business/scheduling/enum.dart';
 import 'package:eatm_manager/pages/business/scheduling/single_machine_operation/widgets/scheduling_gantt_chart.dart';
 import 'package:eatm_manager/pages/business/scheduling/single_machine_operation/widgets/time_now.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -289,8 +289,8 @@ class _SingleMachineOperationViewGetX
             titleRight: Text(
               controller.currentProductionOrder?.workpieceSn ?? '',
               style: TextStyle(
-                  fontSize: 16.sp,
-                  color: FluentTheme.of(Get.context!).typography.body!.color),
+                fontSize: 16.sp,
+              ),
             ),
             containChild: Stack(children: [
               Container(
@@ -515,9 +515,10 @@ class _SingleMachineOperationViewGetX
                   leading: Icon(
                     MyIcons.machineTool,
                     color: globalTheme.buttonIconColor,
+                    size: 24.r,
                   ),
-                  title: Text(value),
-                  selected: controller.currentMachine?.deviceName == value,
+                  title: Text(value).fontSize(16.spMin),
+                  selected: controller.currentMachineName == value,
                   onPressed: () {
                     controller.selectMachine(value);
                   },
@@ -536,7 +537,11 @@ class _SingleMachineOperationViewGetX
       decoration: globalTheme.contentDecoration,
       child: TitleCard(
         title: '排产',
-        containChild: SchedulingGanttChart(),
+        containChild: SchedulingGanttChart(
+          deviceName: controller.currentMachine?.deviceName ?? '',
+          deviceStatus: controller.currentMachine?.useStatus ?? 0,
+          schedulingList: controller.currentMachine?.productionOrders ?? [],
+        ),
         cardBackgroundColor: globalTheme.pageContentBackgroundColor,
       ),
     );

@@ -2,16 +2,17 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 15:04:20
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-18 17:35:24
+ * @LastEditTime: 2023-08-23 13:28:21
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/single_machine_operation/controller.dart
  * @Description: 单机负荷逻辑层
  */
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:eatm_manager/common/store/config.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
 import 'package:eatm_manager/common/utils/webSocket_utility.dart';
-import 'package:eatm_manager/pages/business/scheduling/single_machine_operation/models.dart';
+import 'package:eatm_manager/pages/business/scheduling/models.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -29,6 +30,9 @@ class SingleMachineOperationController extends GetxController {
   // 机床信息列表
   List<DeviceResources> machineInfoList = [];
 
+  // 当前选中的机床名称
+  String? currentMachineName;
+
   // 当前选中的机床
   DeviceResources? currentMachine;
 
@@ -44,6 +48,8 @@ class SingleMachineOperationController extends GetxController {
   List<DeviceAlarmToolNoArr>? get currentAlarmTools =>
       currentMachine?.deviceAlarmToolNoArr ?? [];
 
+  Timer? timer;
+
   _initData() {
     update(["single_machine_operation"]);
   }
@@ -53,12 +59,33 @@ class SingleMachineOperationController extends GetxController {
     var connectUrl = ConfigStore.instance.schedulingWebsocketUrL;
     webSocketUtility = WebSocketUtility(
         connectUrl: connectUrl!,
-        onOpen: () {},
+        onOpen: () {
+          // 获取机床列表
+          webSocketUtility?.sendMessage('SendStart#3#0#SendEnd');
+        },
         onError: (e) {
-          readLocalData();
+          if (e.toString().contains('Connection refused') ||
+              e.toString().contains('connection failed')) {
+            readLocalData();
+          }
         },
         onMessage: (message) {
-          print(message);
+          final jsonData = MacSchedulingData.fromJson(json.decode(message));
+          // 获取机床列表消息
+          if (jsonData.allMachineName != null) {
+            machineList = jsonData.allMachineName!;
+            // 查询第一台机床信息
+            currentMachineName = machineList[0];
+            webSocketUtility
+                ?.sendMessage('SendStart#2#$currentMachineName#SendEnd');
+            // 定时获取当前机床数据
+            timerGetMachineData();
+          } else if (jsonData.deviceResources != null) {
+            // 获取机床信息消息
+            machineInfoList = jsonData.deviceResources!;
+            currentMachineNotifier.value = machineInfoList.firstWhere(
+                (element) => element.deviceName == currentMachineName);
+          }
         },
         onClose: () {
           webSocketUtility = null;
@@ -70,21 +97,32 @@ class SingleMachineOperationController extends GetxController {
   void readLocalData() async {
     String jsonStr =
         await rootBundle.loadString('assets/json/test_single_mac_json.json');
-    final jsonData = SingleMacSchedulingData.fromJson(json.decode(jsonStr));
+    final jsonData = MacSchedulingData.fromJson(json.decode(jsonStr));
     machineList = jsonData.allMachineName ?? [];
     machineInfoList = jsonData.deviceResources ?? [];
+    currentMachineName = machineList[0];
     currentMachineNotifier.value =
         machineInfoList.isNotEmpty ? machineInfoList[0] : null;
   }
 
+  // 定时获取当前机床数据
+  void timerGetMachineData() {
+    if (timer != null) {
+      timer?.cancel();
+    }
+    timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      webSocketUtility?.sendMessage('SendStart#2#$currentMachineName#SendEnd');
+    });
+  }
+
   // 选择机床
   void selectMachine(String machineName) {
-    // currentMachine = machineName;
-    currentMachine = machineInfoList
-        .firstWhere((element) => element.deviceName == machineName);
-    if (currentMachine != null) {
-      _initData();
+    if (machineName == currentMachineName) {
+      return;
     }
+    currentMachineName = machineName;
+    webSocketUtility?.sendMessage('SendStart#4#$machineName#SendEnd');
+    _initData();
   }
 
   // 更新刀具报警表格

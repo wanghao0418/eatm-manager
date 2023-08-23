@@ -1,0 +1,1784 @@
+{
+  "deviceResources": [
+    {
+      "AllRunTimes": "02:15:00",
+      "ChuckCraftLimit": "CNC,NCMM",
+      "ColorStatus": 1,
+      "PictureStatus": 0,
+      "SystemType": "TEST",
+      "UtilizationRate": 50,
+      "chipRemoval": [
+        {
+          "theoreticalTime": 600,
+          "usedTime": 487
+        }
+      ],
+      "curStatus": "运行中",
+      "curStatusColor": 1,
+      "cuttingFluid": [
+        {
+          "theoreticalTime": 60,
+          "usedTime": 40
+        }
+      ],
+      "deviceAlarmToolNoArr": [],
+      "deviceId": 1,
+      "deviceInlineStatus": 1,
+      "deviceName": "Okuma01",
+      "deviceToolNoArr": [
+        {
+          "leftTime": 192,
+          "theoreticalTime": 202,
+          "toolTypeNo": "T1",
+          "usedTime": 10
+        },
+        {
+          "leftTime": 210,
+          "theoreticalTime": 255,
+          "toolTypeNo": "T10",
+          "usedTime": 45
+        },
+        {
+          "leftTime": 172,
+          "theoreticalTime": 226,
+          "toolTypeNo": "T16",
+          "usedTime": 54
+        },
+        {
+          "leftTime": 167,
+          "theoreticalTime": 188,
+          "toolTypeNo": "T18",
+          "usedTime": 21
+        },
+        {
+          "leftTime": 158,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T21",
+          "usedTime": 42
+        },
+        {
+          "leftTime": 411,
+          "theoreticalTime": 456,
+          "toolTypeNo": "T23",
+          "usedTime": 45
+        },
+        {
+          "leftTime": 799,
+          "theoreticalTime": 855,
+          "toolTypeNo": "T26",
+          "usedTime": 56
+        },
+        {
+          "leftTime": 500,
+          "theoreticalTime": 550,
+          "toolTypeNo": "T3",
+          "usedTime": 50
+        },
+        {
+          "leftTime": 150,
+          "theoreticalTime": 250,
+          "toolTypeNo": "T30",
+          "usedTime": 100
+        },
+        {
+          "leftTime": 176,
+          "theoreticalTime": 255,
+          "toolTypeNo": "T32",
+          "usedTime": 79
+        },
+        {
+          "leftTime": 635,
+          "theoreticalTime": 700,
+          "toolTypeNo": "T34",
+          "usedTime": 65
+        },
+        {
+          "leftTime": 163,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T35",
+          "usedTime": 37
+        },
+        {
+          "leftTime": 557,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T37",
+          "usedTime": 43
+        },
+        {
+          "leftTime": 433,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T39",
+          "usedTime": 67
+        },
+        {
+          "leftTime": 236,
+          "theoreticalTime": 259,
+          "toolTypeNo": "T5",
+          "usedTime": 23
+        },
+        {
+          "leftTime": 302,
+          "theoreticalTime": 400,
+          "toolTypeNo": "T61",
+          "usedTime": 98
+        },
+        {
+          "leftTime": 277,
+          "theoreticalTime": 300,
+          "toolTypeNo": "T66",
+          "usedTime": 23
+        },
+        {
+          "leftTime": 180,
+          "theoreticalTime": 256,
+          "toolTypeNo": "T67",
+          "usedTime": 76
+        },
+        {
+          "leftTime": 235,
+          "theoreticalTime": 258,
+          "toolTypeNo": "T7",
+          "usedTime": 23
+        }
+      ],
+      "planRunTime": "4.92",
+      "planStatus": "未来4.92小时运行",
+      "productionOrders": [
+        {
+          "colorNum": 1,
+          "curCraftData": "",
+          "endTime": "2023-02-22 17:56:43",
+          "hasWorkTime": "00:36:52",
+          "item": "Time:00:48:03",
+          "leftWorkTime": "00:11:11",
+          "mouldSn": "P61A-1000044795-58587-OP50",
+          "partSn": "10.008",
+          "planMachineName": "",
+          "processFenmu": 2883,
+          "processFenzi": 2212,
+          "quantity": 2883,
+          "specifications": "",
+          "startTime": "2023-02-22 17:08:40",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-20.053-4-ZM"
+        },
+        {
+          "colorNum": 0,
+          "curCraftData": "",
+          "endTime": "2023-02-22 18:45:23",
+          "hasWorkTime": "00:36:52",
+          "item": "Time:00:47:40",
+          "leftWorkTime": "00:11:11",
+          "mouldSn": "3452-60",
+          "partSn": "618-10",
+          "planMachineName": "",
+          "processFenmu": 2860,
+          "processFenzi": 0,
+          "quantity": 2860,
+          "specifications": "",
+          "startTime": "2023-02-22 17:57:43",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-10.011-3-ZM"
+        },
+        {
+          "colorNum": 0,
+          "curCraftData": "",
+          "endTime": "2023-02-22 20:05:16",
+          "hasWorkTime": "00:36:52",
+          "item": "Time:01:18:53",
+          "leftWorkTime": "00:11:11",
+          "mouldSn": "PGS061-142",
+          "partSn": "21.015-5",
+          "planMachineName": "",
+          "processFenmu": 4733,
+          "processFenzi": 0,
+          "quantity": 4733,
+          "specifications": "",
+          "startTime": "2023-02-22 18:46:23",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-10.011-21-ZM"
+        },
+        {
+          "colorNum": 0,
+          "curCraftData": "",
+          "endTime": "2023-02-22 21:04:03",
+          "hasWorkTime": "00:36:52",
+          "item": "Time:00:57:47",
+          "leftWorkTime": "00:11:11",
+          "mouldSn": "EATM-2",
+          "partSn": "67.001",
+          "planMachineName": "",
+          "processFenmu": 3467,
+          "processFenzi": 0,
+          "quantity": 3467,
+          "specifications": "",
+          "startTime": "2023-02-22 20:06:16",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "EATM-2-20221208-2-F2"
+        }
+      ],
+      "statusReason": "",
+      "todayOnlineTimes": "04:27:20",
+      "types": "CNC",
+      "useStatus": 1
+    },
+    {
+      "AllRunTimes": "07:06:50",
+      "ChuckCraftLimit": "CNC",
+      "ColorStatus": 1,
+      "PictureStatus": 1,
+      "SystemType": "TEST",
+      "UtilizationRate": 81,
+      "chipRemoval": [
+        {
+          "theoreticalTime": 1000,
+          "usedTime": 552
+        }
+      ],
+      "curStatus": "运行中",
+      "curStatusColor": 1,
+      "cuttingFluid": [
+        {
+          "theoreticalTime": 100,
+          "usedTime": 30
+        }
+      ],
+      "deviceAlarmToolNoArr": [
+        {
+          "AlarmTip": "[21.015-6]工件加工时刀具寿命超时",
+          "theoreticalTime": 150,
+          "toolTypeNo": "T1",
+          "usedTime": 99
+        }
+      ],
+      "deviceId": 2,
+      "deviceInlineStatus": 1,
+      "deviceName": "Okuma02",
+      "deviceToolNoArr": [
+        {
+          "leftTime": 68,
+          "theoreticalTime": 150,
+          "toolTypeNo": "T1",
+          "usedTime": 82
+        },
+        {
+          "leftTime": 222,
+          "theoreticalTime": 259,
+          "toolTypeNo": "T10",
+          "usedTime": 37
+        },
+        {
+          "leftTime": 216,
+          "theoreticalTime": 225,
+          "toolTypeNo": "T16",
+          "usedTime": 9
+        },
+        {
+          "leftTime": 130,
+          "theoreticalTime": 186,
+          "toolTypeNo": "T18",
+          "usedTime": 56
+        },
+        {
+          "leftTime": 556,
+          "theoreticalTime": 590,
+          "toolTypeNo": "T21",
+          "usedTime": 34
+        },
+        {
+          "leftTime": 410,
+          "theoreticalTime": 440,
+          "toolTypeNo": "T23",
+          "usedTime": 30
+        },
+        {
+          "leftTime": 195,
+          "theoreticalTime": 227,
+          "toolTypeNo": "T26",
+          "usedTime": 32
+        },
+        {
+          "leftTime": 167,
+          "theoreticalTime": 199,
+          "toolTypeNo": "T3",
+          "usedTime": 32
+        },
+        {
+          "leftTime": 148,
+          "theoreticalTime": 226,
+          "toolTypeNo": "T30",
+          "usedTime": 78
+        },
+        {
+          "leftTime": 158,
+          "theoreticalTime": 256,
+          "toolTypeNo": "T32",
+          "usedTime": 98
+        },
+        {
+          "leftTime": 485,
+          "theoreticalTime": 550,
+          "toolTypeNo": "T34",
+          "usedTime": 65
+        },
+        {
+          "leftTime": 150,
+          "theoreticalTime": 195,
+          "toolTypeNo": "T35",
+          "usedTime": 45
+        },
+        {
+          "leftTime": 562,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T37",
+          "usedTime": 38
+        },
+        {
+          "leftTime": 129,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T39",
+          "usedTime": 71
+        },
+        {
+          "leftTime": 83,
+          "theoreticalTime": 250,
+          "toolTypeNo": "T5",
+          "usedTime": 167
+        },
+        {
+          "leftTime": 165,
+          "theoreticalTime": 230,
+          "toolTypeNo": "T61",
+          "usedTime": 65
+        },
+        {
+          "leftTime": 247,
+          "theoreticalTime": 330,
+          "toolTypeNo": "T66",
+          "usedTime": 83
+        },
+        {
+          "leftTime": 166,
+          "theoreticalTime": 256,
+          "toolTypeNo": "T67",
+          "usedTime": 90
+        },
+        {
+          "leftTime": 221,
+          "theoreticalTime": 258,
+          "toolTypeNo": "T7",
+          "usedTime": 37
+        }
+      ],
+      "planRunTime": "2.13",
+      "planStatus": "2.13小时后停机（2023-03-01 17:46:38）",
+      "productionOrders": [
+        {
+          "colorNum": 1,
+          "curCraftData": "",
+          "endTime": "2023-02-22 17:58:01",
+          "hasWorkTime": "00:36:54",
+          "item": "Time:00:49:23",
+          "leftWorkTime": "00:12:29",
+          "mouldSn": "72D382203",
+          "partSn": "31.031-1",
+          "planMachineName": "",
+          "processFenmu": 2963,
+          "processFenzi": 2214,
+          "quantity": 2963,
+          "specifications": "",
+          "startTime": "2023-02-22 17:08:38",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-20.053-28-ZM"
+        },
+        {
+          "colorNum": 0,
+          "curCraftData": "",
+          "endTime": "2023-02-22 19:13:14",
+          "hasWorkTime": "00:36:54",
+          "item": "Time:01:14:13",
+          "leftWorkTime": "00:12:29",
+          "mouldSn": "78-72D-079077",
+          "partSn": "301",
+          "planMachineName": "",
+          "processFenmu": 4453,
+          "processFenzi": 0,
+          "quantity": 4453,
+          "specifications": "",
+          "startTime": "2023-02-22 17:59:01",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-10.011-25-ZM"
+        },
+        {
+          "colorNum": 2,
+          "curCraftData": "",
+          "endTime": "2023-02-22 20:16:19",
+          "hasWorkTime": "00:36:54",
+          "item": "Time:01:02:05",
+          "leftWorkTime": "00:12:29",
+          "mouldSn": "PGS062-153",
+          "partSn": "21.015-6",
+          "planMachineName": "",
+          "processFenmu": 3725,
+          "processFenzi": 0,
+          "quantity": 3725,
+          "specifications": "",
+          "startTime": "2023-02-22 19:14:14",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-20.053-42-ZM"
+        }
+      ],
+      "statusReason": "刀具缺失（T1刀具寿命到期）",
+      "todayOnlineTimes": "07:24:19",
+      "types": "CNC",
+      "useStatus": 1
+    },
+    {
+      "AllRunTimes": "04:21:44",
+      "ChuckCraftLimit": "CNC",
+      "ColorStatus": 1,
+      "PictureStatus": 0,
+      "SystemType": "TEST",
+      "UtilizationRate": 76,
+      "chipRemoval": [
+        {
+          "theoreticalTime": 1000,
+          "usedTime": 753
+        }
+      ],
+      "curStatus": "运行中",
+      "curStatusColor": 1,
+      "cuttingFluid": [
+        {
+          "theoreticalTime": 600,
+          "usedTime": 570
+        }
+      ],
+      "deviceAlarmToolNoArr": [],
+      "deviceId": 3,
+      "deviceInlineStatus": 1,
+      "deviceName": "Okuma03",
+      "deviceToolNoArr": [
+        {
+          "leftTime": 134,
+          "theoreticalTime": 201,
+          "toolTypeNo": "T1",
+          "usedTime": 67
+        },
+        {
+          "leftTime": 224,
+          "theoreticalTime": 258,
+          "toolTypeNo": "T10",
+          "usedTime": 34
+        },
+        {
+          "leftTime": 171,
+          "theoreticalTime": 225,
+          "toolTypeNo": "T16",
+          "usedTime": 54
+        },
+        {
+          "leftTime": 144,
+          "theoreticalTime": 187,
+          "toolTypeNo": "T18",
+          "usedTime": 43
+        },
+        {
+          "leftTime": 112,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T21",
+          "usedTime": 88
+        },
+        {
+          "leftTime": 147,
+          "theoreticalTime": 181,
+          "toolTypeNo": "T23",
+          "usedTime": 34
+        },
+        {
+          "leftTime": 165,
+          "theoreticalTime": 300,
+          "toolTypeNo": "T26",
+          "usedTime": 135
+        },
+        {
+          "leftTime": 176,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T3",
+          "usedTime": 24
+        },
+        {
+          "leftTime": 197,
+          "theoreticalTime": 229,
+          "toolTypeNo": "T30",
+          "usedTime": 32
+        },
+        {
+          "leftTime": 210,
+          "theoreticalTime": 255,
+          "toolTypeNo": "T32",
+          "usedTime": 45
+        },
+        {
+          "leftTime": 576,
+          "theoreticalTime": 588,
+          "toolTypeNo": "T34",
+          "usedTime": 12
+        },
+        {
+          "leftTime": 119,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T35",
+          "usedTime": 81
+        },
+        {
+          "leftTime": 354,
+          "theoreticalTime": 432,
+          "toolTypeNo": "T37",
+          "usedTime": 78
+        },
+        {
+          "leftTime": 534,
+          "theoreticalTime": 567,
+          "toolTypeNo": "T39",
+          "usedTime": 33
+        },
+        {
+          "leftTime": 234,
+          "theoreticalTime": 257,
+          "toolTypeNo": "T5",
+          "usedTime": 23
+        },
+        {
+          "leftTime": 123,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T61",
+          "usedTime": 77
+        },
+        {
+          "leftTime": 499,
+          "theoreticalTime": 544,
+          "toolTypeNo": "T66",
+          "usedTime": 45
+        },
+        {
+          "leftTime": 201,
+          "theoreticalTime": 255,
+          "toolTypeNo": "T67",
+          "usedTime": 54
+        },
+        {
+          "leftTime": 180,
+          "theoreticalTime": 257,
+          "toolTypeNo": "T7",
+          "usedTime": 77
+        }
+      ],
+      "planRunTime": "4.20",
+      "planStatus": "未来4.20小时运行",
+      "productionOrders": [
+        {
+          "colorNum": 1,
+          "curCraftData": "",
+          "endTime": "2023-02-22 18:47:33",
+          "hasWorkTime": "00:12:07",
+          "item": "Time:01:14:08",
+          "leftWorkTime": "01:02:01",
+          "mouldSn": "PGS062-142",
+          "partSn": "10.041-14",
+          "planMachineName": "",
+          "processFenmu": 4448,
+          "processFenzi": 727,
+          "quantity": 4448,
+          "specifications": "",
+          "startTime": "2023-02-22 17:33:25",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-10.011-39-ZM"
+        },
+        {
+          "colorNum": 0,
+          "curCraftData": "",
+          "endTime": "2023-02-22 19:41:54",
+          "hasWorkTime": "00:12:07",
+          "item": "Time:00:53:21",
+          "leftWorkTime": "01:02:01",
+          "mouldSn": "78-72D-079034",
+          "partSn": "408",
+          "planMachineName": "",
+          "processFenmu": 3201,
+          "processFenzi": 0,
+          "quantity": 3201,
+          "specifications": "",
+          "startTime": "2023-02-22 18:48:33",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-10.011-22-ZM"
+        },
+        {
+          "colorNum": 0,
+          "curCraftData": "",
+          "endTime": "2023-02-22 20:45:45",
+          "hasWorkTime": "00:12:07",
+          "item": "Time:01:02:51",
+          "leftWorkTime": "01:02:01",
+          "mouldSn": "PGS062-145",
+          "partSn": "21.015-2",
+          "planMachineName": "",
+          "processFenmu": 3771,
+          "processFenzi": 0,
+          "quantity": 3771,
+          "specifications": "",
+          "startTime": "2023-02-22 19:42:54",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-20.053-25-ZM"
+        }
+      ],
+      "statusReason": "",
+      "todayOnlineTimes": "05:42:06",
+      "types": "CNC",
+      "useStatus": 1
+    },
+    {
+      "AllRunTimes": "11:11:15",
+      "ChuckCraftLimit": "CNC",
+      "ColorStatus": 1,
+      "PictureStatus": 0,
+      "SystemType": "TEST",
+      "UtilizationRate": 84,
+      "chipRemoval": [
+        {
+          "theoreticalTime": 1000,
+          "usedTime": 568
+        }
+      ],
+      "curStatus": "运行中",
+      "curStatusColor": 1,
+      "cuttingFluid": [
+        {
+          "theoreticalTime": 100,
+          "usedTime": 80
+        }
+      ],
+      "deviceAlarmToolNoArr": [],
+      "deviceId": 4,
+      "deviceInlineStatus": 1,
+      "deviceName": "Okuma04",
+      "deviceToolNoArr": [
+        {
+          "leftTime": 718,
+          "theoreticalTime": 750,
+          "toolTypeNo": "T1",
+          "usedTime": 32
+        },
+        {
+          "leftTime": 194,
+          "theoreticalTime": 250,
+          "toolTypeNo": "T10",
+          "usedTime": 56
+        },
+        {
+          "leftTime": 877,
+          "theoreticalTime": 1000,
+          "toolTypeNo": "T16",
+          "usedTime": 123
+        },
+        {
+          "leftTime": 274,
+          "theoreticalTime": 430,
+          "toolTypeNo": "T18",
+          "usedTime": 156
+        },
+        {
+          "leftTime": 483,
+          "theoreticalTime": 650,
+          "toolTypeNo": "T21",
+          "usedTime": 167
+        },
+        {
+          "leftTime": 265,
+          "theoreticalTime": 430,
+          "toolTypeNo": "T23",
+          "usedTime": 165
+        },
+        {
+          "leftTime": 397,
+          "theoreticalTime": 560,
+          "toolTypeNo": "T26",
+          "usedTime": 163
+        },
+        {
+          "leftTime": 377,
+          "theoreticalTime": 400,
+          "toolTypeNo": "T3",
+          "usedTime": 23
+        },
+        {
+          "leftTime": 284,
+          "theoreticalTime": 430,
+          "toolTypeNo": "T30",
+          "usedTime": 146
+        },
+        {
+          "leftTime": 418,
+          "theoreticalTime": 450,
+          "toolTypeNo": "T32",
+          "usedTime": 32
+        },
+        {
+          "leftTime": 444,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T34",
+          "usedTime": 56
+        },
+        {
+          "leftTime": 253,
+          "theoreticalTime": 340,
+          "toolTypeNo": "T35",
+          "usedTime": 87
+        },
+        {
+          "leftTime": 376,
+          "theoreticalTime": 700,
+          "toolTypeNo": "T37",
+          "usedTime": 324
+        },
+        {
+          "leftTime": 1981,
+          "theoreticalTime": 2001,
+          "toolTypeNo": "T39",
+          "usedTime": 20
+        },
+        {
+          "leftTime": 584,
+          "theoreticalTime": 640,
+          "toolTypeNo": "T5",
+          "usedTime": 56
+        },
+        {
+          "leftTime": 235,
+          "theoreticalTime": 300,
+          "toolTypeNo": "T61",
+          "usedTime": 65
+        },
+        {
+          "leftTime": 424,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T66",
+          "usedTime": 76
+        },
+        {
+          "leftTime": 1985,
+          "theoreticalTime": 2030,
+          "toolTypeNo": "T67",
+          "usedTime": 45
+        },
+        {
+          "leftTime": 166,
+          "theoreticalTime": 400,
+          "toolTypeNo": "T7",
+          "usedTime": 234
+        }
+      ],
+      "planRunTime": "4.12",
+      "planStatus": "未来4.12小时运行",
+      "productionOrders": [
+        {
+          "colorNum": 1,
+          "curCraftData": "",
+          "endTime": "2023-02-22 18:18:41",
+          "hasWorkTime": "00:12:05",
+          "item": "Time:00:45:14",
+          "leftWorkTime": "00:33:09",
+          "mouldSn": "P61A-1000044795",
+          "partSn": "10.005",
+          "planMachineName": "",
+          "processFenmu": 2714,
+          "processFenzi": 725,
+          "quantity": 2714,
+          "specifications": "",
+          "startTime": "2023-02-22 17:33:27",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-20.053-6-ZM"
+        },
+        {
+          "colorNum": 0,
+          "curCraftData": "",
+          "endTime": "2023-02-22 19:51:24",
+          "hasWorkTime": "00:12:05",
+          "item": "Time:01:31:43",
+          "leftWorkTime": "00:33:09",
+          "mouldSn": "3452-50",
+          "partSn": "5516",
+          "planMachineName": "",
+          "processFenmu": 5503,
+          "processFenzi": 0,
+          "quantity": 5503,
+          "specifications": "",
+          "startTime": "2023-02-22 18:19:41",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-10.011-16-ZM"
+        },
+        {
+          "colorNum": 0,
+          "curCraftData": "",
+          "endTime": "2023-02-22 20:45:46",
+          "hasWorkTime": "00:12:05",
+          "item": "Time:00:53:22",
+          "leftWorkTime": "00:33:09",
+          "mouldSn": "P61A-1000030529-69013-OP50",
+          "partSn": "20.003-6",
+          "planMachineName": "",
+          "processFenmu": 3202,
+          "processFenzi": 0,
+          "quantity": 3202,
+          "specifications": "",
+          "startTime": "2023-02-22 19:52:24",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "EATM-1-20221208-1-F1"
+        }
+      ],
+      "statusReason": "",
+      "todayOnlineTimes": "13:17:21",
+      "types": "CNC",
+      "useStatus": 1
+    },
+    {
+      "AllRunTimes": "00:50:58",
+      "ChuckCraftLimit": "CNC",
+      "ColorStatus": 0,
+      "PictureStatus": 0,
+      "SystemType": "TEST",
+      "UtilizationRate": 0,
+      "chipRemoval": [
+        {
+          "theoreticalTime": 1000,
+          "usedTime": 432
+        }
+      ],
+      "curStatus": "空闲",
+      "curStatusColor": 0,
+      "cuttingFluid": [
+        {
+          "theoreticalTime": 100,
+          "usedTime": 24
+        }
+      ],
+      "deviceAlarmToolNoArr": [],
+      "deviceId": 5,
+      "deviceInlineStatus": 0,
+      "deviceName": "Okuma05",
+      "deviceToolNoArr": [
+        {
+          "leftTime": 515,
+          "theoreticalTime": 560,
+          "toolTypeNo": "T1",
+          "usedTime": 45
+        },
+        {
+          "leftTime": 467,
+          "theoreticalTime": 700,
+          "toolTypeNo": "T10",
+          "usedTime": 233
+        },
+        {
+          "leftTime": 506,
+          "theoreticalTime": 560,
+          "toolTypeNo": "T16",
+          "usedTime": 54
+        },
+        {
+          "leftTime": 177,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T18",
+          "usedTime": 23
+        },
+        {
+          "leftTime": 253,
+          "theoreticalTime": 300,
+          "toolTypeNo": "T21",
+          "usedTime": 47
+        },
+        {
+          "leftTime": 122,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T23",
+          "usedTime": 78
+        },
+        {
+          "leftTime": 462,
+          "theoreticalTime": 560,
+          "toolTypeNo": "T26",
+          "usedTime": 98
+        },
+        {
+          "leftTime": 168,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T3",
+          "usedTime": 32
+        },
+        {
+          "leftTime": 255,
+          "theoreticalTime": 300,
+          "toolTypeNo": "T30",
+          "usedTime": 45
+        },
+        {
+          "leftTime": 76,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T32",
+          "usedTime": 124
+        },
+        {
+          "leftTime": 377,
+          "theoreticalTime": 590,
+          "toolTypeNo": "T34",
+          "usedTime": 213
+        },
+        {
+          "leftTime": 244,
+          "theoreticalTime": 300,
+          "toolTypeNo": "T35",
+          "usedTime": 56
+        },
+        {
+          "leftTime": 458,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T37",
+          "usedTime": 42
+        },
+        {
+          "leftTime": 373,
+          "theoreticalTime": 440,
+          "toolTypeNo": "T39",
+          "usedTime": 67
+        },
+        {
+          "leftTime": 104,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T5",
+          "usedTime": 396
+        },
+        {
+          "leftTime": 146,
+          "theoreticalTime": 300,
+          "toolTypeNo": "T61",
+          "usedTime": 154
+        },
+        {
+          "leftTime": 269,
+          "theoreticalTime": 590,
+          "toolTypeNo": "T66",
+          "usedTime": 321
+        },
+        {
+          "leftTime": 113,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T67",
+          "usedTime": 87
+        },
+        {
+          "leftTime": 512,
+          "theoreticalTime": 590,
+          "toolTypeNo": "T7",
+          "usedTime": 78
+        }
+      ],
+      "planRunTime": "0",
+      "planStatus": "空闲",
+      "productionOrders": [],
+      "statusReason": "未上线",
+      "todayOnlineTimes": "00:54:10",
+      "types": "CNC",
+      "useStatus": 0
+    },
+    {
+      "AllRunTimes": "00:45:36",
+      "ChuckCraftLimit": "CNC",
+      "ColorStatus": 0,
+      "PictureStatus": 0,
+      "SystemType": "TEST",
+      "UtilizationRate": 0,
+      "chipRemoval": [
+        {
+          "theoreticalTime": 1000,
+          "usedTime": 660
+        }
+      ],
+      "curStatus": "空闲",
+      "curStatusColor": 0,
+      "cuttingFluid": [
+        {
+          "theoreticalTime": 100,
+          "usedTime": 52
+        }
+      ],
+      "deviceAlarmToolNoArr": [],
+      "deviceId": 6,
+      "deviceInlineStatus": 0,
+      "deviceName": "Okuma06",
+      "deviceToolNoArr": [
+        {
+          "leftTime": 457,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T1",
+          "usedTime": 43
+        },
+        {
+          "leftTime": 533,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T10",
+          "usedTime": 67
+        },
+        {
+          "leftTime": 179,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T16",
+          "usedTime": 321
+        },
+        {
+          "leftTime": 566,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T18",
+          "usedTime": 34
+        },
+        {
+          "leftTime": 441,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T21",
+          "usedTime": 59
+        },
+        {
+          "leftTime": 568,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T23",
+          "usedTime": 32
+        },
+        {
+          "leftTime": 222,
+          "theoreticalTime": 300,
+          "toolTypeNo": "T26",
+          "usedTime": 78
+        },
+        {
+          "leftTime": 266,
+          "theoreticalTime": 300,
+          "toolTypeNo": "T3",
+          "usedTime": 34
+        },
+        {
+          "leftTime": 468,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T30",
+          "usedTime": 32
+        },
+        {
+          "leftTime": 111,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T32",
+          "usedTime": 89
+        },
+        {
+          "leftTime": 102,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T34",
+          "usedTime": 98
+        },
+        {
+          "leftTime": 446,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T35",
+          "usedTime": 54
+        },
+        {
+          "leftTime": 566,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T37",
+          "usedTime": 34
+        },
+        {
+          "leftTime": 471,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T39",
+          "usedTime": 29
+        },
+        {
+          "leftTime": 644,
+          "theoreticalTime": 700,
+          "toolTypeNo": "T5",
+          "usedTime": 56
+        },
+        {
+          "leftTime": 256,
+          "theoreticalTime": 300,
+          "toolTypeNo": "T61",
+          "usedTime": 44
+        },
+        {
+          "leftTime": 166,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T66",
+          "usedTime": 34
+        },
+        {
+          "leftTime": 222,
+          "theoreticalTime": 300,
+          "toolTypeNo": "T67",
+          "usedTime": 78
+        },
+        {
+          "leftTime": 447,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T7",
+          "usedTime": 53
+        }
+      ],
+      "planRunTime": "0",
+      "planStatus": "空闲",
+      "productionOrders": [],
+      "statusReason": "未上线",
+      "todayOnlineTimes": "00:48:43",
+      "types": "CNC",
+      "useStatus": 0
+    },
+    {
+      "AllRunTimes": "05:31:04",
+      "ChuckCraftLimit": "CNC",
+      "ColorStatus": 1,
+      "PictureStatus": 0,
+      "SystemType": "TEST",
+      "UtilizationRate": 80,
+      "chipRemoval": [
+        {
+          "theoreticalTime": 1000,
+          "usedTime": 332
+        }
+      ],
+      "curStatus": "运行中",
+      "curStatusColor": 1,
+      "cuttingFluid": [
+        {
+          "theoreticalTime": 100,
+          "usedTime": 29
+        }
+      ],
+      "deviceAlarmToolNoArr": [],
+      "deviceId": 7,
+      "deviceInlineStatus": 1,
+      "deviceName": "Okuma07",
+      "deviceToolNoArr": [
+        {
+          "leftTime": 306,
+          "theoreticalTime": 950,
+          "toolTypeNo": "T1",
+          "usedTime": 644
+        },
+        {
+          "leftTime": 935,
+          "theoreticalTime": 980,
+          "toolTypeNo": "T10",
+          "usedTime": 45
+        },
+        {
+          "leftTime": 133,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T16",
+          "usedTime": 67
+        },
+        {
+          "leftTime": 166,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T18",
+          "usedTime": 34
+        },
+        {
+          "leftTime": 325,
+          "theoreticalTime": 670,
+          "toolTypeNo": "T21",
+          "usedTime": 345
+        },
+        {
+          "leftTime": 130,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T23",
+          "usedTime": 70
+        },
+        {
+          "leftTime": 636,
+          "theoreticalTime": 670,
+          "toolTypeNo": "T26",
+          "usedTime": 34
+        },
+        {
+          "leftTime": 855,
+          "theoreticalTime": 900,
+          "toolTypeNo": "T3",
+          "usedTime": 45
+        },
+        {
+          "leftTime": 166,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T30",
+          "usedTime": 34
+        },
+        {
+          "leftTime": 328,
+          "theoreticalTime": 670,
+          "toolTypeNo": "T32",
+          "usedTime": 342
+        },
+        {
+          "leftTime": 155,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T34",
+          "usedTime": 45
+        },
+        {
+          "leftTime": 214,
+          "theoreticalTime": 670,
+          "toolTypeNo": "T35",
+          "usedTime": 456
+        },
+        {
+          "leftTime": 111,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T37",
+          "usedTime": 89
+        },
+        {
+          "leftTime": 572,
+          "theoreticalTime": 670,
+          "toolTypeNo": "T39",
+          "usedTime": 98
+        },
+        {
+          "leftTime": 99912,
+          "theoreticalTime": 99990,
+          "toolTypeNo": "T5",
+          "usedTime": 78
+        },
+        {
+          "leftTime": 594,
+          "theoreticalTime": 670,
+          "toolTypeNo": "T61",
+          "usedTime": 76
+        },
+        {
+          "leftTime": 476,
+          "theoreticalTime": 550,
+          "toolTypeNo": "T66",
+          "usedTime": 74
+        },
+        {
+          "leftTime": 157,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T67",
+          "usedTime": 43
+        },
+        {
+          "leftTime": 7915,
+          "theoreticalTime": 8700,
+          "toolTypeNo": "T7",
+          "usedTime": 785
+        }
+      ],
+      "planRunTime": "4.52",
+      "planStatus": "未来4.52小时运行",
+      "productionOrders": [
+        {
+          "colorNum": 1,
+          "curCraftData": "",
+          "endTime": "2023-02-22 18:08:22",
+          "hasWorkTime": "00:12:09",
+          "item": "Time:00:34:59",
+          "leftWorkTime": "00:22:50",
+          "mouldSn": "R101-UZ163120121101-BL",
+          "partSn": "20.053-11",
+          "planMachineName": "",
+          "processFenmu": 2099,
+          "processFenzi": 729,
+          "quantity": 2099,
+          "specifications": "",
+          "startTime": "2023-02-22 17:33:23",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-20.053-5-ZM"
+        },
+        {
+          "colorNum": 0,
+          "curCraftData": "",
+          "endTime": "2023-02-22 19:41:58",
+          "hasWorkTime": "00:12:09",
+          "item": "Time:01:32:36",
+          "leftWorkTime": "00:22:50",
+          "mouldSn": "P61A-1000044745",
+          "partSn": "10.045",
+          "planMachineName": "",
+          "processFenmu": 5556,
+          "processFenzi": 0,
+          "quantity": 5556,
+          "specifications": "",
+          "startTime": "2023-02-22 18:09:22",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-20.053-10-ZM"
+        },
+        {
+          "colorNum": 0,
+          "curCraftData": "",
+          "endTime": "2023-02-22 20:42:55",
+          "hasWorkTime": "00:12:09",
+          "item": "Time:00:59:57",
+          "leftWorkTime": "00:22:50",
+          "mouldSn": "P61A-1000036525-OP30",
+          "partSn": "10.002-18",
+          "planMachineName": "",
+          "processFenmu": 3597,
+          "processFenzi": 0,
+          "quantity": 3597,
+          "specifications": "",
+          "startTime": "2023-02-22 19:42:58",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-20.053-14-ZM"
+        }
+      ],
+      "statusReason": "",
+      "todayOnlineTimes": "06:49:58",
+      "types": "CNC",
+      "useStatus": 1
+    },
+    {
+      "AllRunTimes": "06:30:52",
+      "ChuckCraftLimit": "CNC",
+      "ColorStatus": 1,
+      "PictureStatus": 1,
+      "SystemType": "TEST",
+      "UtilizationRate": 83,
+      "chipRemoval": [
+        {
+          "theoreticalTime": 1000,
+          "usedTime": 806
+        }
+      ],
+      "curStatus": "运行中",
+      "curStatusColor": 1,
+      "cuttingFluid": [
+        {
+          "theoreticalTime": 100,
+          "usedTime": 22
+        }
+      ],
+      "deviceAlarmToolNoArr": [],
+      "deviceId": 8,
+      "deviceInlineStatus": 1,
+      "deviceName": "Okuma08",
+      "deviceToolNoArr": [
+        {
+          "leftTime": 99955,
+          "theoreticalTime": 100000,
+          "toolTypeNo": "T1",
+          "usedTime": 45
+        },
+        {
+          "leftTime": 1977,
+          "theoreticalTime": 2000,
+          "toolTypeNo": "T10",
+          "usedTime": 23
+        },
+        {
+          "leftTime": 99433,
+          "theoreticalTime": 100000,
+          "toolTypeNo": "T16",
+          "usedTime": 567
+        },
+        {
+          "leftTime": 7989,
+          "theoreticalTime": 8754,
+          "toolTypeNo": "T18",
+          "usedTime": 765
+        },
+        {
+          "leftTime": 278,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T21",
+          "usedTime": 322
+        },
+        {
+          "leftTime": 437,
+          "theoreticalTime": 670,
+          "toolTypeNo": "T23",
+          "usedTime": 233
+        },
+        {
+          "leftTime": 447,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T26",
+          "usedTime": 53
+        },
+        {
+          "leftTime": 999657,
+          "theoreticalTime": 1000000,
+          "toolTypeNo": "T3",
+          "usedTime": 343
+        },
+        {
+          "leftTime": 530,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T30",
+          "usedTime": 70
+        },
+        {
+          "leftTime": 444,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T32",
+          "usedTime": 56
+        },
+        {
+          "leftTime": 61,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T34",
+          "usedTime": 139
+        },
+        {
+          "leftTime": 472,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T35",
+          "usedTime": 28
+        },
+        {
+          "leftTime": 533,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T37",
+          "usedTime": 67
+        },
+        {
+          "leftTime": 433,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T39",
+          "usedTime": 67
+        },
+        {
+          "leftTime": 98321,
+          "theoreticalTime": 98888,
+          "toolTypeNo": "T5",
+          "usedTime": 567
+        },
+        {
+          "leftTime": 158,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T61",
+          "usedTime": 342
+        },
+        {
+          "leftTime": 566,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T66",
+          "usedTime": 34
+        },
+        {
+          "leftTime": 157,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T67",
+          "usedTime": 43
+        },
+        {
+          "leftTime": 7631,
+          "theoreticalTime": 7865,
+          "toolTypeNo": "T7",
+          "usedTime": 234
+        }
+      ],
+      "planRunTime": "2.03",
+      "planStatus": "2.03小时后停机（2023-03-01 17:40:38）",
+      "productionOrders": [
+        {
+          "colorNum": 1,
+          "curCraftData": "",
+          "endTime": "2023-02-22 18:30:44",
+          "hasWorkTime": "00:36:57",
+          "item": "Time:01:22:09",
+          "leftWorkTime": "00:45:12",
+          "mouldSn": "B8-40-D511-5401041-42-BH01-OP05",
+          "partSn": "10.010-12",
+          "planMachineName": "",
+          "processFenmu": 4929,
+          "processFenzi": 2217,
+          "quantity": 4929,
+          "specifications": "",
+          "startTime": "2023-02-22 17:08:35",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-20.053-11-ZM"
+        },
+        {
+          "colorNum": 0,
+          "curCraftData": "",
+          "endTime": "2023-02-22 19:11:08",
+          "hasWorkTime": "00:36:57",
+          "item": "Time:00:39:24",
+          "leftWorkTime": "00:45:12",
+          "mouldSn": "78-72D-079078",
+          "partSn": "21.001-2",
+          "planMachineName": "",
+          "processFenmu": 2364,
+          "processFenzi": 0,
+          "quantity": 2364,
+          "specifications": "",
+          "startTime": "2023-02-22 18:31:44",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-10.011-19-ZM"
+        },
+        {
+          "colorNum": 0,
+          "curCraftData": "",
+          "endTime": "2023-02-22 21:15:01",
+          "hasWorkTime": "00:36:57",
+          "item": "Time:02:02:53",
+          "leftWorkTime": "00:45:12",
+          "mouldSn": "PGS061-144",
+          "partSn": "21.015-3",
+          "planMachineName": "",
+          "processFenmu": 7373,
+          "processFenzi": 0,
+          "quantity": 7373,
+          "specifications": "",
+          "startTime": "2023-02-22 19:12:08",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-10.011-2-ZM"
+        }
+      ],
+      "statusReason": "刀具缺失（T34刀具寿命到期）",
+      "todayOnlineTimes": "07:50:29",
+      "types": "CNC",
+      "useStatus": 1
+    },
+    {
+      "AllRunTimes": "07:06:50",
+      "ChuckCraftLimit": "CNC",
+      "ColorStatus": 2,
+      "PictureStatus": 2,
+      "SystemType": "TEST",
+      "UtilizationRate": 93,
+      "chipRemoval": [
+        {
+          "theoreticalTime": 1000,
+          "usedTime": 542
+        }
+      ],
+      "curStatus": "运行中",
+      "curStatusColor": 1,
+      "cuttingFluid": [
+        {
+          "theoreticalTime": 100,
+          "usedTime": 47
+        }
+      ],
+      "deviceAlarmToolNoArr": [
+        {
+          "AlarmTip": "[21.015-4]工件加工时刀具寿命超时",
+          "theoreticalTime": 500,
+          "toolTypeNo": "T1",
+          "usedTime": 494
+        }
+      ],
+      "deviceId": 9,
+      "deviceInlineStatus": 1,
+      "deviceName": "Okuma09",
+      "deviceToolNoArr": [
+        {
+          "leftTime": 152,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T1",
+          "usedTime": 394
+        },
+        {
+          "leftTime": 374,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T10",
+          "usedTime": 126
+        },
+        {
+          "leftTime": 532,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T16",
+          "usedTime": 68
+        },
+        {
+          "leftTime": 431,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T18",
+          "usedTime": 69
+        },
+        {
+          "leftTime": 476,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T21",
+          "usedTime": 124
+        },
+        {
+          "leftTime": 388,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T23",
+          "usedTime": 112
+        },
+        {
+          "leftTime": 483,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T26",
+          "usedTime": 117
+        },
+        {
+          "leftTime": 547,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T3",
+          "usedTime": 53
+        },
+        {
+          "leftTime": 433,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T30",
+          "usedTime": 67
+        },
+        {
+          "leftTime": 111,
+          "theoreticalTime": 200,
+          "toolTypeNo": "T32",
+          "usedTime": 89
+        },
+        {
+          "leftTime": 342,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T34",
+          "usedTime": 158
+        },
+        {
+          "leftTime": 522,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T35",
+          "usedTime": 78
+        },
+        {
+          "leftTime": 457,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T37",
+          "usedTime": 43
+        },
+        {
+          "leftTime": 166,
+          "theoreticalTime": 400,
+          "toolTypeNo": "T39",
+          "usedTime": 234
+        },
+        {
+          "leftTime": 433,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T5",
+          "usedTime": 67
+        },
+        {
+          "leftTime": 335,
+          "theoreticalTime": 400,
+          "toolTypeNo": "T61",
+          "usedTime": 65
+        },
+        {
+          "leftTime": 266,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T66",
+          "usedTime": 234
+        },
+        {
+          "leftTime": 455,
+          "theoreticalTime": 500,
+          "toolTypeNo": "T67",
+          "usedTime": 45
+        },
+        {
+          "leftTime": 245,
+          "theoreticalTime": 600,
+          "toolTypeNo": "T7",
+          "usedTime": 355
+        }
+      ],
+      "planRunTime": "3.22",
+      "planStatus": "3.22小时后停机（2023-03-01 18:51:38）",
+      "productionOrders": [
+        {
+          "colorNum": 1,
+          "curCraftData": "",
+          "endTime": "2023-02-22 18:31:07",
+          "hasWorkTime": "00:12:12",
+          "item": "Time:00:57:47",
+          "leftWorkTime": "00:45:35",
+          "mouldSn": "78-72D-079056",
+          "partSn": "226-1",
+          "planMachineName": "",
+          "processFenmu": 3467,
+          "processFenzi": 732,
+          "quantity": 3467,
+          "specifications": "",
+          "startTime": "2023-02-22 17:33:20",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-20.053-29-ZM"
+        },
+        {
+          "colorNum": 0,
+          "curCraftData": "",
+          "endTime": "2023-02-22 19:25:38",
+          "hasWorkTime": "00:12:12",
+          "item": "Time:00:53:31",
+          "leftWorkTime": "00:45:35",
+          "mouldSn": "3449-33",
+          "partSn": "352",
+          "planMachineName": "",
+          "processFenmu": 3211,
+          "processFenzi": 0,
+          "quantity": 3211,
+          "specifications": "",
+          "startTime": "2023-02-22 18:32:07",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-10.011-24-ZM"
+        },
+        {
+          "colorNum": 2,
+          "curCraftData": "",
+          "endTime": "2023-02-22 20:48:26",
+          "hasWorkTime": "00:12:12",
+          "item": "Time:01:21:48",
+          "leftWorkTime": "00:45:35",
+          "mouldSn": "PGS061-143",
+          "partSn": "21.015-4",
+          "planMachineName": "",
+          "processFenmu": 4908,
+          "processFenzi": 0,
+          "quantity": 4908,
+          "specifications": "",
+          "startTime": "2023-02-22 19:26:38",
+          "tipContext": "",
+          "workpieceRoute": "",
+          "workpieceSn": "R101-UZ163120121101-BL-10.011-27-ZM"
+        }
+      ],
+      "statusReason": "刀具缺失（T1刀具寿命到期）",
+      "todayOnlineTimes": "07:34:18",
+      "types": "CNC",
+      "useStatus": 1
+    }
+  ]
+}
