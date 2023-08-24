@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-22 10:17:23
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-23 09:23:23
+ * @LastEditTime: 2023-08-24 09:07:49
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/multiple_machine_operation/widgets/machine_warning_card.dart
  * @Description: 机床预警卡片
  */
@@ -234,7 +234,7 @@ class _MachineWarningCardState extends State<MachineWarningCard> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: 100.0.r,
+              width: 70.0.w,
               child: ThemedText(
                 '机床排屑',
                 style: TextStyle(fontSize: 16.sp),
@@ -259,7 +259,7 @@ class _MachineWarningCardState extends State<MachineWarningCard> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: 100.0.r,
+              width: 70.0.w,
               child: ThemedText(
                 '切屑液',
                 style: TextStyle(fontSize: 16.sp),
@@ -322,7 +322,7 @@ class _MachineWarningCardState extends State<MachineWarningCard> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(child: _buildWarningBox()),
-              5.verticalSpacingRadius,
+              10.verticalSpacingRadius,
               Expanded(child: _buildToolLife()),
               Expanded(child: _buildMaterialInfo()),
             ],

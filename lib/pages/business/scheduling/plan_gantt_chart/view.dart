@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-21 14:33:18
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-22 13:41:55
+ * @LastEditTime: 2023-08-24 09:13:56
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/plan_gantt_chart/view.dart
  * @Description: 甘特图视图层
  */
@@ -155,40 +155,47 @@ class _PlanGanttChartViewGetX extends GetView<PlanGanttChartController> {
 
   // 图例
   Widget _buildLegend() {
-    return SizedBox(
-      width: double.infinity,
-      child: Wrap(
-        spacing: 10,
-        alignment: WrapAlignment.end,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        runSpacing: 10,
-        children: [
-          ...SchedulingStatus.values
-              .map((e) => Wrap(
-                    children: [
-                      Container(
-                        width: 20.r,
-                        height: 20.r,
-                        color: e.color,
-                      ).decorated(
-                          borderRadius: BorderRadius.circular(2.r),
-                          border: Border.all(color: Colors.grey, width: 1)),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      ThemedText(e.label, style: TextStyle(fontSize: 14.sp))
-                    ],
-                  ))
-              .toList(),
-          IconButton(
-              icon: Icon(
-                material.Icons.build_circle,
-                size: 30,
-                color: globalTheme.accentColor,
-              ),
-              onPressed: openSettingDialog)
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        ThemedText(
+          '当前设置时间间隔${controller.interval}小时',
+          style: TextStyle(fontSize: 16.sp),
+        ),
+        Wrap(
+          spacing: 10,
+          alignment: WrapAlignment.end,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          runSpacing: 10,
+          children: [
+            ...SchedulingStatus.values
+                .map((e) => Wrap(
+                      children: [
+                        Container(
+                          width: 20.r,
+                          height: 20.r,
+                          color: e.color,
+                        ).decorated(
+                            borderRadius: BorderRadius.circular(2.r),
+                            border: Border.all(color: Colors.grey, width: 1)),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        ThemedText(e.label, style: TextStyle(fontSize: 14.sp))
+                      ],
+                    ))
+                .toList(),
+            IconButton(
+                icon: Icon(
+                  material.Icons.build_circle,
+                  size: 30,
+                  color: globalTheme.accentColor,
+                ),
+                onPressed: openSettingDialog)
+          ],
+        )
+      ],
     );
   }
 

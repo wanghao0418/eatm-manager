@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-10 15:41:34
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-17 09:52:42
+ * @LastEditTime: 2023-08-24 19:15:17
  * @FilePath: /eatm_manager/lib/pages/business/craft_binding/view.dart
  * @Description: 工艺绑定视图层
  */
@@ -10,7 +10,9 @@ import 'package:eatm_manager/common/components/filled_icon_button.dart';
 import 'package:eatm_manager/common/components/line_form_label.dart';
 import 'package:eatm_manager/common/components/themed_text.dart';
 import 'package:eatm_manager/common/components/title_card.dart';
+import 'package:eatm_manager/common/models/workProcess.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
+import 'package:eatm_manager/common/utils/log.dart';
 import 'package:eatm_manager/common/widgets/pop_date_picker.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -297,7 +299,7 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
           title: '模号',
           cardBackgroundColor: globalTheme.pageContentBackgroundColor,
           containChild: ListView.builder(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               itemCount: controller.mouldSNList.length,
               itemBuilder: (context, index) {
                 return ListTile.selectable(
@@ -325,6 +327,82 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
                     }
                     controller.update(["craft_binding"]);
                   },
+                );
+              })),
+    );
+  }
+
+  // 已选数据列表
+  Widget _buildSelectedList() {
+    return Container(
+      width: 200.w,
+      decoration: globalTheme.contentDecoration,
+      child: TitleCard(
+          title: '已选',
+          titleRight: IconButton(
+              icon: const Icon(FluentIcons.clear),
+              onPressed: () {
+                controller.selectedDataMap.clear();
+                // 更新表格选中
+                controller.stateManager.toggleAllRowChecked(false);
+                controller.update(["craft_binding"]);
+              }),
+          cardBackgroundColor: globalTheme.pageContentBackgroundColor,
+          containChild: ListView.builder(
+              padding: const EdgeInsets.all(10),
+              itemCount: controller.selectedDataMap.length,
+              itemBuilder: (context, index) {
+                var data = controller.selectedDataMap.values.elementAt(index);
+                var key = data.mouldsn! + data.partsn!;
+                return Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      data.mouldsn != null
+                          ? ThemedText(
+                              '监控编号${data.mwpiececode!}',
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  overflow: TextOverflow.ellipsis),
+                            )
+                          : ThemedText(
+                              '模号${data.mouldsn!}件号${data.partsn!}',
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  overflow: TextOverflow.ellipsis),
+                            ),
+                      IconButton(
+                          icon: const Icon(FluentIcons.delete),
+                          onPressed: () {
+                            controller.selectedDataMap.remove(key);
+                            // 更新表格选中
+                            var hasFilter = false;
+                            if (controller.stateManager.hasFilter) {
+                              hasFilter = true;
+                              controller.stateManager.setFilter(null);
+                            }
+                            var row = controller.stateManager.rows
+                                .firstWhereOrNull((element) =>
+                                    controller.isSameWorkProcessData(
+                                        element.cells['data']!.value
+                                            as WorkProcessData,
+                                        data));
+                            if (row != null) {
+                              controller.stateManager.setRowChecked(row, false);
+                            }
+                            if (hasFilter) {
+                              controller.stateManager.setFilter((element) =>
+                                  controller.selectedMouldSNList.contains(
+                                      element.cells['mouldSN']!.value
+                                          .toString()));
+                            }
+                            controller.update(["craft_binding"]);
+                          })
+                    ],
+                  ),
                 );
               })),
     );
@@ -417,8 +495,50 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
           controller.stateManager = event.stateManager;
           controller.query();
         },
+        onRowChecked: (event) {
+          // LogUtil.f(event);
+          if (event.isAll) {
+            LogUtil.t('event.isChecked: ${event.isChecked}');
+            // 全选
+            if (event.isChecked!) {
+              // 新增所有不存在的数据
+              for (var row in controller.stateManager.checkedRows) {
+                var data = row.cells['data']!.value as WorkProcessData;
+                var key = data.mouldsn! + data.partsn!;
+                if (!controller.selectedDataMap.containsKey(key)) {
+                  controller.selectedDataMap[key] = data;
+                }
+              }
+            } else {
+              // 删除所有存在的数据
+              for (var row in controller.stateManager.rows) {
+                var data = row.cells['data']!.value as WorkProcessData;
+                var key = data.mouldsn! + data.partsn!;
+                if (controller.selectedDataMap.containsKey(key)) {
+                  controller.selectedDataMap.remove(key);
+                }
+              }
+            }
+          } else {
+            // 单选
+            if (event.row!.checked!) {
+              var data = event.row!.cells['data']!.value as WorkProcessData;
+              var key = data.mouldsn! + data.partsn!;
+              if (!controller.selectedDataMap.containsKey(key)) {
+                controller.selectedDataMap[key] = data;
+              }
+            } else {
+              var data = event.row!.cells['data']!.value as WorkProcessData;
+              var key = data.mouldsn! + data.partsn!;
+              if (controller.selectedDataMap.containsKey(key)) {
+                controller.selectedDataMap.remove(key);
+              }
+            }
+          }
+          controller.update(["craft_binding"]);
+        },
         configuration: globalTheme.plutoGridConfig.copyWith(
-            columnSize: PlutoGridColumnSizeConfig(
+            columnSize: const PlutoGridColumnSizeConfig(
                 autoSizeMode: PlutoAutoSizeMode.scale)),
       ),
     );
@@ -490,7 +610,9 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
             children: [
               _buildMouldSNList(context),
               globalTheme.contentDistance.horizontalSpace,
-              Expanded(child: _buildTable(context))
+              Expanded(child: _buildTable(context)),
+              globalTheme.contentDistance.horizontalSpace,
+              _buildSelectedList()
             ],
           )),
         ],

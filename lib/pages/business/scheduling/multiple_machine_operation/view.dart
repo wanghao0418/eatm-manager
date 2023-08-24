@@ -2,10 +2,11 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-22 09:04:32
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-22 11:18:32
+ * @LastEditTime: 2023-08-24 09:14:39
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/multiple_machine_operation/view.dart
  * @Description: 多机负荷视图层
  */
+import 'package:eatm_manager/common/components/themed_text.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/services.dart';
@@ -103,15 +104,22 @@ class _MultipleMachineOperationViewGetX
         decoration: globalTheme.contentDecoration,
         padding: globalTheme.contentPadding,
         child: Column(children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: IconButton(
-                icon: Icon(
-                  material.Icons.build_circle,
-                  size: 30,
-                  color: globalTheme.accentColor,
-                ),
-                onPressed: openSettingDialog),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ThemedText(
+                '当前设置可无人值守时长下限:${controller.duration}小时',
+                style: TextStyle(fontSize: 16.sp),
+              ),
+              IconButton(
+                  icon: Icon(
+                    material.Icons.build_circle,
+                    size: 30,
+                    color: globalTheme.accentColor,
+                  ),
+                  onPressed: openSettingDialog),
+            ],
           ),
           Expanded(
             child: LayoutBuilder(

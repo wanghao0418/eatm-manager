@@ -2,11 +2,14 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-23 08:58:14
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-23 09:38:31
+ * @LastEditTime: 2023-08-24 09:22:08
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/multiple_machine_operation/widgets/tool_warning_bar.dart
  * @Description: 刀具预警柱状图
  */
+import 'package:eatm_manager/common/components/themed_text.dart';
+import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/pages/business/scheduling/models.dart';
+import 'package:eatm_manager/pages/system/main/widgets/navigation_bar.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -21,6 +24,9 @@ class ToolWarningBar extends StatefulWidget {
 }
 
 class _ToolWarningBarState extends State<ToolWarningBar> {
+  GlobalTheme get globalTheme => GlobalTheme.instance;
+
+  // 获取最小寿命的刀具
   List<DeviceToolNoArr> getMinimumLifetimeList() {
     var list = widget.deviceToolNoArr;
     list.sort((a, b) => a.leftTime!.compareTo(b.leftTime!));
@@ -41,13 +47,14 @@ class _ToolWarningBarState extends State<ToolWarningBar> {
     return maxNum.toDouble();
   }
 
+  // 构建柱状图标签
   List<CartesianChartAnnotation> buildChartLabel(List<DeviceToolNoArr> list) {
     var maxNum = setMaxNum(list);
     return list
         .map(
           (e) => CartesianChartAnnotation(
               widget: Container(
-                  child: Text(
+                  child: ThemedText(
                       e.leftTime == 0
                           ? '${e.usedTime}/${e.theoreticalTime}'
                           : '${e.leftTime}/${e.theoreticalTime}',
@@ -77,16 +84,14 @@ class _ToolWarningBarState extends State<ToolWarningBar> {
           annotations: buildChartLabel(toolLIst),
           series: <ChartSeries>[
             StackedBarSeries<DeviceToolNoArr, String>(
-                groupName: "Group A",
-                dataLabelSettings: DataLabelSettings(
+                dataLabelSettings: const DataLabelSettings(
                     isVisible: false, showCumulativeValues: true),
                 dataSource: toolLIst,
                 xValueMapper: (DeviceToolNoArr data, _) => data.toolTypeNo,
                 yValueMapper: (DeviceToolNoArr data, _) => data.leftTime,
-                color: Color.fromARGB(255, 130, 228, 121)),
+                color: const Color.fromARGB(255, 130, 228, 121)),
             StackedBarSeries<DeviceToolNoArr, String>(
-              groupName: "Group A",
-              dataLabelSettings: DataLabelSettings(
+              dataLabelSettings: const DataLabelSettings(
                   isVisible: false,
                   showCumulativeValues: true,
                   offset: Offset(40, 0)),
@@ -97,8 +102,7 @@ class _ToolWarningBarState extends State<ToolWarningBar> {
               color: Colors.grey[100],
             ),
             StackedBarSeries<DeviceToolNoArr, String>(
-              groupName: "Group A",
-              dataLabelSettings: DataLabelSettings(
+              dataLabelSettings: const DataLabelSettings(
                 isVisible: false,
                 showCumulativeValues: true,
               ),
