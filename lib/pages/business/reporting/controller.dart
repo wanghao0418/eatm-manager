@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 15:08:21
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-24 19:47:16
+ * @LastEditTime: 2023-08-25 11:39:03
  * @FilePath: /eatm_manager/lib/pages/business/reporting/controller.dart
  * @Description: 报工逻辑层
  */
@@ -117,15 +117,15 @@ class ReportingController extends GetxController {
       stateManager.appendRows([
         PlutoRow(cells: {
           'number': PlutoCell(value: index + 1),
-          'resourcenames': PlutoCell(value: e.resourcenames),
-          'traytype': PlutoCell(value: e.traytype),
-          'identnumber': PlutoCell(value: e.identnumber),
-          'mouldnums': PlutoCell(value: e.mouldnums),
-          'partnums': PlutoCell(value: e.partnums),
-          'mwpieceCode': PlutoCell(value: e.mwpiececode),
-          'pstepid': PlutoCell(value: e.pstepid),
-          'norms': PlutoCell(value: e.norms),
-          'wpstate': PlutoCell(value: e.wpstate),
+          'actresourcenames': PlutoCell(value: e.actresourcenames ?? ""),
+          'traytype': PlutoCell(value: e.traytype ?? ""),
+          'identnumber': PlutoCell(value: e.identnumber ?? ""),
+          'mouldnums': PlutoCell(value: e.mouldnums ?? ""),
+          'partnums': PlutoCell(value: e.partnums ?? ""),
+          'mwpieceCode': PlutoCell(value: e.mwpiececode ?? ""),
+          'pstepid': PlutoCell(value: e.pstepid ?? ""),
+          'norms': PlutoCell(value: e.norms ?? ""),
+          'wpstate': PlutoCell(value: e.wpstate ?? ""),
           'data': PlutoCell(value: e),
         })
       ]);
@@ -146,7 +146,8 @@ class ReportingController extends GetxController {
     var list = stateManager.checkedRows.map((e) {
       return {
         'pstepid': e.cells['pstepid']!.value,
-        'resourcenames': e.cells['resourcenames']!.value,
+        'actresourcenames': e.cells['actresourcenames']!.value,
+        'wpstate': e.cells['wpstate']!.value,
       };
     }).toList();
     var params = reporting.toJson();
@@ -217,21 +218,21 @@ class ReportingSearch {
 
 class Reporting {
   String? person;
-  // String? machineSn;
+  String? machineSn;
   int? reportType;
 
-  Reporting({this.person, this.reportType});
+  Reporting({this.person, this.machineSn, this.reportType});
 
   Reporting.fromJson(Map<String, dynamic> json) {
     person = json['person'];
-    // machineSn = json['machineSN'];
+    machineSn = json['machineSN'];
     reportType = json['reportType'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['person'] = person;
-    // data['machineSN'] = machineSn;
+    data['machineSN'] = machineSn;
     data['reportType'] = reportType;
     return data;
   }
@@ -242,10 +243,10 @@ class Reporting {
       PopupMessage.showFailInfoBar("请选择人员");
       return false;
     }
-    // if (machineSn == null || machineSn!.isEmpty) {
-    //   PopupMessage.showFailInfoBar("请选择机床");
-    //   return false;
-    // }
+    if (machineSn == null || machineSn!.isEmpty) {
+      PopupMessage.showFailInfoBar("请选择机床");
+      return false;
+    }
     if (reportType == null) {
       PopupMessage.showFailInfoBar("请选择报工类型");
       return false;
