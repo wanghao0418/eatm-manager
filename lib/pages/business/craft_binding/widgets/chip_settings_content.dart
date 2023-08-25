@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-14 16:42:31
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-15 14:20:23
+ * @LastEditTime: 2023-08-25 17:45:34
  * @FilePath: /eatm_manager/lib/pages/business/craft_binding/widgets/chip_settings_content.dart
  * @Description: 芯片设置弹窗内容
  */
@@ -219,7 +219,7 @@ class _ChipSettingsContentState extends State<ChipSettingsContent> {
         columns: [
           PlutoColumn(
               title: '序号',
-              field: 'index',
+              field: 'number',
               readOnly: true,
               type: PlutoColumnType.text()),
           PlutoColumn(

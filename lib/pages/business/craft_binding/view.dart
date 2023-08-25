@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-10 15:41:34
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-24 19:15:17
+ * @LastEditTime: 2023-08-25 18:44:40
  * @FilePath: /eatm_manager/lib/pages/business/craft_binding/view.dart
  * @Description: 工艺绑定视图层
  */
@@ -320,6 +320,9 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
                     // 更新表格筛选条件
                     if (controller.selectedMouldSNList.isEmpty) {
                       controller.stateManager.setFilter(null);
+                      if (controller.stateManager.checkedRows.isNotEmpty) {
+                        controller.updateRows();
+                      }
                     } else {
                       controller.stateManager.setFilter((element) =>
                           controller.selectedMouldSNList.contains(
@@ -344,8 +347,9 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
               onPressed: () {
                 controller.selectedDataMap.clear();
                 // 更新表格选中
-                controller.stateManager.toggleAllRowChecked(false);
-                controller.update(["craft_binding"]);
+                controller.updateRows();
+                // controller.stateManager.toggleAllRowChecked(false);
+                // controller.update(["craft_binding"]);
               }),
           cardBackgroundColor: globalTheme.pageContentBackgroundColor,
           containChild: ListView.builder(
@@ -379,27 +383,28 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
                           onPressed: () {
                             controller.selectedDataMap.remove(key);
                             // 更新表格选中
-                            var hasFilter = false;
-                            if (controller.stateManager.hasFilter) {
-                              hasFilter = true;
-                              controller.stateManager.setFilter(null);
-                            }
-                            var row = controller.stateManager.rows
-                                .firstWhereOrNull((element) =>
-                                    controller.isSameWorkProcessData(
-                                        element.cells['data']!.value
-                                            as WorkProcessData,
-                                        data));
-                            if (row != null) {
-                              controller.stateManager.setRowChecked(row, false);
-                            }
-                            if (hasFilter) {
-                              controller.stateManager.setFilter((element) =>
-                                  controller.selectedMouldSNList.contains(
-                                      element.cells['mouldSN']!.value
-                                          .toString()));
-                            }
-                            controller.update(["craft_binding"]);
+                            controller.updateRows();
+                            // var hasFilter = false;
+                            // if (controller.stateManager.hasFilter) {
+                            //   hasFilter = true;
+                            //   controller.stateManager.setFilter(null);
+                            // }
+                            // var row = controller.stateManager.rows
+                            //     .firstWhereOrNull((element) =>
+                            //         controller.isSameWorkProcessData(
+                            //             element.cells['data']!.value
+                            //                 as WorkProcessData,
+                            //             data));
+                            // if (row != null) {
+                            //   controller.stateManager.setRowChecked(row, false);
+                            // }
+                            // if (hasFilter) {
+                            //   controller.stateManager.setFilter((element) =>
+                            //       controller.selectedMouldSNList.contains(
+                            //           element.cells['mouldSN']!.value
+                            //               .toString()));
+                            // }
+                            // controller.update(["craft_binding"]);
                           })
                     ],
                   ),
@@ -417,10 +422,11 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
           PlutoColumn(
               title: '序号',
               field: 'number',
-              type: PlutoColumnType.text(),
+              type: PlutoColumnType.number(),
               readOnly: true,
               enableRowChecked: true,
-              width: 150),
+              frozen: PlutoColumnFrozen.start,
+              width: 100),
           PlutoColumn(
             title: '监控编号',
             field: 'mwpieceCode',
@@ -489,6 +495,17 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
             readOnly: true,
             hide: true,
           ),
+          PlutoColumn(
+            title: '',
+            field: 'isCheck',
+            type: PlutoColumnType.number(),
+            // sort: PlutoColumnSort.descending,
+            readOnly: true,
+            width: 0,
+            enableContextMenu: false,
+            enableSorting: false,
+            enableEditingMode: false,
+          ),
         ],
         rows: controller.rows,
         onLoaded: (PlutoGridOnLoadedEvent event) {
@@ -507,6 +524,7 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
                 var key = data.mouldsn! + data.partsn!;
                 if (!controller.selectedDataMap.containsKey(key)) {
                   controller.selectedDataMap[key] = data;
+                  row.cells['isCheck']!.value = 1;
                 }
               }
             } else {
@@ -516,6 +534,7 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
                 var key = data.mouldsn! + data.partsn!;
                 if (controller.selectedDataMap.containsKey(key)) {
                   controller.selectedDataMap.remove(key);
+                  row.cells['isCheck']!.value = 0;
                 }
               }
             }
@@ -526,20 +545,29 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
               var key = data.mouldsn! + data.partsn!;
               if (!controller.selectedDataMap.containsKey(key)) {
                 controller.selectedDataMap[key] = data;
+                event.row!.cells['isCheck']!.value = 1;
               }
             } else {
               var data = event.row!.cells['data']!.value as WorkProcessData;
               var key = data.mouldsn! + data.partsn!;
               if (controller.selectedDataMap.containsKey(key)) {
                 controller.selectedDataMap.remove(key);
+                event.row!.cells['isCheck']!.value = 0;
               }
             }
           }
-          controller.update(["craft_binding"]);
+          controller.updateRows();
+          // 选中行置顶
+          // controller.stateManager.sortAscending(controller.stateManager.columns
+          //     .firstWhere((element) => element.field == 'number'));
+          // controller.stateManager.sortDescending(controller.stateManager.columns
+          //     .firstWhere((element) => element.field == 'isCheck'));
+          // controller.update(["craft_binding"]);
         },
-        configuration: globalTheme.plutoGridConfig.copyWith(
-            columnSize: const PlutoGridColumnSizeConfig(
-                autoSizeMode: PlutoAutoSizeMode.scale)),
+        configuration: globalTheme.plutoGridConfig,
+        // .copyWith(
+        //     columnSize: const PlutoGridColumnSizeConfig(
+        //         autoSizeMode: PlutoAutoSizeMode.scale))
       ),
     );
   }

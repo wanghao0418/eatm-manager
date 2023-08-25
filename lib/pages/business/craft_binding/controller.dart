@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-10 15:41:34
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-24 19:15:48
+ * @LastEditTime: 2023-08-25 18:38:59
  * @FilePath: /eatm_manager/lib/pages/business/craft_binding/controller.dart
  * @Description: 工艺绑定逻辑层
  */
@@ -118,6 +118,9 @@ class CraftBindingController extends GetxController {
       List<WorkProcessData> data =
           (res.data as List).map((e) => WorkProcessData.fromJson(e)).toList();
       workProcessDataList = data;
+      // 重置模号列表
+      selectedMouldSNList = [];
+      stateManager.setFilter(null);
       updateRows();
       _initData();
     } else {
@@ -127,9 +130,10 @@ class CraftBindingController extends GetxController {
 
   // 更新表格
   void updateRows() {
-    // 重置表格
-    selectedMouldSNList = [];
-    stateManager.setFilter(null);
+    bool hasFilter = stateManager.hasFilter;
+    if (hasFilter) {
+      stateManager.setFilter(null);
+    }
     rows.clear();
     for (var e in workProcessDataList) {
       var index = workProcessDataList.indexOf(e);
@@ -145,14 +149,27 @@ class CraftBindingController extends GetxController {
         'mwpieceName': PlutoCell(value: e.mwpiecename),
         // 'resoucenamedept': PlutoCell(value: e.resoucenamedept),
         'spec': PlutoCell(value: e.spec),
+        'isCheck': PlutoCell(value: 0),
         'data': PlutoCell(value: e),
       });
       stateManager.appendRows([row]);
+
       var key = e.mouldsn! + e.partsn!;
       if (selectedDataMap.containsKey(key)) {
+        row.cells['isCheck']!.value = 1;
+        // stateManager.insertRows(0, [row]);
         stateManager.setRowChecked(row, true);
+      } else {
+        // stateManager.appendRows([row]);
+      }
+      stateManager.moveRowsByIndex(stateManager.checkedRows, 0);
+      if (hasFilter) {
+        stateManager.setFilter((element) => selectedMouldSNList
+            .contains(element.cells['mouldSN']!.value.toString()));
       }
     }
+    // stateManager.sortDescending(stateManager.columns
+    //     .firstWhere((element) => element.field == 'isCheck'));
     _initData();
   }
 
@@ -282,36 +299,37 @@ class CraftBindingController extends GetxController {
           });
           if (res.success!) {
             PopupMessage.showSuccessInfoBar("绑定成功");
-            var hasFilter = stateManager.hasFilter;
-            // 更新选中行数据
-            if (hasFilter) {
-              stateManager.setFilter(null);
-            }
-            for (var row in stateManager.checkedRows) {
-              var data = row.cells['data']!.value as WorkProcessData;
-              data.barCode = search.barcode;
-              row.cells['barCode']!.value = search.barcode;
-              if (currentTrayType != null) {
-                data.trayType = currentTrayType;
-                row.cells['trayType']!.value = currentTrayType;
-              }
-              if (currentClampType != null) {
-                data.clamptype = currentClampType;
-                row.cells['clampType']!.value = currentClampType;
-              }
-              if (currentResourceName != null) {
-                data.resourceName = currentResourceName;
-              }
-              row.cells['data']!.value = data;
-            }
-            selectedDataMap.clear();
-            var oldSelectedMouldSNList = selectedMouldSNList;
-            updateRows();
-            selectedMouldSNList = oldSelectedMouldSNList;
-            if (hasFilter) {
-              stateManager.setFilter((element) => selectedMouldSNList
-                  .contains(element.cells['mouldSN']!.value.toString()));
-            }
+            query();
+            // var hasFilter = stateManager.hasFilter;
+            // // 更新选中行数据
+            // if (hasFilter) {
+            //   stateManager.setFilter(null);
+            // }
+            // for (var row in stateManager.checkedRows) {
+            //   var data = row.cells['data']!.value as WorkProcessData;
+            //   data.barCode = search.barcode;
+            //   row.cells['barCode']!.value = search.barcode;
+            //   if (currentTrayType != null) {
+            //     data.trayType = currentTrayType;
+            //     row.cells['trayType']!.value = currentTrayType;
+            //   }
+            //   if (currentClampType != null) {
+            //     data.clamptype = currentClampType;
+            //     row.cells['clampType']!.value = currentClampType;
+            //   }
+            //   if (currentResourceName != null) {
+            //     data.resourceName = currentResourceName;
+            //   }
+            //   row.cells['data']!.value = data;
+            // }
+            // selectedDataMap.clear();
+            // var oldSelectedMouldSNList = selectedMouldSNList;
+            // updateRows();
+            // selectedMouldSNList = oldSelectedMouldSNList;
+            // if (hasFilter) {
+            //   stateManager.setFilter((element) => selectedMouldSNList
+            //       .contains(element.cells['mouldSN']!.value.toString()));
+            // }
             _initData();
           } else {
             PopupMessage.showFailInfoBar(res.message as String);
