@@ -1,6 +1,7 @@
 import 'package:eatm_manager/common/api/menu.dart';
 import 'package:eatm_manager/common/extension/main.dart';
 import 'package:eatm_manager/common/index.dart';
+import 'package:eatm_manager/common/store/index.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Tab;
 import 'package:flutter/foundation.dart';
@@ -58,6 +59,10 @@ class MainController extends GetxController {
     if (response.success == true) {
       var dataList =
           (response.data as List).map((e) => MenuItem.fromJson(e)).toList();
+      // 根据当前用户权限过滤菜单
+      var user = UserStore.instance.getCurrentUserInfo();
+      dataList.removeWhere(
+          (element) => !element.subsystemId!.contains(user.userId ?? '1'));
       dataList.sort((a, b) => a.orderBy!.compareTo(b.orderBy!));
       // menuItems.clear();
       var childrenKeys = [];

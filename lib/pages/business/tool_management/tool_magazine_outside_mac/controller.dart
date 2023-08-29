@@ -1,4 +1,5 @@
 import 'package:eatm_manager/common/api/tool_management/externalToolMagazine_api.dart';
+import 'package:eatm_manager/common/utils/http.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:get/get.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -14,8 +15,8 @@ class ToolMagazineOutsideMacController extends GetxController {
 
   // 获取刀库列表
   void getToolMagazineList() async {
-    List<Future> futures = [
-      ExternalToolMagazineApi.getMachineOutToolBaseInfo({}),
+    List<Future<ResponseApiBody>> futures = [
+      ExternalToolMagazineApi.getMachineOutToolBaseInfo(),
       ExternalToolMagazineApi.getMachineOutToolQuery({}),
     ];
     // ResponseBodyApi res =
@@ -24,14 +25,14 @@ class ToolMagazineOutsideMacController extends GetxController {
     // ResponseBodyApi allDataRes =
     //     await ExternalToolMagazineApi.getMachineOutToolQuery({});
 
-    List result = await Future.wait(futures);
+    List<ResponseApiBody> result = await Future.wait(futures);
     var flag = result.every((element) => element.success == true);
 
     if (flag == false) {
       return;
     }
 
-    var shelfRes = (result[0].data as List).map((e) => e).toList();
+    var shelfRes = (result[0].data as List);
     var toolRes =
         (result[1].data as List).map((e) => Tool.fromJson(e)).toList();
 
@@ -40,7 +41,8 @@ class ToolMagazineOutsideMacController extends GetxController {
 
     var list = shelfRes.map((e) {
       e['list'] = toolRes
-          .where((element) => int.parse(element.deviceName!) == e.shelfNo)
+          .where((element) => int.parse(element.deviceName!) == e['ShelfNo'])
+          .map((e) => e.toJson())
           .toList();
       return Shelf.fromJson(e);
     }).toList();
@@ -78,8 +80,18 @@ class ToolMagazineOutsideMacController extends GetxController {
     if (currentShelf == null) {
       list = dataList.map((e) => e.toJson()).toList();
     } else {
-      list = currentShelf!.toJson()['list'];
+      list = dataList
+          .where((element) =>
+              int.parse(element.deviceName!) == currentShelf!.shelfNo)
+          .map((e) => e.toJson())
+          .toList();
     }
+    if (toolNumController.text.isEmpty) {
+      currentShelf!.list = list.map((e) => Tool.fromJson(e)).toList();
+      updateTableRows();
+      return;
+    }
+
     var listData = queryData(list, {'toolNum': toolNumController.text});
     currentShelf!.list = listData.map((e) => Tool.fromJson(e)).toList();
     updateTableRows();

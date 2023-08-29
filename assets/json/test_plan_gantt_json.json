@@ -1,0 +1,425 @@
+[
+    {
+        "list": [
+            {
+                "colorNum": 1,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 16:30:16",
+                "item": "Time:00:57:47",
+                "mouldSn": "78-72D-079056",
+                "partSn": "10.005",
+                "planMachineName": "Okuma01",
+                "quantity": 3467,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 15:30:16",
+                "tipContext": "刀具缺失（T5刀具寿命到期）",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-20.053-29-ZM"
+            },
+            {
+                "colorNum": 0,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 18:03:10",
+                "item": "Time:00:45:14",
+                "mouldSn": "P61A-1000044795",
+                "partSn": "5516",
+                "planMachineName": "Okuma01",
+                "quantity": 2714,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 16:31:16",
+                "tipContext": "刀具缺失（T5刀具寿命到期）",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-20.053-6-ZM"
+            },
+            {
+                "colorNum": 0,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 20:33:10",
+                "item": "Time:00:47:40",
+                "mouldSn": "3452-60",
+                "partSn": "21.015-3",
+                "planMachineName": "Okuma01",
+                "quantity": 2860,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 18:04:10",
+                "tipContext": "刀具缺失（T5刀具寿命到期）",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-10.011-3-ZM"
+            }
+        ],
+        "plant": "Okuma01",
+        "useStatus":1,
+        "deviceInlineStatus": 1
+    },
+    {
+        "list": [
+            {
+                "colorNum": 1,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 16:14:00",
+                "item": "Time:00:48:03",
+                "mouldSn": "P61A-1000044795-58587-OP50",
+                "partSn": "226-1",
+                "planMachineName": "Okuma02",
+                "quantity": 2883,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 15:00:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-20.053-4-ZM"
+            },
+            {
+                "colorNum": 0,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 17:46:00",
+                "item": "Time:01:37:09",
+                "mouldSn": "R101-UZ163120121101-BL",
+                "partSn": "301",
+                "planMachineName": "Okuma02",
+                "quantity": 5829,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 16:15:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-20.053-5-ZM"
+            },
+            {
+                "colorNum": 2,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 18:49:00",
+                "item": "Time:00:53:31",
+                "mouldSn": "3449-33",
+                "partSn": "21.015-2",
+                "planMachineName": "Okuma02",
+                "quantity": 3211,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 17:47:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-10.011-24-ZM"
+            }
+        ],
+        "plant": "Okuma02",
+        "useStatus":1,
+        "deviceInlineStatus": 1
+    },
+    {
+        "list": [
+            {
+                "colorNum": 1,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 17:12:00",
+                "item": "Time:00:49:23",
+                "mouldSn": "72D382203",
+                "partSn": "10.041-14",
+                "planMachineName": "Okuma03",
+                "quantity": 2963,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 15:13:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-20.053-28-ZM"
+            },
+            {
+                "colorNum": 0,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 18:35:00",
+                "item": "Time:01:14:08",
+                "mouldSn": "PGS062-142",
+                "partSn": "408",
+                "planMachineName": "Okuma03",
+                "quantity": 4448,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 17:13:00",
+                "tipContext": "刀具缺失（T3刀具寿命到期）",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-10.011-39-ZM"
+            },
+            {
+                "colorNum": 0,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 19:50:00",
+                "item": "Time:01:14:13",
+                "mouldSn": "78-72D-079077",
+                "partSn": "20.003-6",
+                "planMachineName": "Okuma03",
+                "quantity": 4453,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 18:36:00",
+                "tipContext": "刀具缺失（T3刀具寿命到期）",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-10.011-25-ZM"
+            }
+        ],
+        "plant": "Okuma03",
+        "useStatus":1,
+        "deviceInlineStatus": 1
+    },
+    {
+        "list": [
+            {
+                "colorNum": 1,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 17:15:00",
+                "item": "Time:01:01:50",
+                "mouldSn": "B8-40-D511-5401041-42-BH01-OP05",
+                "partSn": "10.008",
+                "planMachineName": "Okuma04",
+                "quantity": 3710,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 15:00:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-20.053-11-ZM"
+            },
+            {
+                "colorNum": 0,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 18:25:00",
+                "item": "Time:00:12:36",
+                "mouldSn": "P61A-1000044745",
+                "partSn": "21.001-2",
+                "planMachineName": "Okuma04",
+                "quantity": 756,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 17:16:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-20.053-10-ZM"
+            },
+            {
+                "colorNum": 0,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 19:45:00",
+                "item": "Time:01:31:43",
+                "mouldSn": "3452-50",
+                "partSn": "10.002-18",
+                "planMachineName": "Okuma04",
+                "quantity": 5503,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 18:26:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-10.011-16-ZM"
+            }
+        ],
+        "plant": "Okuma04",
+        "useStatus":1,
+        "deviceInlineStatus": 1
+    },
+    {
+        "list": [
+            {
+                "colorNum": 1,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 16:05:00",
+                "item": "Time:01:01:50",
+                "mouldSn": "B8-40-D511-5401041-42-BH01-OP05",
+                "partSn": "20.053-11",
+                "planMachineName": "Okuma04",
+                "quantity": 3710,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 16:05:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-20.053-11-ZM"
+            }
+        ],
+        "plant": "Okuma05",
+        "useStatus":1,
+        "deviceInlineStatus": 0
+    },
+    {
+        "list": [
+            {
+                "colorNum": 1,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 16:05:00",
+                "item": "Time:01:01:50",
+                "mouldSn": "B8-40-D511-5401041-42-BH01-OP05",
+                "partSn": "20.053-11",
+                "planMachineName": "Okuma04",
+                "quantity": 3710,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 16:05:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-20.053-11-ZM"
+            }
+        ],
+        "plant": "Okuma06",
+        "useStatus":1,
+        "deviceInlineStatus": 0
+    },
+    {
+        "list": [
+            {
+                "colorNum": 1,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 16:05:00",
+                "item": "Time:01:01:50",
+                "mouldSn": "B8-40-D511-5401041-42-BH01-OP05",
+                "partSn": "20.053-11",
+                "planMachineName": "Okuma04",
+                "quantity": 3710,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 15:20:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-20.053-11-ZM"
+            },
+            {
+                "colorNum": 0,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 17:38:00",
+                "item": "Time:00:12:36",
+                "mouldSn": "P61A-1000044745",
+                "partSn": "10.045",
+                "planMachineName": "Okuma04",
+                "quantity": 756,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 16:06:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-20.053-10-ZM"
+            },
+            {
+                "colorNum": 0,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 20:09:00",
+                "item": "Time:01:31:43",
+                "mouldSn": "3452-50",
+                "partSn": "21.015-5",
+                "planMachineName": "Okuma04",
+                "quantity": 5503,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 17:39:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-10.011-16-ZM"
+            }
+        ],
+        "plant": "Okuma07",
+        "useStatus":1,
+        "deviceInlineStatus": 1
+    },
+    {
+        "list": [
+            {
+                "colorNum": 1,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 16:07:00",
+                "item": "Time:01:01:50",
+                "mouldSn": "B8-40-D511-5401041-42-BH01-OP05",
+                "partSn": "31.031-1",
+                "planMachineName": "Okuma04",
+                "quantity": 3710,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 15:00:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-20.053-11-ZM"
+            },
+            {
+                "colorNum": 0,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 17:40:00",
+                "item": "Time:00:12:36",
+                "mouldSn": "P61A-1000044745",
+                "partSn": "618-10",
+                "planMachineName": "Okuma04",
+                "quantity": 756,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 16:08:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-20.053-10-ZM"
+            },
+            {
+                "colorNum": 2,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 18:43:00",
+                "item": "Time:01:31:43",
+                "mouldSn": "3452-50",
+                "partSn": "21.015-6",
+                "planMachineName": "Okuma04",
+                "quantity": 5503,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 17:41:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-10.011-16-ZM"
+            },
+            {
+                "colorNum": 0,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 19:43:00",
+                "item": "Time:01:31:43",
+                "mouldSn": "3452-50",
+                "partSn": "67.001",
+                "planMachineName": "Okuma04",
+                "quantity": 5503,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 18:44:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-10.011-16-ZM"
+            }
+        ],
+        "plant": "Okuma08",
+        "useStatus":1,
+        "deviceInlineStatus": 1
+    },
+    {
+        "list": [
+            {
+                "colorNum": 1,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 16:09:00",
+                "item": "Time:01:01:50",
+                "mouldSn": "B8-40-D511-5401041-42-BH01-OP05",
+                "partSn": "10.010-12",
+                "planMachineName": "Okuma04",
+                "quantity": 3710,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 15:00:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-20.053-11-ZM"
+            },
+            {
+                "colorNum": 0,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 17:33:00",
+                "item": "Time:00:12:36",
+                "mouldSn": "P61A-1000044745",
+                "partSn": "352",
+                "planMachineName": "Okuma04",
+                "quantity": 756,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 16:10:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-20.053-10-ZM"
+            },
+            {
+                "colorNum": 0,
+                "curCraftData": "CNC",
+                "endTime": "2023-03-01 18:51:00",
+                "item": "Time:01:31:43",
+                "mouldSn": "3452-50",
+                "partSn": "21.015-4",
+                "planMachineName": "Okuma04",
+                "quantity": 5503,
+                "specifications": "100*100*60",
+                "startTime": "2023-03-01 17:34:00",
+                "tipContext": "待上机",
+                "workpieceRoute": "CNC",
+                "workpieceSn": "R101-UZ163120121101-BL-10.011-16-ZM"
+            }
+        ],
+        "plant": "Okuma09",
+        "useStatus":1,
+        "deviceInlineStatus": 1
+    }
+]

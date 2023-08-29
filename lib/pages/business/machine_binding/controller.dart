@@ -2,12 +2,14 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-09 15:34:58
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-10 18:19:57
+ * @LastEditTime: 2023-08-23 14:51:40
  * @FilePath: /eatm_manager/lib/pages/business/machine_binding/controller.dart
  * @Description: 机床绑定逻辑层
  */
 
+import 'package:eatm_manager/common/api/line_body_api.dart';
 import 'package:eatm_manager/common/api/work_process_binding_api.dart';
+import 'package:eatm_manager/common/models/machineInfo.dart';
 import 'package:eatm_manager/common/models/selectOption.dart';
 import 'package:eatm_manager/common/models/workProcess.dart';
 import 'package:eatm_manager/common/utils/http.dart';
@@ -38,13 +40,13 @@ class MachineBindingController extends GetxController {
       ];
 
   // 机床子程序机台名称映射
-  Map<String, List> machineMap = {};
+  Map<String, List<MachineInfo>> machineMap = {};
 
   // 当前选中机床子程序
   String? currentMachineType;
 
   // 当前选中机台名称
-  String? currentMachineName;
+  MachineInfo? currentMachine;
 
   // 机床类型
   List<SelectOption> get machineTypeList => machineMap.keys.isEmpty
@@ -59,7 +61,7 @@ class MachineBindingController extends GetxController {
           SelectOption(label: '', value: null),
         ]
       : machineMap[currentMachineType]!
-          .map((e) => SelectOption(label: e['MacName'], value: e['MacName']))
+          .map((e) => SelectOption(label: e.machineName, value: e))
           .toList();
 
   _initData() {
@@ -67,29 +69,63 @@ class MachineBindingController extends GetxController {
   }
 
   // 获取机床资源
+  // void getMachineResource() async {
+  //   ResponseApiBody res = await WorkProcessBindingApi.getMachineResource({});
+  //   if (res.success!) {
+  //     var data = res.data as Map;
+  //     for (var macType in data.keys) {
+  //       for (var macInfo in data[macType]!) {
+  //         // print(macInfo);
+  //         var subProcedureName = macInfo['SubProcedurename'];
+  //         if (machineMap.keys.contains(subProcedureName) == false) {
+  //           machineMap[subProcedureName] = [macInfo];
+  //         } else {
+  //           machineMap[subProcedureName]!.add(macInfo);
+  //         }
+  //       }
+  //     }
+  //     // print(machineMap);
+  //     // 默认选中第一个机床类型
+  //     currentMachineType =
+  //         machineMap.keys.isNotEmpty ? machineMap.keys.first : null;
+  //     // 默认选中第一个机台名称
+  //     if (currentMachineType != null) {
+  //       currentMachineName = machineMap[currentMachineType!]!.isNotEmpty
+  //           ? machineMap[currentMachineType!]!.first['MacName']
+  //           : null;
+  //     }
+  //     _initData();
+  //   } else {
+  //     PopupMessage.showFailInfoBar(res.message as String);
+  //   }
+  // }
+
+  // 获取机床资源
   void getMachineResource() async {
-    ResponseApiBody res = await WorkProcessBindingApi.getMachineResource({});
+    ResponseApiBody res = await LineBodyApi.getMachineList();
     if (res.success!) {
-      var data = res.data as Map;
-      for (var macType in data.keys) {
-        for (var macInfo in data[macType]!) {
-          // print(macInfo);
-          var subProcedureName = macInfo['SubProcedurename'];
-          if (machineMap.keys.contains(subProcedureName) == false) {
-            machineMap[subProcedureName] = [macInfo];
-          } else {
-            machineMap[subProcedureName]!.add(macInfo);
-          }
+      List dataList = res.data;
+      List<MachineInfo> macList =
+          dataList.map((e) => MachineInfo.fromJson(e)).toList();
+      // 过滤掉没有子程序的机台
+      macList = macList
+          .where((e) => e.subProcedurename != null && e.subProcedurename != '')
+          .toList();
+      // 根据子程序分组
+      for (var mac in macList) {
+        if (machineMap.keys.contains(mac.subProcedurename) == false) {
+          machineMap[mac.subProcedurename!] = [mac];
+        } else {
+          machineMap[mac.subProcedurename!]!.add(mac);
         }
       }
-      // print(machineMap);
       // 默认选中第一个机床类型
       currentMachineType =
           machineMap.keys.isNotEmpty ? machineMap.keys.first : null;
       // 默认选中第一个机台名称
       if (currentMachineType != null) {
-        currentMachineName = machineMap[currentMachineType!]!.isNotEmpty
-            ? machineMap[currentMachineType!]!.first['MacName']
+        currentMachine = machineMap[currentMachineType!]!.isNotEmpty
+            ? machineMap[currentMachineType!]!.first
             : null;
       }
       _initData();
@@ -148,8 +184,8 @@ class MachineBindingController extends GetxController {
 
   // 绑定
   void binding() async {
-    if (currentMachineName == null) {
-      PopupMessage.showWarningInfoBar('请选择机台名称');
+    if (currentMachine == null) {
+      PopupMessage.showWarningInfoBar('请选择机床');
       return;
     }
 
@@ -157,11 +193,12 @@ class MachineBindingController extends GetxController {
       PopupMessage.showWarningInfoBar('请选择需要绑定的数据');
       return;
     }
-    ResponseApiBody res = await WorkProcessBindingApi.binding(
+    ResponseApiBody res = await WorkProcessBindingApi.bindMachine(
         // stateManager.checkedRows.map((e) => e.cells['data']!.value).toList()
         {
           "params": {
-            "MacName": currentMachineName,
+            "macName": currentMachine!.machineName,
+            "machineType": currentMachine!.machineType,
             "list": stateManager.checkedRows
                 .map((e) => e.cells['data']!.value)
                 .toList()
@@ -170,7 +207,7 @@ class MachineBindingController extends GetxController {
     if (res.success!) {
       PopupMessage.showSuccessInfoBar('绑定成功');
       for (var row in stateManager.checkedRows) {
-        row.cells['machineSN']!.value = currentMachineName;
+        row.cells['machineSN']!.value = currentMachine!.machineName;
       }
       stateManager.toggleAllRowChecked(false);
       _initData();

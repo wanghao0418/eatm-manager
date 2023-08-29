@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-10 15:41:34
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-15 14:19:22
+ * @LastEditTime: 2023-08-28 13:51:58
  * @FilePath: /eatm_manager/lib/pages/business/craft_binding/controller.dart
  * @Description: 工艺绑定逻辑层
  */
@@ -96,8 +96,16 @@ class CraftBindingController extends GetxController {
   List<String> get mouldSNList =>
       workProcessDataList.map((e) => e.mouldsn!).toSet().toList();
 
+  // 已选数据集合
+  Map<String, WorkProcessData> selectedDataMap = {};
+
   _initData() {
     update(["craft_binding"]);
+  }
+
+  // 判断是否为同一数据 模号和件号相同
+  bool isSameWorkProcessData(WorkProcessData data1, WorkProcessData data2) {
+    return data1.mouldsn == data2.mouldsn && data1.partsn == data2.partsn;
   }
 
   // 查询
@@ -110,6 +118,9 @@ class CraftBindingController extends GetxController {
       List<WorkProcessData> data =
           (res.data as List).map((e) => WorkProcessData.fromJson(e)).toList();
       workProcessDataList = data;
+      // 重置模号列表
+      selectedMouldSNList = [];
+      stateManager.setFilter(null);
       updateRows();
       _initData();
     } else {
@@ -119,29 +130,44 @@ class CraftBindingController extends GetxController {
 
   // 更新表格
   void updateRows() {
-    // 重置表格
-    selectedMouldSNList = [];
-    stateManager.setFilter(null);
+    bool hasFilter = stateManager.hasFilter;
+    if (hasFilter) {
+      stateManager.setFilter(null);
+    }
     rows.clear();
     for (var e in workProcessDataList) {
       var index = workProcessDataList.indexOf(e);
-      stateManager.appendRows([
-        PlutoRow(cells: {
-          'number': PlutoCell(value: index + 1),
-          'barCode': PlutoCell(value: e.barCode),
-          'clampType': PlutoCell(value: e.clamptype),
-          'trayType': PlutoCell(value: e.trayType),
-          'workpieceType': PlutoCell(value: e.workpieceType),
-          'mouldSN': PlutoCell(value: e.mouldsn),
-          'partSN': PlutoCell(value: e.partsn),
-          'mwpieceCode': PlutoCell(value: e.mwpiececode),
-          'mwpieceName': PlutoCell(value: e.mwpiecename),
-          // 'resoucenamedept': PlutoCell(value: e.resoucenamedept),
-          'spec': PlutoCell(value: e.spec),
-          'data': PlutoCell(value: e),
-        })
-      ]);
+      var row = PlutoRow(cells: {
+        'number': PlutoCell(value: index + 1),
+        'barCode': PlutoCell(value: e.barCode),
+        'clampType': PlutoCell(value: e.clamptype),
+        'trayType': PlutoCell(value: e.trayType),
+        'workpieceType': PlutoCell(value: e.workpieceType),
+        'mouldSN': PlutoCell(value: e.mouldsn),
+        'partSN': PlutoCell(value: e.partsn),
+        'mwpieceCode': PlutoCell(value: e.mwpiececode),
+        'mwpieceName': PlutoCell(value: e.mwpiecename),
+        // 'resoucenamedept': PlutoCell(value: e.resoucenamedept),
+        'spec': PlutoCell(value: e.spec),
+        // 'isCheck': PlutoCell(value: 0),
+        'data': PlutoCell(value: e),
+      });
+      stateManager.appendRows([row]);
+
+      var key = e.mouldsn! + e.partsn!;
+      if (selectedDataMap.containsKey(key)) {
+        // row.cells['isCheck']!.value = 1;
+        // stateManager.insertRows(0, [row]);
+        stateManager.setRowChecked(row, true);
+      }
+      stateManager.moveRowsByIndex(stateManager.checkedRows, 0);
+      if (hasFilter) {
+        stateManager.setFilter((element) => selectedMouldSNList
+            .contains(element.cells['mouldSN']!.value.toString()));
+      }
     }
+    // stateManager.sortDescending(stateManager.columns
+    //     .firstWhere((element) => element.field == 'isCheck'));
     _initData();
   }
 
@@ -231,7 +257,7 @@ class CraftBindingController extends GetxController {
 
   // 绑定
   void binding() async {
-    if (stateManager.checkedRows.isEmpty) {
+    if (selectedDataMap.isEmpty) {
       PopupMessage.showWarningInfoBar("请选择需要绑定的数据");
       return;
     }
@@ -244,10 +270,20 @@ class CraftBindingController extends GetxController {
         title: '注意',
         message: '请确认托盘类型和装卸台编号是否选择正确！',
         onConfirm: () async {
-          List<PlutoRow> selectedRows = stateManager.checkedRows;
+          // List<PlutoRow> selectedRows = stateManager.checkedRows;
+          // var list = [];
+          // for (var row in selectedRows) {
+          //   var data = row.cells['data']!.value as WorkProcessData;
+          //   data.barCode = search.barcode;
+          //   data.trayType = currentTrayType;
+          //   data.clamptype = currentClampType;
+          //   data.resourceName = currentResourceName;
+          //   list.add(data.toJson());
+          // }
           var list = [];
-          for (var row in selectedRows) {
-            var data = row.cells['data']!.value as WorkProcessData;
+          List<WorkProcessData> selectedDataList =
+              selectedDataMap.values.toList();
+          for (var data in selectedDataList) {
             data.barCode = search.barcode;
             data.trayType = currentTrayType;
             data.clamptype = currentClampType;
@@ -255,29 +291,44 @@ class CraftBindingController extends GetxController {
             list.add(data.toJson());
           }
           ResponseApiBody res = await WorkProcessBindingApi.binding({
-            "list": list,
+            "params": {
+              "list": list,
+            }
           });
           if (res.success!) {
             PopupMessage.showSuccessInfoBar("绑定成功");
-            // 更新选中行
-            for (var row in selectedRows) {
-              var data = row.cells['data']!.value as WorkProcessData;
-              data.barCode = search.barcode;
-              row.cells['barCode']!.value = search.barcode;
-              if (currentTrayType != null) {
-                data.trayType = currentTrayType;
-                row.cells['trayType']!.value = currentTrayType;
-              }
-              if (currentClampType != null) {
-                data.clamptype = currentClampType;
-                row.cells['clampType']!.value = currentClampType;
-              }
-              if (currentResourceName != null) {
-                data.resourceName = currentResourceName;
-              }
-              row.cells['data']!.value = data;
-              stateManager.setRowChecked(row, false);
-            }
+            query();
+            // var hasFilter = stateManager.hasFilter;
+            // // 更新选中行数据
+            // if (hasFilter) {
+            //   stateManager.setFilter(null);
+            // }
+            // for (var row in stateManager.checkedRows) {
+            //   var data = row.cells['data']!.value as WorkProcessData;
+            //   data.barCode = search.barcode;
+            //   row.cells['barCode']!.value = search.barcode;
+            //   if (currentTrayType != null) {
+            //     data.trayType = currentTrayType;
+            //     row.cells['trayType']!.value = currentTrayType;
+            //   }
+            //   if (currentClampType != null) {
+            //     data.clamptype = currentClampType;
+            //     row.cells['clampType']!.value = currentClampType;
+            //   }
+            //   if (currentResourceName != null) {
+            //     data.resourceName = currentResourceName;
+            //   }
+            //   row.cells['data']!.value = data;
+            // }
+            // selectedDataMap.clear();
+            // var oldSelectedMouldSNList = selectedMouldSNList;
+            // updateRows();
+            // selectedMouldSNList = oldSelectedMouldSNList;
+            // if (hasFilter) {
+            //   stateManager.setFilter((element) => selectedMouldSNList
+            //       .contains(element.cells['mouldSN']!.value.toString()));
+            // }
+            _initData();
           } else {
             PopupMessage.showFailInfoBar(res.message as String);
           }

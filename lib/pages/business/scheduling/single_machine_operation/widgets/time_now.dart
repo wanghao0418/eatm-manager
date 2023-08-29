@@ -2,11 +2,12 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 14:30:56
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-16 14:37:27
+ * @LastEditTime: 2023-08-22 09:05:07
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/single_machine_operation/widgets/time_now.dart
  * @Description:  当前时间
  */
 import 'dart:async';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
@@ -66,13 +67,14 @@ class _TimeNowState extends State<TimeNow> {
       children: [
         Text(
           _nowTimeStr,
-          style: const TextStyle(
-              fontSize: 20,
+          style: TextStyle(
+              fontSize: 20.spMin,
               fontWeight: FontWeight.bold,
-              color: Color(0xff333333)),
+              color: const Color(0xff333333)),
         ),
         Text(_nowDateStr,
-            style: const TextStyle(fontSize: 12, color: Color(0xff666666))),
+            style:
+                TextStyle(fontSize: 12.spMin, color: const Color(0xff666666))),
       ],
     );
   }
