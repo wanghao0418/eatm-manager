@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-10 15:41:34
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-25 18:44:40
+ * @LastEditTime: 2023-08-28 14:01:30
  * @FilePath: /eatm_manager/lib/pages/business/craft_binding/view.dart
  * @Description: 工艺绑定视图层
  */
@@ -320,9 +320,7 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
                     // 更新表格筛选条件
                     if (controller.selectedMouldSNList.isEmpty) {
                       controller.stateManager.setFilter(null);
-                      if (controller.stateManager.checkedRows.isNotEmpty) {
-                        controller.updateRows();
-                      }
+                      controller.updateRows();
                     } else {
                       controller.stateManager.setFilter((element) =>
                           controller.selectedMouldSNList.contains(
@@ -495,17 +493,17 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
             readOnly: true,
             hide: true,
           ),
-          PlutoColumn(
-            title: '',
-            field: 'isCheck',
-            type: PlutoColumnType.number(),
-            // sort: PlutoColumnSort.descending,
-            readOnly: true,
-            width: 0,
-            enableContextMenu: false,
-            enableSorting: false,
-            enableEditingMode: false,
-          ),
+          // PlutoColumn(
+          //   title: '',
+          //   field: 'isCheck',
+          //   type: PlutoColumnType.number(),
+          //   // sort: PlutoColumnSort.descending,
+          //   readOnly: true,
+          //   width: 0,
+          //   enableContextMenu: false,
+          //   enableSorting: false,
+          //   enableEditingMode: false,
+          // ),
         ],
         rows: controller.rows,
         onLoaded: (PlutoGridOnLoadedEvent event) {
@@ -515,7 +513,7 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
         onRowChecked: (event) {
           // LogUtil.f(event);
           if (event.isAll) {
-            LogUtil.t('event.isChecked: ${event.isChecked}');
+            // LogUtil.t('event.isChecked: ${event.isChecked}');
             // 全选
             if (event.isChecked!) {
               // 新增所有不存在的数据
@@ -524,7 +522,7 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
                 var key = data.mouldsn! + data.partsn!;
                 if (!controller.selectedDataMap.containsKey(key)) {
                   controller.selectedDataMap[key] = data;
-                  row.cells['isCheck']!.value = 1;
+                  // row.cells['isCheck']!.value = 1;
                 }
               }
             } else {
@@ -534,7 +532,7 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
                 var key = data.mouldsn! + data.partsn!;
                 if (controller.selectedDataMap.containsKey(key)) {
                   controller.selectedDataMap.remove(key);
-                  row.cells['isCheck']!.value = 0;
+                  // row.cells['isCheck']!.value = 0;
                 }
               }
             }
@@ -545,14 +543,14 @@ class _CraftBindingViewGetX extends GetView<CraftBindingController> {
               var key = data.mouldsn! + data.partsn!;
               if (!controller.selectedDataMap.containsKey(key)) {
                 controller.selectedDataMap[key] = data;
-                event.row!.cells['isCheck']!.value = 1;
+                // event.row!.cells['isCheck']!.value = 1;
               }
             } else {
               var data = event.row!.cells['data']!.value as WorkProcessData;
               var key = data.mouldsn! + data.partsn!;
               if (controller.selectedDataMap.containsKey(key)) {
                 controller.selectedDataMap.remove(key);
-                event.row!.cells['isCheck']!.value = 0;
+                // event.row!.cells['isCheck']!.value = 0;
               }
             }
           }

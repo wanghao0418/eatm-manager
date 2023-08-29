@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 15:08:21
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-25 11:39:03
+ * @LastEditTime: 2023-08-26 10:29:17
  * @FilePath: /eatm_manager/lib/pages/business/reporting/controller.dart
  * @Description: 报工逻辑层
  */
@@ -36,6 +36,14 @@ class ReportingController extends GetxController {
         SelectOption(label: '暂停', value: 2),
         SelectOption(label: '继续', value: 3),
         SelectOption(label: '完工', value: 4)
+      ];
+
+  // 工艺状态
+  List<SelectOption> get wpStateList => [
+        SelectOption(label: '未开工', value: '0'),
+        SelectOption(label: '正在加工', value: '1,3'),
+        SelectOption(label: '暂停', value: '2'),
+        SelectOption(label: '完工', value: '4')
       ];
 
   // 机床编号
@@ -117,6 +125,7 @@ class ReportingController extends GetxController {
       stateManager.appendRows([
         PlutoRow(cells: {
           'number': PlutoCell(value: index + 1),
+          'resourcenames': PlutoCell(value: e.resourcenames ?? ""),
           'actresourcenames': PlutoCell(value: e.actresourcenames ?? ""),
           'traytype': PlutoCell(value: e.traytype ?? ""),
           'identnumber': PlutoCell(value: e.identnumber ?? ""),
@@ -189,13 +198,15 @@ class ReportingSearch {
   String? partsn;
   String? mwpiececode;
   String? barcode;
+  String? wpstate;
 
   ReportingSearch(
       {this.workpieceType,
       this.mouldsn,
       this.partsn,
       this.mwpiececode,
-      this.barcode});
+      this.barcode,
+      this.wpstate});
 
   ReportingSearch.fromJson(Map<String, dynamic> json) {
     workpieceType = json['workpieceType'];
@@ -203,6 +214,7 @@ class ReportingSearch {
     partsn = json['partSN'];
     mwpiececode = json['mwpiececode'];
     barcode = json['barcode'];
+    wpstate = json['wpstate'];
   }
 
   Map<String, dynamic> toJson() {
@@ -212,6 +224,7 @@ class ReportingSearch {
     data['partSN'] = partsn;
     data['mwpiececode'] = mwpiececode;
     data['barcode'] = barcode;
+    data['wpstate'] = wpstate;
     return data;
   }
 }

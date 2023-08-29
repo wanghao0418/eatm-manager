@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 15:08:21
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-25 11:37:01
+ * @LastEditTime: 2023-08-26 10:31:04
  * @FilePath: /eatm_manager/lib/pages/business/reporting/view.dart
  * @Description: 报工视图层
  */
@@ -140,6 +140,30 @@ class _ReportingViewGetX extends GetView<ReportingController> {
                 placeholder: '请输入芯片Id',
                 onChanged: (value) {
                   controller.search.barcode = value;
+                },
+              ),
+            ),
+            LineFormLabel(
+              label: '工艺状态',
+              width: 200,
+              isExpanded: true,
+              child: ComboBox<String?>(
+                value: controller.search.wpstate,
+                placeholder: const Text('请选择'),
+                items: controller.wpStateList
+                    .map((e) => ComboBoxItem<String?>(
+                        value: e.value,
+                        child: Tooltip(
+                          message: e.label,
+                          child: Text(
+                            e.label!,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )))
+                    .toList(),
+                onChanged: (value) {
+                  controller.search.wpstate = value;
+                  controller.update(["reporting"]);
                 },
               ),
             ),
@@ -312,6 +336,12 @@ class _ReportingViewGetX extends GetView<ReportingController> {
               readOnly: true,
               enableRowChecked: true,
               width: 150),
+          PlutoColumn(
+            title: '资源组名称',
+            field: 'resourcenames',
+            type: PlutoColumnType.text(),
+            readOnly: true,
+          ),
           PlutoColumn(
             title: '机床名称',
             field: 'actresourcenames',

@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-10 15:41:34
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-25 18:38:59
+ * @LastEditTime: 2023-08-28 13:51:58
  * @FilePath: /eatm_manager/lib/pages/business/craft_binding/controller.dart
  * @Description: 工艺绑定逻辑层
  */
@@ -149,18 +149,16 @@ class CraftBindingController extends GetxController {
         'mwpieceName': PlutoCell(value: e.mwpiecename),
         // 'resoucenamedept': PlutoCell(value: e.resoucenamedept),
         'spec': PlutoCell(value: e.spec),
-        'isCheck': PlutoCell(value: 0),
+        // 'isCheck': PlutoCell(value: 0),
         'data': PlutoCell(value: e),
       });
       stateManager.appendRows([row]);
 
       var key = e.mouldsn! + e.partsn!;
       if (selectedDataMap.containsKey(key)) {
-        row.cells['isCheck']!.value = 1;
+        // row.cells['isCheck']!.value = 1;
         // stateManager.insertRows(0, [row]);
         stateManager.setRowChecked(row, true);
-      } else {
-        // stateManager.appendRows([row]);
       }
       stateManager.moveRowsByIndex(stateManager.checkedRows, 0);
       if (hasFilter) {
