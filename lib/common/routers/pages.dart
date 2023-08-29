@@ -29,6 +29,7 @@ import '../../pages/business/reporting/index.dart' deferred as reporting;
 import '../../pages/business/scheduling/multiple_machine_operation/index.dart'
     deferred as multiple_machine_operation;
 import '../../pages/business/data_entry/index.dart' deferred as data_entry;
+import '../../pages/business/programming/index.dart' deferred as programming;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -99,9 +100,11 @@ class MainChildPages {
         url: '/productCard',
         page: Center(child: Text('生产监控')),
         icon: MyIcons.productionMonitoring),
+    // 程式编程
     MainChildPage(
         url: '/discharge',
-        page: Center(child: Text('程式编程')),
+        page: DeferredWidget(
+            programming.loadLibrary, () => programming.ProgrammingPage()),
         icon: MyIcons.programming),
     MainChildPage(
         url: '/EDMTask',
