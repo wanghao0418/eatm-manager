@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-08 10:21:35
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-15 17:39:46
+ * @LastEditTime: 2023-08-30 14:45:35
  * @FilePath: /eatm_manager/lib/pages/business/task_query/controller.dart
  * @Description: 任务查询逻辑层
  */
@@ -118,9 +118,8 @@ class TaskQueryController extends GetxController {
 
   // 开关门
   void operatingDoor(String type, int operation) async {
-    ResponseApiBody res = await ProductTaskQueryApi.openOrCloseDoor({
-      "params": {'TransportShelf': type, 'OpenOrClose': operation}
-    });
+    ResponseApiBody res = await ProductTaskQueryApi.openOrCloseDoor(
+        {'TransportShelf': type, 'OpenOrClose': operation});
     if (res.success!) {
       PopupMessage.showSuccessInfoBar('操作成功');
     } else {

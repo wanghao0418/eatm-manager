@@ -29,7 +29,10 @@ import '../../pages/business/reporting/index.dart' deferred as reporting;
 import '../../pages/business/scheduling/multiple_machine_operation/index.dart'
     deferred as multiple_machine_operation;
 import '../../pages/business/data_entry/index.dart' deferred as data_entry;
-import '../../pages/business/programming/index.dart' deferred as programming;
+import '../../pages/business/discharge/programming/index.dart'
+    deferred as programming;
+import '../../pages/business/discharge/edm_task/index.dart'
+    deferred as edm_task;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -106,9 +109,11 @@ class MainChildPages {
         page: DeferredWidget(
             programming.loadLibrary, () => programming.ProgrammingPage()),
         icon: MyIcons.programming),
+    //EDM任务
     MainChildPage(
         url: '/EDMTask',
-        page: Center(child: Text('EDM任务')),
+        page:
+            DeferredWidget(edm_task.loadLibrary, () => edm_task.EdmTaskPage()),
         icon: MyIcons.task),
     // 计划甘特图
     MainChildPage(

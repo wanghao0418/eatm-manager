@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-28 14:09:16
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-29 17:40:33
+ * @LastEditTime: 2023-08-30 10:32:24
  * @FilePath: /eatm_manager/lib/pages/business/programming/view.dart
  * @Description: 程式编程视图层
  */
@@ -11,7 +11,7 @@ import 'package:eatm_manager/common/components/line_form_label.dart';
 import 'package:eatm_manager/common/components/title_card.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
-import 'package:eatm_manager/pages/business/programming/widgets/add_steel_form.dart';
+import 'package:eatm_manager/pages/business/discharge/programming/widgets/add_steel_form.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -157,7 +157,9 @@ class _ProgrammingViewGetX extends GetView<ProgrammingController> {
                 label: '钢件管理',
                 onPressed: onSteelManagerClick),
             FilledIconButton(
-                icon: FluentIcons.add, label: '放电任务', onPressed: () {}),
+                icon: FluentIcons.add,
+                label: '放电任务',
+                onPressed: controller.onAddDischargeTask),
           ],
         ))
       ],
@@ -299,10 +301,20 @@ class _ProgrammingViewGetX extends GetView<ProgrammingController> {
             type: PlutoColumnType.text(),
             enableEditingMode: false,
           ),
+          PlutoColumn(
+              title: '',
+              field: 'data',
+              type: PlutoColumnType.text(),
+              enableEditingMode: false,
+              hide: true),
         ],
         rows: controller.dischargeRows,
         onLoaded: (PlutoGridOnLoadedEvent event) {
           controller.dischargeStateManager = event.stateManager;
+        },
+        onRowChecked: (event) {
+          // 更新跑位表格
+          controller.updateRunningPosData();
         },
         configuration: globalTheme.plutoGridConfig,
       ),
@@ -325,30 +337,33 @@ class _ProgrammingViewGetX extends GetView<ProgrammingController> {
           // ),
           PlutoColumn(
             title: '跑位X',
-            field: 'steelNumber',
+            field: 'runningPosx',
             type: PlutoColumnType.text(),
             enableEditingMode: false,
           ),
           PlutoColumn(
             title: '跑位Y',
-            field: 'x',
+            field: 'runningPosy',
             type: PlutoColumnType.text(),
             enableEditingMode: false,
           ),
           PlutoColumn(
             title: '跑位Z',
-            field: 'y',
+            field: 'runningPosz',
             type: PlutoColumnType.text(),
             enableEditingMode: false,
           ),
           PlutoColumn(
             title: '跑位角度',
-            field: 'z',
+            field: 'cAxisRotationAngle',
             type: PlutoColumnType.text(),
             enableEditingMode: false,
           ),
         ],
-        rows: [],
+        rows: controller.runningPosRows,
+        onLoaded: (PlutoGridOnLoadedEvent event) {
+          controller.runningPosManager = event.stateManager;
+        },
         configuration: globalTheme.plutoGridConfig.copyWith(
             columnSize: PlutoGridColumnSizeConfig(
                 autoSizeMode: PlutoAutoSizeMode.scale)),
