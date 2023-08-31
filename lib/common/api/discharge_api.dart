@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-29 11:35:13
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-30 11:18:32
+ * @LastEditTime: 2023-08-31 10:56:40
  * @FilePath: /eatm_manager/lib/common/api/discharge_api.dart
  * @Description: 放电接口
  */
@@ -25,6 +25,12 @@ class DischargeApi {
   // 获取EDM任务信息
   static Future<ResponseApiBody> getEdmTaskInfo(data) async {
     return await HttpUtil.post('/Eatm/CreatSteelEdmTask',
+        data: data, isMock: isMock);
+  }
+
+  // 更新钢件放电任务
+  static Future<ResponseApiBody> updateSteelEdmTask(data) async {
+    return await HttpUtil.post('/Eatm/UpdateSteelEdmTask',
         data: data, isMock: isMock);
   }
 }

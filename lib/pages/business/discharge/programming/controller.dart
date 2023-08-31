@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-28 14:09:16
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-30 17:35:12
+ * @LastEditTime: 2023-08-31 14:22:17
  * @FilePath: /eatm_manager/lib/pages/business/programming/controller.dart
  * @Description: 程式编程逻辑层
  */
@@ -15,6 +15,7 @@ import 'package:eatm_manager/common/utils/hive.dart';
 import 'package:eatm_manager/common/utils/log.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
 import 'package:eatm_manager/common/utils/router.dart';
+import 'package:eatm_manager/pages/business/discharge/edm_task/controller.dart';
 import 'package:eatm_manager/pages/business/discharge/programming/model.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -279,7 +280,7 @@ class ProgrammingController extends GetxController {
       List<EdmTaskData> edmTaskDataList =
           (res.data as List).map((e) => EdmTaskData.fromJson(e)).toList();
       GetStorage edmTaskStorage = GetStorage('edmTask');
-      edmTaskStorage.write('edmTaskDataList', edmTaskDataList);
+      edmTaskStorage.write('edmTaskDataList', res.data);
       // var edmTaskBox = HiveUtil.instance.edmTaskBox;
       // var edmInfoBox = HiveUtil.instance.edmInfoBox;
       var edmTaskBox = await Hive.openBox('edmTask');
@@ -309,7 +310,12 @@ class ProgrammingController extends GetxController {
         return infoData;
       }).toList();
       edmInfoBox.put(edmTaskDataList.first.edmTaskId, infoDataList);
-      // 跳转到EDM任务
+      // 跳转到EDM任务 如果已打开刷新并跳转
+      LogUtil.i(Get.isRegistered<EdmTaskController>());
+      if (Get.isRegistered<EdmTaskController>()) {
+        EdmTaskController edmTaskController = Get.find<EdmTaskController>();
+        edmTaskController.initStoreData();
+      }
       RouterUtils.jumpToChildPage('/EDMTask');
     } else {
       PopupMessage.showFailInfoBar(res.message as String);

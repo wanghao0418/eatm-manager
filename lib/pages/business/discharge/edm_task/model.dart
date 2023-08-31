@@ -1,4 +1,4 @@
-// 任务夹具
+// 放电任务信息
 class EdmTaskFixtureData {
   int? edmTaskId;
   String? taskState;

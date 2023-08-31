@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-30 10:07:54
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-30 14:48:24
+ * @LastEditTime: 2023-08-31 13:46:08
  * @FilePath: /eatm_manager/lib/common/utils/hive.dart
  * @Description: hive存储工具类
  */
@@ -28,7 +28,7 @@ class HiveUtil {
   // 初始化
   static Future<void> init() async {
     await Hive.initFlutter();
-    instance.edmInfoBox = await Hive.openBox('edmTask');
-    instance.edmInfoBox = await Hive.openBox('edmInfo');
+    // instance.edmInfoBox = await Hive.openBox('edmTask');
+    // instance.edmInfoBox = await Hive.openBox('edmInfo');
   }
 }

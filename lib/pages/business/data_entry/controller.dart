@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-23 14:00:43
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-24 14:33:19
+ * @LastEditTime: 2023-08-31 15:41:58
  * @FilePath: /eatm_manager/lib/pages/business/data_entry/controller.dart
  * @Description: 数据录入逻辑层
  */
@@ -84,7 +84,7 @@ class DataEntryController extends GetxController {
         'mwCount': PlutoCell(value: e.mwCount ?? ''),
         'boundCount': PlutoCell(value: e.boundCount ?? ''),
         'partSn': PlutoCell(value: e.partSn ?? ''),
-        'samplingFrequency': PlutoCell(value: e.samplingFrequency ?? ''),
+        'samplingFrequency': PlutoCell(value: e.samplingFrequency ?? 0),
         'username': PlutoCell(value: e.username ?? ''),
         'sn': PlutoCell(value: e.sn ?? ''),
         'barCode': PlutoCell(value: e.barCode ?? ''),
@@ -200,7 +200,28 @@ class DataEntryController extends GetxController {
       if (boundCount < mwCount - 1) {
         // 没绑定完
         data.boundCount = (boundCount + 1).toString();
+        stateManager.checkedRows.first.cells['boundCount']!.value =
+            (boundCount + 1).toString();
+        _initData();
+      } else {
+        query();
       }
+    } else {
+      PopupMessage.showFailInfoBar(res.message as String);
+    }
+  }
+
+  // 修改抽检频率
+  void updateField(int rowIndex, String value) async {
+    var rowData = enteredDataList[rowIndex];
+    var samplingFrequency = rowData.samplingFrequency;
+    if (samplingFrequency == value) return;
+    var res = await DataEntryApi.updateByMouldSn({
+      "params": {"MouldSn": rowData.mouldSn, "samplingFrequency": value},
+    });
+    if (res.success!) {
+      PopupMessage.showSuccessInfoBar('修改成功');
+      enteredDataList[rowIndex].samplingFrequency = value;
     } else {
       PopupMessage.showFailInfoBar(res.message as String);
     }

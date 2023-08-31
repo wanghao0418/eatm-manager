@@ -2,11 +2,10 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-30 10:32:45
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-30 18:44:29
+ * @LastEditTime: 2023-08-31 13:55:04
  * @FilePath: /eatm_manager/lib/pages/business/discharge/edm_task/view.dart
  * @Description: 放电任务视图层
  */
-import 'dart:js_util';
 
 import 'package:eatm_manager/common/components/filled_icon_button.dart';
 import 'package:eatm_manager/common/components/line_form_label.dart';
@@ -14,6 +13,7 @@ import 'package:eatm_manager/common/components/themed_text.dart';
 import 'package:eatm_manager/common/components/title_card.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/common/utils/log.dart';
+import 'package:eatm_manager/pages/business/discharge/edm_task/enum.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -98,13 +98,24 @@ class _EdmTaskViewGetX extends GetView<EdmTaskController> {
           runSpacing: 10,
           children: [
             FilledIconButton(
-                icon: FluentIcons.play_solid, label: '任务开始', onPressed: () {}),
+                icon: FluentIcons.play_solid,
+                label: '任务开始',
+                onPressed: () =>
+                    controller.updateTaskState(EdmTaskState.processing)),
             FilledIconButton(
-                icon: FluentIcons.pause, label: '任务暂停', onPressed: () {}),
+                icon: FluentIcons.pause,
+                label: '任务暂停',
+                onPressed: () =>
+                    controller.updateTaskState(EdmTaskState.pause)),
             FilledIconButton(
-                icon: FluentIcons.cancel, label: '任务取消', onPressed: () {}),
+                icon: FluentIcons.cancel,
+                label: '任务取消',
+                onPressed: () =>
+                    controller.updateTaskState(EdmTaskState.cancel)),
             FilledIconButton(
-                icon: FluentIcons.delete, label: '删除任务', onPressed: () {}),
+                icon: FluentIcons.delete,
+                label: '删除任务',
+                onPressed: controller.onDeleteTask),
           ],
         ))
       ],
@@ -114,8 +125,8 @@ class _EdmTaskViewGetX extends GetView<EdmTaskController> {
       padding: globalTheme.contentPadding,
       decoration: globalTheme.contentDecoration,
       child: Column(children: [
-        formItems,
-        10.verticalSpace,
+        // formItems,
+        // 10.verticalSpace,
         buttons,
       ]),
     );
@@ -250,6 +261,10 @@ class _EdmTaskViewGetX extends GetView<EdmTaskController> {
                                 notify: true);
                             var taskId =
                                 rendererContext.row.cells['edmTaskId']!.value;
+                            var fixture =
+                                rendererContext.row.cells['fixtureType']!.value;
+                            controller.fixtureTypeMap[fixture]!['taskId'] =
+                                taskId;
                             controller.loadInfoData(taskId);
                           } else {
                             controller.infoRows.clear();
