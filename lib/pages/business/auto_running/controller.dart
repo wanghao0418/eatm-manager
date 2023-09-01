@@ -264,7 +264,7 @@ class AutoRunningController extends GetxController {
     // String url = await Utils.getConfigField('autoRunWebsocketUrL');
     // String url = "ws://127.0.0.1:8092";
     String? url =
-        ConfigStore.instance.autoRunWebsocketUrL ?? "ws://127.0.0.1:8092";
+        ConfigStore.instance.autoRunWebsocketUrl ?? "ws://127.0.0.1:8092";
     _webSocketUtility = WebSocketUtility(
       connectUrl: url,
       onMessage: (message) {

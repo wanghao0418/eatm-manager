@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-22 09:04:32
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-23 13:36:18
+ * @LastEditTime: 2023-09-01 18:25:16
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/multiple_machine_operation/controller.dart
  * @Description: 多机负荷逻辑层
  */
@@ -26,7 +26,7 @@ class MultipleMachineOperationController extends GetxController {
 
   // 初始化WebSocket,失败则读取本地数据
   void initWebSocket() {
-    var connectUrl = ConfigStore.instance.schedulingWebsocketUrL;
+    var connectUrl = ConfigStore.instance.schedulingWebsocketUrl;
     webSocketUtility = WebSocketUtility(
         connectUrl: connectUrl!,
         onOpen: () {

@@ -1,0 +1,68 @@
+{
+  "chipBindStl":[
+    {
+      "nAction": 1,
+      "nCurLocationId": 0,
+      "nFasciaId": 1,
+      "nIsOk": 1,
+      "strChipClampId": "12232322",
+      "strChipFascia": "90003057",
+      "strElectrodeNo": "221549-1549B1B2-2J-F11",
+      "strFixture": "454",
+      "strPresetHeight": "155",
+      "strSpecifications": "30*50*35",
+      "strTextureMaterial": "CUPRUM",
+      "strX": "123.1",
+      "strY": "133.6",
+      "strZ": "144.9"
+    },
+    {
+      "nAction": 1,
+      "nCurLocationId": 0,
+      "nFasciaId": 1,
+      "nIsOk": 1,
+      "strChipClampId": "12232322",
+      "strChipFascia": "90002975",
+      "strElectrodeNo": "221549-1549B1B2-2J-F4",
+      "strFixture": "454",
+      "strPresetHeight": "155",
+      "strSpecifications": "30*50*35",
+      "strTextureMaterial": "CUPRUM",
+      "strX": "123.1",
+      "strY": "133.6",
+      "strZ": "144.9"
+    },
+    {
+      "nAction": 1,
+      "nCurLocationId": 0,
+      "nFasciaId": 1,
+      "nIsOk": 1,
+      "strChipClampId": "12232322",
+      "strChipFascia": "90002974",
+      "strElectrodeNo": "221549-1549B1B2-2J-F5",
+      "strFixture": "454",
+      "strPresetHeight": "155",
+      "strSpecifications": "30*50*35",
+      "strTextureMaterial": "CUPRUM",
+      "strX": "123.1",
+      "strY": "133.6",
+      "strZ": "144.9"
+    },
+    {
+      "nAction": 1,
+      "nCurLocationId": 0,
+      "nFasciaId": 1,
+      "nIsOk": 1,
+      "strChipClampId": "12232322",
+      "strChipFascia": "90002973",
+      "strElectrodeNo": "221549-1549B1B2-2J-F6",
+      "strFixture": "454",
+      "strPresetHeight": "155",
+      "strSpecifications": "30*50*35",
+      "strTextureMaterial": "CUPRUM",
+      "strX": "123.1",
+      "strY": "133.6",
+      "strZ": "144.9"
+    }
+  ]
+}

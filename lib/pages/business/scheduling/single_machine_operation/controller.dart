@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 15:04:20
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-23 13:28:21
+ * @LastEditTime: 2023-09-01 18:25:03
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/single_machine_operation/controller.dart
  * @Description: 单机负荷逻辑层
  */
@@ -56,7 +56,7 @@ class SingleMachineOperationController extends GetxController {
 
   // 初始化WebSocket,失败则读取本地数据
   void initWebSocket() {
-    var connectUrl = ConfigStore.instance.schedulingWebsocketUrL;
+    var connectUrl = ConfigStore.instance.schedulingWebsocketUrl;
     webSocketUtility = WebSocketUtility(
         connectUrl: connectUrl!,
         onOpen: () {
