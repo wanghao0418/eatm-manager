@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-28 14:09:16
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-30 10:32:24
+ * @LastEditTime: 2023-09-01 09:23:55
  * @FilePath: /eatm_manager/lib/pages/business/programming/view.dart
  * @Description: 程式编程视图层
  */
@@ -52,6 +52,8 @@ class _ProgrammingViewGetX extends GetView<ProgrammingController> {
     if (flag) {
       var key = GlobalKey();
       SmartDialog.show(
+        keepSingle: true,
+        bindPage: true,
         builder: (context) {
           return ContentDialog(
             title: const Text('添加').fontSize(20),

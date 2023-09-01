@@ -33,6 +33,8 @@ import '../../pages/business/discharge/programming/index.dart'
     deferred as programming;
 import '../../pages/business/discharge/edm_task/index.dart'
     deferred as edm_task;
+import '../../pages/business/electrode_binding/index.dart'
+    deferred as electrode_binding;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -162,9 +164,11 @@ class MainChildPages {
         url: '/robotView',
         page: Center(child: Text('机器人')),
         icon: MyIcons.robot),
+    // 多电极绑定
     MainChildPage(
         url: '/ChipBinding',
-        page: Center(child: Text('多电极绑定')),
+        page: DeferredWidget(electrode_binding.loadLibrary,
+            () => electrode_binding.ElectrodeBindingPage()),
         icon: MyIcons.binding),
     MainChildPage(
         url: '/EquipmentStatus',
