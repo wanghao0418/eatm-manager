@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-05-11 09:45:37
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-18 10:15:04
+ * @LastEditTime: 2023-09-04 18:45:05
  * @FilePath: /mesui/lib/pages/common/customWebSocket.dart
  * @Description: websocket
  */
@@ -68,7 +68,7 @@ class WebSocketUtility {
       onOpen();
       // 接收消息
       _channel!.stream.listen((message) {
-        print('Received message: $message');
+        // print('Received message: $message');
         onMessage(message);
       }, onError: (error) {
         print('WebSocket error: $error');
@@ -113,7 +113,7 @@ class WebSocketUtility {
     if (_channel != null) {
       switch (_socketStatus) {
         case SocketStatus.SocketStatusConnected:
-          print('发送中：' + message);
+          // print('发送中：' + message);
           _channel!.sink.add(message);
           break;
         case SocketStatus.SocketStatusClosed:

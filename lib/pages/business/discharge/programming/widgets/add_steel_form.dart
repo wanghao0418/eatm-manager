@@ -2,13 +2,13 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-29 13:38:30
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-29 15:36:24
+ * @LastEditTime: 2023-08-30 10:34:51
  * @FilePath: /eatm_manager/lib/pages/business/programming/widgets/add_steel_form.dart
  * @Description:  添加钢件表单
  */
 import 'package:eatm_manager/common/components/line_form_label.dart';
 import 'package:eatm_manager/common/models/selectOption.dart';
-import 'package:eatm_manager/pages/business/programming/model.dart';
+import 'package:eatm_manager/pages/business/discharge/programming/model.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 
 class AddSteelForm extends StatefulWidget {

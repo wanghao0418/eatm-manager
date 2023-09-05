@@ -15,8 +15,9 @@ class ConfigStore extends GetxController {
   int? receiveTimeout = 5000;
   int? sendTimeout = 5000;
   int? mesPort = 8098;
-  String? autoRunWebsocketUrL = 'ws://localhost:8092';
-  String? schedulingWebsocketUrL = 'ws://localhost:4006';
+  String? autoRunWebsocketUrl = 'ws://localhost:8092';
+  String? schedulingWebsocketUrl = 'ws://localhost:4006';
+  String? chipBindingWebsocketUrl = 'ws://localhost:12353';
   String? mockEnv = '';
 
   @override
@@ -36,8 +37,9 @@ class ConfigStore extends GetxController {
     receiveTimeout = globalConfig.receiveTimeout;
     sendTimeout = globalConfig.sendTimeout;
     mesPort = globalConfig.mesPort;
-    autoRunWebsocketUrL = globalConfig.autoRunWebsocketUrL;
-    schedulingWebsocketUrL = globalConfig.schedulingWebsocketUrL;
+    autoRunWebsocketUrl = globalConfig.autoRunWebsocketUrl;
+    schedulingWebsocketUrl = globalConfig.schedulingWebsocketUrl;
+    chipBindingWebsocketUrl = globalConfig.chipBindingWebsocketUrl;
     mockEnv = globalConfig.mockEnv;
     _readArguments();
   }
@@ -73,8 +75,9 @@ class GlobalConfig {
   int? receiveTimeout;
   int? sendTimeout;
   int? mesPort;
-  String? autoRunWebsocketUrL;
-  String? schedulingWebsocketUrL;
+  String? autoRunWebsocketUrl;
+  String? schedulingWebsocketUrl;
+  String? chipBindingWebsocketUrl;
   String? mockEnv;
 
   GlobalConfig(
@@ -85,8 +88,9 @@ class GlobalConfig {
       this.receiveTimeout,
       this.sendTimeout,
       this.mesPort,
-      this.autoRunWebsocketUrL,
-      this.schedulingWebsocketUrL,
+      this.autoRunWebsocketUrl,
+      this.schedulingWebsocketUrl,
+      this.chipBindingWebsocketUrl,
       this.mockEnv});
 
   GlobalConfig.fromJson(Map<String, dynamic> json) {
@@ -97,8 +101,9 @@ class GlobalConfig {
     receiveTimeout = json['receiveTimeout'];
     sendTimeout = json['sendTimeout'];
     mesPort = json['mesPort'];
-    autoRunWebsocketUrL = json['autoRunWebsocketUrL'];
-    schedulingWebsocketUrL = json['schedulingWebsocketUrL'];
+    autoRunWebsocketUrl = json['autoRunWebsocketUrl'];
+    schedulingWebsocketUrl = json['schedulingWebsocketUrl'];
+    chipBindingWebsocketUrl = json['chipBindingWebsocketUrl'];
     mockEnv = json['mockEnv'];
   }
 
@@ -111,8 +116,9 @@ class GlobalConfig {
     data['receiveTimeout'] = this.receiveTimeout;
     data['sendTimeout'] = this.sendTimeout;
     data['mesPort'] = this.mesPort;
-    data['autoRunWebsocketUrL'] = this.autoRunWebsocketUrL;
-    data['schedulingWebsocketUrL'] = this.schedulingWebsocketUrL;
+    data['autoRunWebsocketUrl'] = this.autoRunWebsocketUrl;
+    data['schedulingWebsocketUrl'] = this.schedulingWebsocketUrl;
+    data['chipBindingWebsocketUrl'] = this.chipBindingWebsocketUrl;
     data['mockEnv'] = this.mockEnv;
     return data;
   }

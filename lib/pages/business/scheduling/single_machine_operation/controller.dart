@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 15:04:20
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-23 13:28:21
+ * @LastEditTime: 2023-09-05 09:18:52
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/single_machine_operation/controller.dart
  * @Description: 单机负荷逻辑层
  */
@@ -41,8 +41,11 @@ class SingleMachineOperationController extends GetxController {
       ValueNotifier<DeviceResources?>(null);
 
   // 当前加工工件信息
-  ProductionOrders? get currentProductionOrder =>
-      currentMachine?.productionOrders?.first;
+  ProductionOrders? get currentProductionOrder => currentMachine != null
+      ? (currentMachine!.productionOrders!.isNotEmpty
+          ? currentMachine!.productionOrders!.first
+          : null)
+      : null;
 
   // 当前预警刀具信息
   List<DeviceAlarmToolNoArr>? get currentAlarmTools =>
@@ -56,7 +59,7 @@ class SingleMachineOperationController extends GetxController {
 
   // 初始化WebSocket,失败则读取本地数据
   void initWebSocket() {
-    var connectUrl = ConfigStore.instance.schedulingWebsocketUrL;
+    var connectUrl = ConfigStore.instance.schedulingWebsocketUrl;
     webSocketUtility = WebSocketUtility(
         connectUrl: connectUrl!,
         onOpen: () {
@@ -70,7 +73,9 @@ class SingleMachineOperationController extends GetxController {
           }
         },
         onMessage: (message) {
-          final jsonData = MacSchedulingData.fromJson(json.decode(message));
+          var data = json.decode(message);
+          if (data is List) return;
+          final jsonData = MacSchedulingData.fromJson(data);
           // 获取机床列表消息
           if (jsonData.allMachineName != null) {
             machineList = jsonData.allMachineName!;
@@ -83,7 +88,7 @@ class SingleMachineOperationController extends GetxController {
           } else if (jsonData.deviceResources != null) {
             // 获取机床信息消息
             machineInfoList = jsonData.deviceResources!;
-            currentMachineNotifier.value = machineInfoList.firstWhere(
+            currentMachineNotifier.value = machineInfoList.firstWhereOrNull(
                 (element) => element.deviceName == currentMachineName);
           }
         },

@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-22 10:17:23
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-24 09:07:49
+ * @LastEditTime: 2023-09-04 18:13:19
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/multiple_machine_operation/widgets/machine_warning_card.dart
  * @Description: 机床预警卡片
  */
@@ -286,7 +286,7 @@ class _MachineWarningCardState extends State<MachineWarningCard> {
   void didUpdateWidget(covariant MachineWarningCard oldWidget) {
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
-    LogUtil.f('didUpdateWidget');
+    // LogUtil.f('didUpdateWidget');
     setState(() {});
   }
 

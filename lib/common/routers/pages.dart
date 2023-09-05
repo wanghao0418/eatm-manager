@@ -29,7 +29,12 @@ import '../../pages/business/reporting/index.dart' deferred as reporting;
 import '../../pages/business/scheduling/multiple_machine_operation/index.dart'
     deferred as multiple_machine_operation;
 import '../../pages/business/data_entry/index.dart' deferred as data_entry;
-import '../../pages/business/programming/index.dart' deferred as programming;
+import '../../pages/business/discharge/programming/index.dart'
+    deferred as programming;
+import '../../pages/business/discharge/edm_task/index.dart'
+    deferred as edm_task;
+import '../../pages/business/electrode_binding/index.dart'
+    deferred as electrode_binding;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -106,9 +111,11 @@ class MainChildPages {
         page: DeferredWidget(
             programming.loadLibrary, () => programming.ProgrammingPage()),
         icon: MyIcons.programming),
+    //EDM任务
     MainChildPage(
         url: '/EDMTask',
-        page: Center(child: Text('EDM任务')),
+        page:
+            DeferredWidget(edm_task.loadLibrary, () => edm_task.EdmTaskPage()),
         icon: MyIcons.task),
     // 计划甘特图
     MainChildPage(
@@ -157,9 +164,11 @@ class MainChildPages {
         url: '/robotView',
         page: Center(child: Text('机器人')),
         icon: MyIcons.robot),
+    // 多电极绑定
     MainChildPage(
         url: '/ChipBinding',
-        page: Center(child: Text('多电极绑定')),
+        page: DeferredWidget(electrode_binding.loadLibrary,
+            () => electrode_binding.ElectrodeBindingPage()),
         icon: MyIcons.binding),
     MainChildPage(
         url: '/EquipmentStatus',

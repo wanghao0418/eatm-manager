@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-18 17:57:37
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-22 10:27:53
+ * @LastEditTime: 2023-09-04 18:38:47
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/single_machine_operation/widgets/scheduling_gantt_chart.dart
  * @Description: 排产甘特图
  */
@@ -237,7 +237,8 @@ class _SchedulingGanttChartState extends State<SchedulingGanttChart> {
     if (widget.schedulingList.isNotEmpty) {
       firstOrder = widget.schedulingList.first!;
     } else {
-      firstOrder = ProductionOrders(startTime: today.toString());
+      firstOrder = ProductionOrders(
+          startTime: '${today.year}-${today.month}-${today.day} 00:00:00');
     }
     var startTime = _formatter.parse(firstOrder.startTime ?? '');
     fromDate = DateTime(

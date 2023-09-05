@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-29 09:41:15
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-29 17:16:58
+ * @LastEditTime: 2023-08-30 13:42:14
  * @FilePath: /eatm_manager/lib/pages/business/programming/model.dart
  * @Description:  结构体
  */
@@ -290,4 +290,85 @@ class EdmElecInfo {
         "SteelSPEC": steelSpec,
         "SteelTexture": steelTexture,
       };
+}
+
+class RunningPos {
+  num? runningPosX;
+  num? runningPosY;
+  num? runningPosZ;
+  num? cAxisRotationAngle;
+
+  RunningPos(
+      {this.runningPosX,
+      this.runningPosY,
+      this.runningPosZ,
+      this.cAxisRotationAngle});
+
+  RunningPos.fromJson(Map<String, dynamic> json) {
+    runningPosX = json['RunningPosX'];
+    runningPosY = json['RunningPosY'];
+    runningPosZ = json['RunningPosZ'];
+    cAxisRotationAngle = json['CAxisRotationAngle'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['RunningPosX'] = this.runningPosX;
+    data['RunningPosY'] = this.runningPosY;
+    data['RunningPosZ'] = this.runningPosZ;
+    data['CAxisRotationAngle'] = this.cAxisRotationAngle;
+    return data;
+  }
+
+  // 非原点
+  bool get isNotOrigin =>
+      runningPosX != 0 ||
+      runningPosY != 0 ||
+      runningPosZ != 0 ||
+      cAxisRotationAngle != 0;
+}
+
+class EdmTaskData {
+  String? elecSN;
+  int? edmTaskId;
+  String? elecMOULDSN;
+  String? elecPARTSN;
+  String? steelMOULDSN;
+  String? steelPARTSN;
+  String? steelSN;
+  int? edmOrder;
+
+  EdmTaskData(
+      {this.elecSN,
+      this.edmTaskId,
+      this.elecMOULDSN,
+      this.elecPARTSN,
+      this.steelMOULDSN,
+      this.steelPARTSN,
+      this.steelSN,
+      this.edmOrder});
+
+  EdmTaskData.fromJson(Map<String, dynamic> json) {
+    elecSN = json['ELECSN'];
+    edmTaskId = json['EdmTaskId'];
+    elecMOULDSN = json['ElecMOULDSN'];
+    elecPARTSN = json['ElecPARTSN'];
+    steelMOULDSN = json['SteelMOULDSN'];
+    steelPARTSN = json['SteelPARTSN'];
+    steelSN = json['STEELSN'];
+    edmOrder = json['EdmOrder'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['ELECSN'] = this.elecSN;
+    data['EdmTaskId'] = this.edmTaskId;
+    data['ElecMOULDSN'] = this.elecMOULDSN;
+    data['ElecPARTSN'] = this.elecPARTSN;
+    data['SteelMOULDSN'] = this.steelMOULDSN;
+    data['SteelPARTSN'] = this.steelPARTSN;
+    data['STEELSN'] = this.steelSN;
+    data['EdmOrder'] = this.edmOrder;
+    return data;
+  }
 }

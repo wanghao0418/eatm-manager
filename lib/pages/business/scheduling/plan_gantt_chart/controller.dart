@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-21 14:33:18
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-23 13:28:29
+ * @LastEditTime: 2023-09-05 09:07:25
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/plan_gantt_chart/controller.dart
  * @Description: 计划甘特图逻辑层
  */
@@ -35,7 +35,7 @@ class PlanGanttChartController extends GetxController {
 
   // 初始化WebSocket,失败则读取本地数据
   void initWebSocket() {
-    var connectUrl = ConfigStore.instance.schedulingWebsocketUrL;
+    var connectUrl = ConfigStore.instance.schedulingWebsocketUrl;
     webSocketUtility = WebSocketUtility(
         connectUrl: connectUrl!,
         onOpen: () {
@@ -49,10 +49,13 @@ class PlanGanttChartController extends GetxController {
         },
         onMessage: (message) {
           if (!message.contains('deviceResources')) {
-            List list = json.decode(message);
-            machineSchedulingInfoList =
-                list.map((e) => MachineSchedulingInfo.fromJson(e)).toList();
-            _updateCharts();
+            var list = json.decode(message);
+            if (list is List) {
+              machineSchedulingInfoList.clear();
+              machineSchedulingInfoList =
+                  list.map((e) => MachineSchedulingInfo.fromJson(e)).toList();
+              _updateCharts();
+            }
           }
         },
         onClose: () {

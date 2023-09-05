@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-22 09:04:32
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-23 13:36:18
+ * @LastEditTime: 2023-09-04 19:05:45
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/multiple_machine_operation/controller.dart
  * @Description: 多机负荷逻辑层
  */
@@ -26,18 +26,21 @@ class MultipleMachineOperationController extends GetxController {
 
   // 初始化WebSocket,失败则读取本地数据
   void initWebSocket() {
-    var connectUrl = ConfigStore.instance.schedulingWebsocketUrL;
+    var connectUrl = ConfigStore.instance.schedulingWebsocketUrl;
     webSocketUtility = WebSocketUtility(
         connectUrl: connectUrl!,
         onOpen: () {
           LogUtil.t('WebSocket连接成功');
+          webSocketUtility!.sendMessage('SendStart#2#0#SendEnd');
         },
         onMessage: (data) {
-          LogUtil.t('WebSocket接收到消息：$data');
+          // LogUtil.t('WebSocket接收到消息：$data');
           var json = jsonDecode(data);
-          var schedulingData = MacSchedulingData.fromJson(json);
-          machineSchedulingInfoList = schedulingData.deviceResources ?? [];
-          _initData();
+          if (json.toString().contains('deviceResources')) {
+            var schedulingData = MacSchedulingData.fromJson(json);
+            machineSchedulingInfoList = schedulingData.deviceResources ?? [];
+            _initData();
+          }
         },
         onError: (e) {
           LogUtil.f('WebSocket连接发生错误：$e');

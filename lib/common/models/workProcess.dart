@@ -26,6 +26,9 @@ class WorkProcessData {
     this.trayType,
     this.workpieceType,
     this.wpstate,
+    this.offsetX,
+    this.offsetY,
+    this.offsetZ,
   });
 
   ///芯片Id
@@ -73,6 +76,10 @@ class WorkProcessData {
   String? workpieceType;
   String? wpstate;
 
+  num? offsetX;
+  num? offsetY;
+  num? offsetZ;
+
   factory WorkProcessData.fromRawJson(String str) =>
       WorkProcessData.fromJson(json.decode(str));
 
@@ -103,6 +110,9 @@ class WorkProcessData {
         trayType: json["TrayType"],
         workpieceType: json["WorkpieceType"],
         wpstate: json["wpstate"],
+        offsetX: json["offsetx"],
+        offsetY: json["offsety"],
+        offsetZ: json["offsetz"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -129,6 +139,9 @@ class WorkProcessData {
         "TrayType": trayType,
         "WorkpieceType": workpieceType,
         "wpstate": wpstate,
+        "offsetx": offsetX,
+        "offsety": offsetY,
+        "offsetz": offsetZ,
       };
 }
 
