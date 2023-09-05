@@ -2,14 +2,15 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-29 11:35:13
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-31 10:56:40
+ * @LastEditTime: 2023-09-05 13:25:03
  * @FilePath: /eatm_manager/lib/common/api/discharge_api.dart
  * @Description: 放电接口
  */
+import 'package:eatm_manager/common/store/config.dart';
 import 'package:eatm_manager/common/utils/http.dart';
 
 class DischargeApi {
-  static bool isMock = true;
+  static bool get isMock => ConfigStore.instance.openMock ?? false;
 
   // 获取EDM钢件信息
   static Future<ResponseApiBody> getSteelEDMData() async {

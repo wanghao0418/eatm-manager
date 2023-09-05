@@ -19,6 +19,7 @@ class ConfigStore extends GetxController {
   String? schedulingWebsocketUrl = 'ws://localhost:4006';
   String? chipBindingWebsocketUrl = 'ws://localhost:12353';
   String? mockEnv = '';
+  bool? openMock = false;
 
   @override
   void onInit() async {
@@ -41,6 +42,7 @@ class ConfigStore extends GetxController {
     schedulingWebsocketUrl = globalConfig.schedulingWebsocketUrl;
     chipBindingWebsocketUrl = globalConfig.chipBindingWebsocketUrl;
     mockEnv = globalConfig.mockEnv;
+    openMock = globalConfig.openMock;
     _readArguments();
   }
 
@@ -79,6 +81,7 @@ class GlobalConfig {
   String? schedulingWebsocketUrl;
   String? chipBindingWebsocketUrl;
   String? mockEnv;
+  bool? openMock;
 
   GlobalConfig(
       {this.localBaseUrl,
@@ -91,7 +94,8 @@ class GlobalConfig {
       this.autoRunWebsocketUrl,
       this.schedulingWebsocketUrl,
       this.chipBindingWebsocketUrl,
-      this.mockEnv});
+      this.mockEnv,
+      this.openMock});
 
   GlobalConfig.fromJson(Map<String, dynamic> json) {
     localBaseUrl = json['localBaseUrl'];
@@ -105,6 +109,7 @@ class GlobalConfig {
     schedulingWebsocketUrl = json['schedulingWebsocketUrl'];
     chipBindingWebsocketUrl = json['chipBindingWebsocketUrl'];
     mockEnv = json['mockEnv'];
+    openMock = json['openMock'];
   }
 
   Map<String, dynamic> toJson() {
@@ -120,6 +125,7 @@ class GlobalConfig {
     data['schedulingWebsocketUrl'] = this.schedulingWebsocketUrl;
     data['chipBindingWebsocketUrl'] = this.chipBindingWebsocketUrl;
     data['mockEnv'] = this.mockEnv;
+    data['openMock'] = this.openMock;
     return data;
   }
 }
