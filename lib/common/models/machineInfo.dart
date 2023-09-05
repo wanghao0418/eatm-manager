@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-17 17:37:12
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-29 11:22:17
+ * @LastEditTime: 2023-09-05 13:49:14
  * @FilePath: /eatm_manager/lib/common/models/machineInfo.dart
  * @Description: 机床信息
  */
@@ -72,14 +72,22 @@ class MachineResource {
 
   factory MachineResource.fromJson(Map<String, dynamic> json) =>
       MachineResource(
-        CNC: List<MachineInfo>.from(
-            json["CNC"].map((x) => MachineInfo.fromCapitalJson(x))),
-        EDM: List<MachineInfo>.from(
-            json["EDM"].map((x) => MachineInfo.fromCapitalJson(x))),
-        CMM: List<MachineInfo>.from(
-            json["CMM"].map((x) => MachineInfo.fromCapitalJson(x))),
-        CLEAN: List<MachineInfo>.from(
-            json["CLEAN"].map((x) => MachineInfo.fromCapitalJson(x))),
+        CNC: json["CNC"] != null
+            ? List<MachineInfo>.from(
+                json["CNC"].map((x) => MachineInfo.fromCapitalJson(x)))
+            : [],
+        EDM: json["EDM"] != null
+            ? List<MachineInfo>.from(
+                json["EDM"].map((x) => MachineInfo.fromCapitalJson(x)))
+            : [],
+        CMM: json["CMM"] != null
+            ? List<MachineInfo>.from(
+                json["CMM"].map((x) => MachineInfo.fromCapitalJson(x)))
+            : [],
+        CLEAN: json["CLEAN"] != null
+            ? List<MachineInfo>.from(
+                json["CLEAN"].map((x) => MachineInfo.fromCapitalJson(x)))
+            : [],
       );
 
   Map<String, dynamic> toJson() => {
