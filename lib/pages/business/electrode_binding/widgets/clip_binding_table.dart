@@ -2,11 +2,12 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-09-01 18:04:30
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-01 18:42:14
+ * @LastEditTime: 2023-09-04 11:27:37
  * @FilePath: /eatm_manager/lib/pages/business/electrode_binding/widgets/clip_binding_table.dart
  * @Description: 电极绑定表格
  */
 import 'package:eatm_manager/common/style/global_theme.dart';
+import 'package:eatm_manager/common/utils/popup_message.dart';
 import 'package:eatm_manager/pages/business/electrode_binding/models.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:pluto_grid/pluto_grid.dart';
@@ -16,14 +17,25 @@ class ClipBindingTable extends StatefulWidget {
       : super(key: key);
   final List<ChipBindData> chipBindDataList;
   @override
-  _ClipBindingTableState createState() => _ClipBindingTableState();
+  ClipBindingTableState createState() => ClipBindingTableState();
 }
 
-class _ClipBindingTableState extends State<ClipBindingTable> {
+class ClipBindingTableState extends State<ClipBindingTable> {
   GlobalTheme get globalTheme => GlobalTheme.instance;
   late PlutoGridStateManager stateManager;
   List<PlutoRow> rows = [];
   int? selectIndex;
+
+  get selectedData => stateManager.checkedRows.first.cells['data']!.value;
+
+  // 校验
+  bool validate() {
+    if (stateManager.checkedRows.isEmpty) {
+      PopupMessage.showWarningInfoBar('请选择一条数据');
+      return false;
+    }
+    return true;
+  }
 
   // 更新表格
   void updateRows() {

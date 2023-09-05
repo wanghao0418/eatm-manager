@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-09-01 10:02:57
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-01 18:12:43
+ * @LastEditTime: 2023-09-04 14:32:09
  * @FilePath: /eatm_manager/lib/pages/business/electrode_binding/view.dart
  * @Description: 多电极绑定视图层
  */
@@ -10,6 +10,7 @@ import 'package:eatm_manager/common/components/line_form_label.dart';
 import 'package:eatm_manager/common/components/themed_text.dart';
 import 'package:eatm_manager/common/components/title_card.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
+import 'package:eatm_manager/pages/business/electrode_binding/models.dart';
 import 'package:eatm_manager/pages/business/electrode_binding/widgets/clip_binding_table.dart';
 import 'package:eatm_manager/pages/business/electrode_binding/widgets/clip_details.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -45,6 +46,7 @@ class _ElectrodeBindingViewGetX extends GetView<ElectrodeBindingController> {
 
   // 打开信息弹窗
   void openInfoDialog() {
+    GlobalKey key = GlobalKey();
     SmartDialog.show(
       tag: 'clipBindingTable',
       keepSingle: true,
@@ -54,13 +56,29 @@ class _ElectrodeBindingViewGetX extends GetView<ElectrodeBindingController> {
           constraints: BoxConstraints(maxHeight: 800.r, maxWidth: 1200.r),
           title: const Text('绑定').fontSize(18.sp),
           content: ClipBindingTable(
+            key: key,
             chipBindDataList: controller.chipBindDataList,
           ),
           actions: [
             Button(
                 child: const Text('取消'),
                 onPressed: () => SmartDialog.dismiss(tag: 'clipBindingTable')),
-            FilledButton(child: const Text('确定'), onPressed: () {})
+            FilledButton(
+                child: const Text('确定'),
+                onPressed: () {
+                  var state = key.currentState! as ClipBindingTableState;
+                  var flag = state.validate();
+                  if (flag) {
+                    ChipBindData data = state.selectedData;
+                    controller.bindData = data;
+                    //绑定数据 并去掉
+                    var electrodeNo = data.strElectrodeNo;
+                    controller.chipBindDataList.removeWhere(
+                        (data) => data.strElectrodeNo == electrodeNo);
+                    controller.update(['electrode_binding']);
+                    SmartDialog.dismiss(tag: 'clipBindingTable');
+                  }
+                })
           ],
         );
       },
@@ -83,6 +101,7 @@ class _ElectrodeBindingViewGetX extends GetView<ElectrodeBindingController> {
                 isExpanded: true,
                 child: TextBox(
                   placeholder: '芯片Id',
+                  controller: controller.barcodeController,
                   onChanged: (value) {},
                 )),
           ],
@@ -97,10 +116,15 @@ class _ElectrodeBindingViewGetX extends GetView<ElectrodeBindingController> {
           runSpacing: 10,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            FilledButton(child: const Text('清除数据'), onPressed: () {}),
-            FilledButton(child: const Text('解除绑定'), onPressed: () {}),
-            FilledButton(child: const Text('一键绑定'), onPressed: () {}),
-            FilledButton(child: const Text('显示绑定'), onPressed: () {}),
+            FilledButton(
+                onPressed: controller.query, child: const Text('查询数据')),
+            FilledButton(
+                onPressed: controller.clearData, child: const Text('清除数据')),
+            FilledButton(
+                onPressed: controller.unbind, child: const Text('解除绑定')),
+            FilledButton(onPressed: controller.bind, child: const Text('一键绑定')),
+            FilledButton(
+                onPressed: controller.showBind, child: const Text('显示绑定')),
           ],
         )
       ],
@@ -205,39 +229,43 @@ class _ElectrodeBindingViewGetX extends GetView<ElectrodeBindingController> {
           child: Wrap(
             spacing: spacing,
             runSpacing: runSpacing,
-            children: List.generate(
-                4,
-                (index) => Container(
-                      width: width,
-                      height: height,
-                      decoration: globalTheme.contentDecoration,
-                      child: HoverButton(
-                        cursor: SystemMouseCursors.click,
-                        builder: (p0, state) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                border: controller.currentIndex == index
-                                    ? Border.all(color: globalTheme.accentColor)
-                                    : Border.all(color: Colors.transparent)),
-                            child: TitleCard(
-                              cardBackgroundColor: state.isHovering
-                                  ? globalTheme.accentColor.withOpacity(0.5)
-                                  : globalTheme.pageContentBackgroundColor,
-                              title: '${index + 1}号夹位',
-                              containChild: ClipDetails(),
-                            ),
-                          );
-                        },
-                        onPressed: () {
-                          if (index != controller.currentIndex) {
-                            controller.currentIndex = index;
-                            controller.update(['electrode_binding']);
-                          }
-                          openInfoDialog();
-                        },
+            children: List.generate(controller.chipBindDataMap.length, (index) {
+              var current = controller.chipBindDataMap.entries.toList()[index];
+
+              return Container(
+                width: width,
+                height: height,
+                decoration: globalTheme.contentDecoration,
+                child: HoverButton(
+                  cursor: SystemMouseCursors.click,
+                  builder: (p0, state) {
+                    return Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          border: controller.currentIndex == index
+                              ? Border.all(color: globalTheme.accentColor)
+                              : Border.all(color: Colors.transparent)),
+                      child: TitleCard(
+                        cardBackgroundColor: state.isHovering
+                            ? globalTheme.accentColor.withOpacity(0.5)
+                            : globalTheme.pageContentBackgroundColor,
+                        title: '${current.key}夹位',
+                        containChild: ClipDetails(
+                          bindData: current.value,
+                        ),
                       ),
-                    )),
+                    );
+                  },
+                  onPressed: () {
+                    if (index != controller.currentIndex) {
+                      controller.currentIndex = index;
+                      controller.update(['electrode_binding']);
+                    }
+                    openInfoDialog();
+                  },
+                ),
+              );
+            }),
           ),
         );
       },

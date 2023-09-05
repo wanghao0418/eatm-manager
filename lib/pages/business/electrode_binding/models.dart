@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-09-01 17:38:54
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-01 17:38:57
+ * @LastEditTime: 2023-09-04 11:27:27
  * @FilePath: /eatm_manager/lib/pages/business/electrode_binding/models.dart
  * @Description: 结构体集合
  */
