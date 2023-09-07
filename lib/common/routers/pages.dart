@@ -35,6 +35,11 @@ import '../../pages/business/discharge/edm_task/index.dart'
     deferred as edm_task;
 import '../../pages/business/electrode_binding/index.dart'
     deferred as electrode_binding;
+import '../../pages/business/user_management/index.dart'
+    deferred as user_management;
+import '../../pages/business/home/index.dart' deferred as home;
+import '../../pages/business/dataBoard/dataBoard_main.dart'
+    deferred as dataBoard;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -81,6 +86,11 @@ class MainChildPage {
 
 class MainChildPages {
   static List<MainChildPage> list = [
+    // 首页
+    MainChildPage(
+        url: '/home',
+        page: DeferredWidget(home.loadLibrary, () => home.HomePage()),
+        icon: FluentIcons.home),
     // 工艺绑定
     MainChildPage(
         url: '/dashboard',
@@ -95,7 +105,8 @@ class MainChildPages {
         icon: MyIcons.kanBan),
     MainChildPage(
         url: '/userInfoList',
-        page: Center(child: Text('用户管理')),
+        page: DeferredWidget(user_management.loadLibrary,
+            () => user_management.UserManagementPage()),
         icon: MyIcons.userManage),
     MainChildPage(
         url: '/menuList',
@@ -221,9 +232,11 @@ class MainChildPages {
         page: DeferredWidget(
             task_query.loadLibrary, () => task_query.TaskQueryPage()),
         icon: FluentIcons.search),
+    //  数据看板
     MainChildPage(
         url: '/dataBoard',
-        page: Center(child: Text('大屏看板')),
+        page:
+            DeferredWidget(dataBoard.loadLibrary, () => dataBoard.DataBoard()),
         icon: MyIcons.kanBan),
     // 机床绑定
     MainChildPage(

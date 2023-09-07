@@ -7,6 +7,7 @@ class TitleCard extends StatefulWidget {
   final Color headBorderColor;
   final Widget? titleRight;
   final Color? headTextColor;
+  final EdgeInsetsGeometry? headPadding;
   const TitleCard(
       {Key? key,
       this.title = "",
@@ -14,7 +15,8 @@ class TitleCard extends StatefulWidget {
       required this.cardBackgroundColor,
       this.headBorderColor = const Color(0xffDCDFE6),
       this.titleRight,
-      this.headTextColor})
+      this.headTextColor,
+      this.headPadding = const EdgeInsets.fromLTRB(20, 10, 20, 10)})
       : super(key: key);
 
   @override
@@ -59,21 +61,24 @@ class _MyCardState extends State<TitleCard> {
                           bottom:
                               BorderSide(width: 1, color: headBorderColor))),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                    padding: widget.headPadding!,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          title,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              color: headTextColor ??
-                                  FluentTheme.of(context)
-                                      .typography
-                                      .body
-                                      ?.color),
+                        Expanded(
+                          child: Text(
+                            title,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                overflow: TextOverflow.ellipsis,
+                                color: headTextColor ??
+                                    FluentTheme.of(context)
+                                        .typography
+                                        .body
+                                        ?.color),
+                          ),
                         ),
                         Container(
                           child: titleRight,

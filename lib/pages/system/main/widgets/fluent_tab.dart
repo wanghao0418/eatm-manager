@@ -733,7 +733,7 @@ class __TabState extends State<_Tab>
                               secondaryBorder: BorderSide.none,
                             ),
                             child: Tooltip(
-                              message: localizations.closeTabLabel,
+                              message: '关闭', //localizations.closeTabLabel,
                               child: SizedBox(
                                 height: 24.0,
                                 width: 32.0,
