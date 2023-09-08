@@ -40,6 +40,8 @@ import '../../pages/business/user_management/index.dart'
 import '../../pages/business/home/index.dart' deferred as home;
 import '../../pages/business/dataBoard/dataBoard_main.dart'
     deferred as dataBoard;
+import '../../pages/business/equipment_operation/index.dart'
+    deferred as equipment_operation;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -202,7 +204,8 @@ class MainChildPages {
         icon: MyIcons.carry),
     MainChildPage(
         url: '/EquipmentOperationStatistics',
-        page: Center(child: Text('设备运行统计')),
+        page: DeferredWidget(equipment_operation.loadLibrary,
+            () => equipment_operation.EquipmentOperationPage()),
         icon: MyIcons.operationStatistics),
     MainChildPage(
         url: '/TodoToday',

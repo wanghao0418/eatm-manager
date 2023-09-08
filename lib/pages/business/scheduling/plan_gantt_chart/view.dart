@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-21 14:33:18
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-05 10:47:40
+ * @LastEditTime: 2023-09-08 17:22:52
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/plan_gantt_chart/view.dart
  * @Description: 甘特图视图层
  */
@@ -379,27 +379,23 @@ class _PlanGanttChartViewGetX extends GetView<PlanGanttChartController> {
   Widget _buildView(BuildContext context) {
     return Container(
         padding: globalTheme.pagePadding,
-        child: Column(children: [
-          Expanded(
-            child: Container(
-                decoration: globalTheme.contentDecoration,
-                padding: globalTheme.contentPadding,
-                child: Column(children: [
-                  _buildLegend(),
-                  20.verticalSpace,
+        child: Container(
+            decoration: globalTheme.contentDecoration,
+            padding: globalTheme.contentPadding,
+            child: Column(children: [
+              _buildLegend(),
+              20.verticalSpace,
+              Expanded(
+                child: Row(children: [
+                  _buildMacList(),
+                  5.horizontalSpace,
                   Expanded(
-                    child: Row(children: [
-                      _buildMacList(),
-                      5.horizontalSpace,
-                      Expanded(
-                          child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: _buildScheduling(context)))
-                    ]),
-                  )
-                ])),
-          )
-        ]));
+                      child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: _buildScheduling(context)))
+                ]),
+              )
+            ])));
   }
 
   @override

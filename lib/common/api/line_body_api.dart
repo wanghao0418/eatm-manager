@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-17 17:34:28
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-08 13:50:48
+ * @LastEditTime: 2023-09-08 17:38:13
  * @FilePath: /eatm_manager/lib/common/api/line_body_api.dart
  * @Description: 线体公用接口
  */
@@ -46,5 +46,10 @@ class LineBodyApi {
   static Future<ResponseApiBody> getMachineAlarmInfo() async {
     return await HttpUtil.post('/Eatm/GetMacAlarmInfo',
         data: {}, isMock: isMock);
+  }
+
+  // 获取线体设备运行状态
+  static Future<ResponseApiBody> getEquipmentRunStatus() async {
+    return await HttpUtil.post('/Eatm/macRunState', data: {}, isMock: isMock);
   }
 }
