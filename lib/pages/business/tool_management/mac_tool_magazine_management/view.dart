@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-06 10:21:53
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-15 14:12:13
+ * @LastEditTime: 2023-09-08 16:15:02
  * @FilePath: /flutter-mesui/lib/pages/tool_management/mac_tool_magazine_management/view.dart
  */
 import 'package:eatm_manager/common/api/tool_management/mac_tool_magazine_management_api.dart';
@@ -85,7 +85,7 @@ class _MacToolMagazineManagementViewGetX
               enableContextMenu: false,
               enableSorting: false),
           PlutoColumn(
-              title: '刀库号',
+              title: '刀具号',
               field: 'magazineNo',
               readOnly: true,
               width: 100,

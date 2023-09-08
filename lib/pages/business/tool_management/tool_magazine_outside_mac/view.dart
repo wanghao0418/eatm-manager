@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-10 13:33:12
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-23 13:51:24
+ * @LastEditTime: 2023-09-08 16:15:28
  * @FilePath: /flutter-mesui/lib/pages/tool_management/tool_magazine_outside_mac/view.dart
  */
 import 'package:eatm_manager/common/api/tool_management/externalToolMagazine_api.dart';
@@ -234,7 +234,7 @@ class _ToolMagazineOutsideMacViewGetX
         mode: PlutoGridMode.readOnly,
         columns: [
           PlutoColumn(
-            title: '货位号',
+            title: '货架号',
             field: 'deviceName',
             frozen: PlutoColumnFrozen.start,
             type: PlutoColumnType.text(),
@@ -244,7 +244,7 @@ class _ToolMagazineOutsideMacViewGetX
             width: 100,
           ),
           PlutoColumn(
-            title: '货架号',
+            title: '货位号',
             field: 'storageNum',
             frozen: PlutoColumnFrozen.start,
             type: PlutoColumnType.text(),
