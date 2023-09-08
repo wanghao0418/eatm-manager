@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-04 13:34:16
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-08 15:48:07
+ * @LastEditTime: 2023-09-08 15:50:39
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/task_management/enum.dart
  * @Description: 枚举集合
  */
@@ -27,13 +27,13 @@ enum ExecutionStatus {
 
   static ExecutionStatus? fromValue(int? value) {
     switch (value) {
-      case 1:
+      case 0:
         return ExecutionStatus.waitExecuted;
-      case 2:
+      case 1:
         return ExecutionStatus.executing;
-      case 3:
+      case 2:
         return ExecutionStatus.completed;
-      case 4:
+      case 3:
         return ExecutionStatus.canceled;
       case -1:
         return ExecutionStatus.failed;
@@ -45,10 +45,10 @@ enum ExecutionStatus {
   static List<SelectOption> toSelectOptionList() {
     return [
       SelectOption(label: '全部', value: null),
-      SelectOption(label: '待执行', value: 1),
-      SelectOption(label: '执行中', value: 2),
-      SelectOption(label: '已完成', value: 3),
-      SelectOption(label: '任务取消', value: 4),
+      SelectOption(label: '待执行', value: 0),
+      SelectOption(label: '执行中', value: 1),
+      SelectOption(label: '已完成', value: 2),
+      SelectOption(label: '任务取消', value: 3),
       SelectOption(label: '任务失败', value: -1),
     ];
   }
