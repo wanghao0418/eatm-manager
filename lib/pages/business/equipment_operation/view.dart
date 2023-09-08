@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-09-08 17:14:16
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-08 18:33:57
+ * @LastEditTime: 2023-09-08 18:45:21
  * @FilePath: /eatm_manager/lib/pages/business/equipment_operation/view.dart
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -186,18 +186,25 @@ class _EquipmentOperationViewGetX
         Expanded(
             child: Stack(
           children: list.map((e) {
-            // 排产开始时间
+            // 开始时间
             DateTime startTime = DateTime.parse(e.startTime ?? '');
-            // 排产结束时间
+            // 结束时间
             DateTime endTime = DateTime.parse(e.endTime ?? '');
 
-            // 排产时长
+            DateTime now = DateTime.now();
+            DateTime tempDate = DateTime.parse(
+                '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}');
+
+            double left =
+                startTime.difference(tempDate).inMinutes / 60 * hourWidth;
+
+            // 时长
             int duration = endTime.difference(startTime).inMinutes;
 
             double durationWidth = duration / 60 * hourWidth;
 
             return Positioned(
-              left: durationWidth,
+              left: left,
               width: durationWidth.toDouble(),
               height: 50.r,
               child: Tooltip(
