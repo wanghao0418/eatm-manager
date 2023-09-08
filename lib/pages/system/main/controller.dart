@@ -2,7 +2,9 @@ import 'package:eatm_manager/common/api/menu.dart';
 import 'package:eatm_manager/common/extension/main.dart';
 import 'package:eatm_manager/common/index.dart';
 import 'package:eatm_manager/common/store/index.dart';
+import 'package:eatm_manager/common/utils/get_storage.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
+import 'package:eatm_manager/common/utils/router.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Tab;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -37,6 +39,10 @@ class MainController extends GetxController {
       name: '首页',
     )
   ];
+
+  // 可跳转菜单
+  List<MenuItem> jumpableMenuList = [];
+
   // final List<NavigationPaneItem> menuItems = [];
   // final List<NavigationPaneItem> footerItems = [
   //   PaneItemSeparator(),
@@ -64,6 +70,9 @@ class MainController extends GetxController {
       dataList.removeWhere(
           (element) => !element.subsystemId!.contains(user.userId ?? '1'));
       dataList.sort((a, b) => a.orderBy!.compareTo(b.orderBy!));
+      jumpableMenuList = dataList
+          .where((element) => element.url != null && element.url != "")
+          .toList();
       // menuItems.clear();
       var childrenKeys = [];
       for (var menu in dataList) {
@@ -222,6 +231,8 @@ class MainController extends GetxController {
       currentTabKey = Key('menu-$url');
       currentTabUrl = url;
     }
+    // 记录浏览历史
+    GetStorageUtil.pushVisitHistory(menu.url!);
     update(["main"]);
   }
 

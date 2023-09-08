@@ -2,12 +2,13 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-27 13:56:32
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-29 13:56:24
+ * @LastEditTime: 2023-09-07 14:23:43
  * @FilePath: /eatm_manager/lib/common/components/line_form_label.dart
  * @Description: 行表单组件说明
  */
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:styled_widget/styled_widget.dart';
 
 class LineFormLabel extends StatelessWidget {
   const LineFormLabel(
@@ -18,7 +19,8 @@ class LineFormLabel extends StatelessWidget {
       this.isExpanded = false,
       this.width,
       this.crossAxisAlignment = CrossAxisAlignment.center,
-      this.mainAxisAlignment = MainAxisAlignment.start})
+      this.mainAxisAlignment = MainAxisAlignment.start,
+      this.textStyle})
       : super(key: key);
   final String label;
   final bool? isRequired;
@@ -27,6 +29,7 @@ class LineFormLabel extends StatelessWidget {
   final double? width;
   final CrossAxisAlignment? crossAxisAlignment;
   final MainAxisAlignment? mainAxisAlignment;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +49,8 @@ class LineFormLabel extends StatelessWidget {
                       children: [
                         TextSpan(
                             text: '$label:',
-                            style: FluentTheme.of(context).typography.body),
+                            style: textStyle ??
+                                FluentTheme.of(context).typography.body),
                       ],
                     )),
                   ),

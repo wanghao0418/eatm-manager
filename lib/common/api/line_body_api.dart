@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-17 17:34:28
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-07 10:23:24
+ * @LastEditTime: 2023-09-08 13:50:48
  * @FilePath: /eatm_manager/lib/common/api/line_body_api.dart
  * @Description: 线体公用接口
  */
@@ -27,6 +27,24 @@ class LineBodyApi {
   // 获取当日任务数
   static Future<ResponseApiBody> getTodayTaskNum() async {
     return await HttpUtil.post('/Eatm/GetTotalTasksOfTheDay',
+        data: {}, isMock: isMock);
+  }
+
+  // 获取累计完成数
+  static Future<ResponseApiBody> getTotalFinishNum() async {
+    return await HttpUtil.post('/Eatm/ProductionLineStatistics',
+        data: {}, isMock: isMock);
+  }
+
+  // 获取机床加工完成情况
+  static Future<ResponseApiBody> getMachineProcessInfo() async {
+    return await HttpUtil.post('/Eatm/ProcessFinishTotal',
+        data: {}, isMock: isMock);
+  }
+
+  // 获取机床报警
+  static Future<ResponseApiBody> getMachineAlarmInfo() async {
+    return await HttpUtil.post('/Eatm/GetMacAlarmInfo',
         data: {}, isMock: isMock);
   }
 }
