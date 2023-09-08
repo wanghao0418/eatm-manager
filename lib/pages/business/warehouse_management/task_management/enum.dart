@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-04 13:34:16
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-17 17:30:54
+ * @LastEditTime: 2023-09-08 15:48:07
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/task_management/enum.dart
  * @Description: 枚举集合
  */
@@ -11,13 +11,13 @@ import 'package:eatm_manager/common/models/selectOption.dart';
 
 enum ExecutionStatus {
   // 待执行
-  waitExecuted(value: 1, label: '待执行'),
+  waitExecuted(value: 0, label: '待执行'),
   // 执行中
-  executing(value: 2, label: '执行中'),
+  executing(value: 1, label: '执行中'),
   // 已完成
-  completed(value: 3, label: '已完成'),
+  completed(value: 2, label: '已完成'),
   // 任务取消
-  canceled(value: 4, label: '任务取消'),
+  canceled(value: 3, label: '任务取消'),
   // 任务失败
   failed(value: -1, label: '任务失败');
 
