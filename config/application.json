@@ -3,11 +3,12 @@
   "DevBaseUrl": "http://124.71.221.246:8088",
   "ProductBaseUrl": "http://127.0.0.1:8083",
   "autoRunWebsocketUrl":"ws://127.0.0.1:8092",
-  "schedulingWebsocketUrl":"ws://127.0.0.1:4006",
+  "schedulingWebsocketUrl":"ws://192.168.10.142:4006",
   "chipBindingWebsocketUrl":"ws://localhost:12353",
   "connectTimeout": 10000,
   "receiveTimeout": 30000,
   "sendTimeout": 6000,
   "mesPort":8098,
-  "mockEnv":"http://127.0.0.1:4523/m1/2590441-0-default"
+  "mockEnv":"http://127.0.0.1:4523/m1/2590441-0-default",
+  "openMock":false
 }

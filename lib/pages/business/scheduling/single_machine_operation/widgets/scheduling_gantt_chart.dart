@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-18 17:57:37
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-04 18:38:47
+ * @LastEditTime: 2023-09-05 10:43:52
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/single_machine_operation/widgets/scheduling_gantt_chart.dart
  * @Description: 排产甘特图
  */
@@ -122,9 +122,9 @@ class _SchedulingGanttChartState extends State<SchedulingGanttChart> {
           ),
           ...widget.schedulingList.map((e) {
             // 排产开始时间
-            DateTime startTime = _formatter.parse(e!.startTime ?? '');
+            DateTime startTime = DateTime.parse(e!.startTime ?? '');
             // 排产结束时间
-            DateTime endTime = _formatter.parse(e.endTime ?? '');
+            DateTime endTime = DateTime.parse(e.endTime ?? '');
             // 排产时长
             int duration = endTime.difference(startTime).inMinutes;
             // 排产开始时间与当前时间的间隔

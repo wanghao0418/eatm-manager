@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-21 14:33:18
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-24 09:13:56
+ * @LastEditTime: 2023-09-05 10:47:40
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/plan_gantt_chart/view.dart
  * @Description: 甘特图视图层
  */
@@ -320,9 +320,9 @@ class _PlanGanttChartViewGetX extends GetView<PlanGanttChartController> {
       child: Row(
         children: schedulingList.map((e) {
           // 排产开始时间
-          DateTime startTime = controller.formatter.parse(e.startTime ?? '');
+          DateTime startTime = DateTime.parse(e.startTime ?? '');
           // 排产结束时间
-          DateTime endTime = controller.formatter.parse(e.endTime ?? '');
+          DateTime endTime = DateTime.parse(e.endTime ?? '');
 
           // 排产时长
           int duration = endTime.difference(startTime).inMinutes;

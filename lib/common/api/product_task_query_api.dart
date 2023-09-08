@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-08 13:50:17
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-18 10:28:22
+ * @LastEditTime: 2023-09-05 13:25:24
  * @FilePath: /eatm_manager/lib/common/api/product_task_query_api.dart
  * @Description: 生产任务查询接口
  */
@@ -11,7 +11,7 @@ import 'package:eatm_manager/common/utils/http.dart';
 
 class ProductTaskQueryApi {
   // 是否启用mock
-  static bool isMock = false;
+  static bool get isMock => ConfigStore.instance.openMock ?? false;
 
   // 查询
   static Future<ResponseApiBody> query(data) async {

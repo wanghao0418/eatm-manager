@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-25 13:37:07
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-07 18:14:10
+ * @LastEditTime: 2023-09-08 15:45:43
  * @FilePath: /eatm_manager/lib/pages/business/warehouse_management/shelf_management/view.dart
  * @Description: 货架管理页面
  */
@@ -269,7 +269,7 @@ class _InventoryManagementViewGetX
         child: Column(children: [
           GestureDetector(
             onTap: () {
-              controller.search.shelfNum = null;
+              controller.search.shelfNum = 0;
               controller.query();
               controller.update(['shelf_management']);
             },

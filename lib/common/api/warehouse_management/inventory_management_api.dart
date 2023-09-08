@@ -2,15 +2,16 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-03 11:11:29
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-10 14:16:14
+ * @LastEditTime: 2023-09-08 15:57:25
  * @FilePath: /eatm_manager/lib/common/api/warehouse_management/shelf_management_api.dart
  * @Description: 货架管理api
  */
+import 'package:eatm_manager/common/store/config.dart';
 import 'package:eatm_manager/common/utils/http.dart';
 
 class InventoryManagementApi {
   // 是否启用mock
-  static bool isMock = false;
+  static bool get isMock => ConfigStore.instance.openMock ?? false;
 
   // 获取货架总数
   static Future<ResponseApiBody> getShelfCount(data) async {
