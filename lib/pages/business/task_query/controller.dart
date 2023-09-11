@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-08 10:21:35
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-30 14:45:35
+ * @LastEditTime: 2023-09-11 16:57:14
  * @FilePath: /eatm_manager/lib/pages/business/task_query/controller.dart
  * @Description: 任务查询逻辑层
  */
@@ -18,7 +18,10 @@ import 'package:pluto_grid/pluto_grid.dart';
 
 class TaskQueryController extends GetxController {
   TaskQueryController();
-  TaskQuerySearch search = TaskQuerySearch();
+  TaskQuerySearch search = TaskQuerySearch(
+    startDate: DateTime.now().toString().substring(0, 10),
+    endDate: DateTime.now().toString().substring(0, 10),
+  );
   List<ProductionTask> productionTaskList = [];
   List<PlutoRow> rows = [];
   late final PlutoGridStateManager stateManager;
@@ -173,16 +176,19 @@ class TaskQueryController extends GetxController {
 }
 
 class TaskQuerySearch {
-  TaskQuerySearch({
-    this.agvDispatchState,
-    this.barcodeId,
-  });
+  TaskQuerySearch(
+      {this.agvDispatchState, this.barcodeId, this.startDate, this.endDate});
 
   ///出入库状态
   int? agvDispatchState;
 
   ///芯片Id
   String? barcodeId;
+
+  // 开始日期
+  String? startDate;
+  // 结束日期
+  String? endDate;
 
   factory TaskQuerySearch.fromRawJson(String str) =>
       TaskQuerySearch.fromJson(json.decode(str));
@@ -193,11 +199,15 @@ class TaskQuerySearch {
       TaskQuerySearch(
         agvDispatchState: json["AgvDispatchState"],
         barcodeId: json["BarcodeId"],
+        startDate: json["StartDate"],
+        endDate: json["EndDate"],
       );
 
   Map<String, dynamic> toJson() => {
         "AgvDispatchState": agvDispatchState,
         "BarcodeId": barcodeId,
+        "startDate": startDate,
+        "endDate": endDate,
       };
 }
 
