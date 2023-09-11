@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-08 10:21:35
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-18 11:15:26
+ * @LastEditTime: 2023-09-11 16:59:22
  * @FilePath: /eatm_manager/lib/pages/business/task_query/view.dart
  * @Description: 任务查询视图层
  */
@@ -11,6 +11,7 @@ import 'package:eatm_manager/common/components/line_form_label.dart';
 import 'package:eatm_manager/common/components/themed_text.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
+import 'package:eatm_manager/common/widgets/pop_date_picker.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -83,7 +84,36 @@ class _TaskQueryViewGetX extends GetView<TaskQueryController> {
                     controller.search.agvDispatchState = value;
                     controller.update(['task_query']);
                   },
-                ))
+                )),
+            LineFormLabel(
+                label: '时间范围',
+                width: 350.0,
+                isExpanded: true,
+                child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  spacing: 5,
+                  children: [
+                    PopDatePicker(
+                      value: controller.search.startDate,
+                      placeholder: '开始时间',
+                      onChange: (value) {
+                        print(value);
+                        controller.search.startDate = value;
+                      },
+                    ),
+                    const Text(
+                      '至',
+                    ),
+                    PopDatePicker(
+                      value: controller.search.endDate,
+                      placeholder: '结束时间',
+                      onChange: (value) {
+                        print(value);
+                        controller.search.endDate = value;
+                      },
+                    ),
+                  ],
+                )),
           ],
         )),
         10.horizontalSpace,
@@ -369,24 +399,28 @@ class _TaskQueryViewGetX extends GetView<TaskQueryController> {
             field: 'Planstartdate',
             type: PlutoColumnType.time(),
             readOnly: true,
+            hide: true,
           ),
           PlutoColumn(
             title: '计划结束时间',
             field: 'Planenddate',
             type: PlutoColumnType.time(),
             readOnly: true,
+            hide: true,
           ),
           PlutoColumn(
             title: '理论加工时间',
             field: 'TheoreticalProductTime',
             type: PlutoColumnType.number(),
             readOnly: true,
+            hide: true,
           ),
           PlutoColumn(
             title: '最晚完成时间',
             field: 'maxfinisheddate',
             type: PlutoColumnType.time(),
             readOnly: true,
+            hide: true,
           ),
           PlutoColumn(
             title: '是否派工机床',
