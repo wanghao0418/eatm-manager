@@ -2,11 +2,12 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-09-08 17:14:16
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-08 18:45:21
+ * @LastEditTime: 2023-09-11 09:58:55
  * @FilePath: /eatm_manager/lib/pages/business/equipment_operation/view.dart
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import 'package:dotted_border/dotted_border.dart';
+import 'package:eatm_manager/common/components/hover_float.dart';
 import 'package:eatm_manager/common/components/themed_text.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/pages/business/equipment_operation/enum.dart';
@@ -181,7 +182,7 @@ class _EquipmentOperationViewGetX
     return Container(
       width: double.infinity,
       height: 50.r,
-      padding: EdgeInsets.only(left: (hourWidth / 2).ceilToDouble()),
+      padding: EdgeInsets.only(left: (hourWidth / 2)),
       child: Row(children: [
         Expanded(
             child: Stack(
@@ -203,27 +204,32 @@ class _EquipmentOperationViewGetX
 
             double durationWidth = duration / 60 * hourWidth;
 
-            return Positioned(
-              left: left,
-              width: durationWidth.toDouble(),
-              height: 50.r,
-              child: Tooltip(
-                message: "开始时间：${e.startTime}\n结束时间：${e.endTime}",
-                child: Container(
-                  color: EquipmentRunStatus.findByStatus(int.parse(e.state!))!
-                      .color,
-                  child: Center(
-                    child: ThemedText(
-                      e.state ?? '',
-                      style: TextStyle(
-                          fontSize: 14.spMin,
-                          fontWeight: FontWeight.bold,
-                          overflow: TextOverflow.ellipsis),
+            return duration > 0
+                ? Positioned(
+                    left: left,
+                    width: durationWidth.toDouble(),
+                    height: 50.r,
+                    child: Tooltip(
+                      message:
+                          "开始时间：${e.startTime}\n结束时间：${e.endTime}\n状态：${EquipmentRunStatus.findByStatus(int.parse(e.state!))!.label}",
+                      child: HoverEffectWidget(
+                          child: Container(
+                        color: EquipmentRunStatus.findByStatus(
+                                int.parse(e.state!))!
+                            .color,
+                        // child: Center(
+                        //   child: ThemedText(
+                        //     e.state ?? '',
+                        //     style: TextStyle(
+                        //         fontSize: 14.spMin,
+                        //         fontWeight: FontWeight.bold,
+                        //         overflow: TextOverflow.ellipsis),
+                        //   ),
+                        // ),
+                      )),
                     ),
-                  ),
-                ),
-              ),
-            );
+                  )
+                : Container();
           }).toList(),
         ))
       ]),

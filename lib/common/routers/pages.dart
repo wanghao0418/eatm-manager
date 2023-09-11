@@ -42,6 +42,8 @@ import '../../pages/business/dataBoard/dataBoard_main.dart'
     deferred as dataBoard;
 import '../../pages/business/equipment_operation/index.dart'
     deferred as equipment_operation;
+import '../../pages/business/production_monitoring/index.dart'
+    deferred as production_monitoring;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -116,7 +118,8 @@ class MainChildPages {
         icon: MyIcons.menuManage),
     MainChildPage(
         url: '/productCard',
-        page: Center(child: Text('生产监控')),
+        page: DeferredWidget(production_monitoring.loadLibrary,
+            () => production_monitoring.ProductionMonitoringPage()),
         icon: MyIcons.productionMonitoring),
     // 程式编程
     MainChildPage(
