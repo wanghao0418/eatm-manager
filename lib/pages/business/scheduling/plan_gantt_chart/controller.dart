@@ -2,13 +2,14 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-21 14:33:18
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-05 10:47:12
+ * @LastEditTime: 2023-09-12 18:51:17
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/plan_gantt_chart/controller.dart
  * @Description: 计划甘特图逻辑层
  */
 import 'dart:convert';
 
 import 'package:eatm_manager/common/store/config.dart';
+import 'package:eatm_manager/common/utils/log.dart';
 import 'package:eatm_manager/common/utils/webSocket_utility.dart';
 import 'package:eatm_manager/pages/business/scheduling/plan_gantt_chart/models.dart';
 import 'package:flutter/services.dart';
@@ -86,17 +87,21 @@ class PlanGanttChartController extends GetxController {
               : value);
       if (earliestStartTime == null) {
         earliestStartTime = DateTime.parse(minTimeOrder.startTime!);
-      } else {
-        if (DateTime.parse(minTimeOrder.startTime!)
-            .isBefore(earliestStartTime)) {
-          earliestStartTime = DateTime.parse(minTimeOrder.startTime!);
-        }
+      } else if (DateTime.parse(minTimeOrder.startTime!)
+              .isBefore(earliestStartTime) &&
+          (minTimeOrder.startTime != minTimeOrder.endTime)) {
+        earliestStartTime = DateTime.parse(minTimeOrder.startTime!);
       }
     }
+    LogUtil.i('最早时间');
+    LogUtil.i(earliestStartTime.toString());
     // 更新开始时间
-    fromDate = earliestStartTime!;
-    toDate = fromDate.add(const Duration(days: 1));
-    _initData();
+    if (earliestStartTime != null) {
+      fromDate = DateTime(earliestStartTime.year, earliestStartTime.month,
+          earliestStartTime.day, earliestStartTime.hour, 0);
+      toDate = fromDate.add(const Duration(days: 1));
+      _initData();
+    }
   }
 
   _initData() {
