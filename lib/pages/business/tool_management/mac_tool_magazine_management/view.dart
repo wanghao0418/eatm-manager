@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-06 10:21:53
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-08 16:15:02
+ * @LastEditTime: 2023-09-12 10:38:11
  * @FilePath: /flutter-mesui/lib/pages/tool_management/mac_tool_magazine_management/view.dart
  */
 import 'package:eatm_manager/common/api/tool_management/mac_tool_magazine_management_api.dart';
@@ -100,19 +100,19 @@ class _MacToolMagazineManagementViewGetX
               enableContextMenu: false,
               enableSorting: false),
           PlutoColumn(
-              title: '实物刀额定寿命',
+              title: '刀具额定寿命',
               field: 'realToolRatedLife',
               type: PlutoColumnType.text(),
               enableContextMenu: false,
               enableSorting: false),
           PlutoColumn(
-              title: '实物刀已使用寿命',
+              title: '刀具已使用寿命',
               field: 'realToolUsedLife',
               type: PlutoColumnType.text(),
               enableContextMenu: false,
               enableSorting: false),
           PlutoColumn(
-              title: '实物刀剩余寿命',
+              title: '刀具剩余寿命',
               field: 'realToolLastLife',
               type: PlutoColumnType.text(),
               enableContextMenu: false,
