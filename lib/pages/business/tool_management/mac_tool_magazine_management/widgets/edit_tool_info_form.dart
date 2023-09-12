@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-07 15:42:26
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-26 18:44:54
+ * @LastEditTime: 2023-09-12 10:39:17
  * @FilePath: /flutter-mesui/lib/pages/tool_management/mac_tool_magazine_management/widgets/edit_tool_info_form.dart
  */
 import 'package:eatm_manager/common/api/tool_management/standard_tool_management_api.dart';
@@ -396,13 +396,13 @@ class EditToolInfoFormState extends State<EditToolInfoForm> {
                   width: 10.0,
                 ),
                 Expanded(
-                  child: FluentUI.NumberBox<int>(
-                    // smallChange: 0.1,
+                  child: FluentUI.NumberBox<double>(
+                    smallChange: 0.1,
                     mode: FluentUI.SpinButtonPlacementMode.none,
                     placeholder: '请输入',
                     value: (editToolInfo.realToolRatedLife != null &&
                             editToolInfo.realToolRatedLife!.isNotEmpty)
-                        ? int.parse(editToolInfo.realToolRatedLife!)
+                        ? double.tryParse(editToolInfo.realToolRatedLife!)
                         : null,
                     onChanged: (value) {
                       editToolInfo.realToolRatedLife =
@@ -431,13 +431,13 @@ class EditToolInfoFormState extends State<EditToolInfoForm> {
                   width: 10.0,
                 ),
                 Expanded(
-                  child: FluentUI.NumberBox<int>(
-                    // smallChange: 0.1,
-                    // mode: FluentUI.SpinButtonPlacementMode.none,
+                  child: FluentUI.NumberBox<double>(
+                    smallChange: 0.1,
+                    mode: FluentUI.SpinButtonPlacementMode.none,
                     placeholder: '请输入',
                     value: (editToolInfo.realToolUsedLife != null &&
                             editToolInfo.realToolUsedLife!.isNotEmpty)
-                        ? int.parse(editToolInfo.realToolUsedLife!)
+                        ? double.tryParse(editToolInfo.realToolUsedLife!)
                         : null,
                     onChanged: (value) {
                       editToolInfo.realToolUsedLife =
