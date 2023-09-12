@@ -44,6 +44,8 @@ import '../../pages/business/equipment_operation/index.dart'
     deferred as equipment_operation;
 import '../../pages/business/production_monitoring/index.dart'
     deferred as production_monitoring;
+import '../../pages/business/automated_handling/index.dart'
+    deferred as automated_handling;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -203,7 +205,8 @@ class MainChildPages {
         icon: MyIcons.dataEntry),
     MainChildPage(
         url: '/AutomaticHandling',
-        page: Center(child: Text('自动化搬运')),
+        page: DeferredWidget(automated_handling.loadLibrary,
+            () => automated_handling.AutomatedHandlingPage()),
         icon: MyIcons.carry),
     MainChildPage(
         url: '/EquipmentOperationStatistics',
