@@ -2,14 +2,18 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-10 13:33:12
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-08 16:15:28
+ * @LastEditTime: 2023-09-13 13:41:34
  * @FilePath: /flutter-mesui/lib/pages/tool_management/tool_magazine_outside_mac/view.dart
  */
 import 'package:eatm_manager/common/api/tool_management/externalToolMagazine_api.dart';
+import 'package:eatm_manager/common/components/filled_icon_button.dart';
 import 'package:eatm_manager/common/components/line_form_label.dart';
+import 'package:eatm_manager/common/components/themed_text.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
+import 'package:eatm_manager/common/style/icons.dart';
 import 'package:eatm_manager/common/utils/http.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -44,6 +48,132 @@ class _ToolMagazineOutsideMacViewGetX
     extends GetView<ToolMagazineOutsideMacController> {
   const _ToolMagazineOutsideMacViewGetX({Key? key}) : super(key: key);
   GlobalTheme get globalTheme => GlobalTheme.instance;
+
+  // 打开新增弹窗
+  void openAddDialog() {
+    GlobalKey _key = GlobalKey();
+    bool checkEmpty = false;
+    if (controller.stateManager.checkedRows.length == 1 &&
+        controller.stateManager.checkedRows.first.cells['data']!.value ==
+            null) {
+      checkEmpty = true;
+    }
+    SmartDialog.show(
+        tag: 'addTool',
+        builder: (context) {
+          return FluentUI.ContentDialog(
+            constraints: const BoxConstraints(maxWidth: 600),
+            title: const Text('入库刀具').fontSize(20),
+            content: Container(
+              height: 300,
+              child: Container(
+                child: AddToolForm(
+                  key: _key,
+                  maxStorageNum: controller.currentShelf!.max!,
+                  minStorageNum: controller.currentShelf!.min!,
+                  shelfNo: controller.currentShelf!.shelfNo!,
+                  toolData: checkEmpty
+                      ? Tool(
+                          storageNum: controller.stateManager.checkedRows.first
+                              .cells['storageNum']!.value,
+                        )
+                      : null,
+                ),
+              ),
+            ),
+            actions: [
+              Container(
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FluentUI.Button(
+                        onPressed: () {
+                          SmartDialog.dismiss(tag: 'addTool');
+                        },
+                        child: const Text('取消')),
+                    20.horizontalSpace,
+                    FluentUI.FilledButton(
+                        onPressed: () async {
+                          var state = (_key.currentState! as AddToolFormState);
+
+                          if (state.confirm() == true) {
+                            SmartDialog.dismiss(tag: 'addTool');
+
+                            ResponseApiBody res = await ExternalToolMagazineApi
+                                .machineOutToolInput(state.toolAdd.toMap());
+
+                            if (res.success == true) {
+                              // showAlertDialog(widgetContext, '成功', res.message as String);
+                              PopupMessage.showSuccessInfoBar(
+                                  res.message as String);
+                              controller.query();
+                            } else {
+                              PopupMessage.showFailInfoBar(
+                                  res.message as String);
+                            }
+                          }
+                        },
+                        child: const Text('确定'))
+                  ],
+                ),
+              )
+            ],
+          );
+        });
+  }
+
+  // 打开修改弹窗
+  void openEditDialog(Tool tool) {
+    GlobalKey _key = GlobalKey();
+    SmartDialog.show(
+        tag: 'editTool',
+        builder: (context) {
+          return FluentUI.ContentDialog(
+            constraints: const BoxConstraints(maxWidth: 600),
+            title: const Text('修改刀具').fontSize(20),
+            content: Container(
+              height: 300,
+              child: Container(
+                child: AddToolForm(
+                    key: _key,
+                    maxStorageNum: controller.currentShelf!.max!,
+                    minStorageNum: controller.currentShelf!.min!,
+                    shelfNo: controller.currentShelf!.shelfNo!,
+                    toolData: tool),
+              ),
+            ),
+            actions: [
+              Container(
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FluentUI.Button(
+                        onPressed: () {
+                          SmartDialog.dismiss(tag: 'editTool');
+                        },
+                        child: const Text('取消')),
+                    20.horizontalSpace,
+                    FluentUI.FilledButton(
+                        onPressed: () async {
+                          var state = (_key.currentState! as AddToolFormState);
+
+                          if (state.confirm() == true) {
+                            SmartDialog.dismiss(tag: 'editTool');
+
+                            controller.toolUpdate(state.toolAdd);
+                          }
+                        },
+                        child: const Text('确定'))
+                  ],
+                ),
+              )
+            ],
+          );
+        });
+  }
+
   // 搜索栏
   Widget _buildSearch(context) {
     return Container(
@@ -58,7 +188,7 @@ class _ToolMagazineOutsideMacViewGetX
             runSpacing: 10,
             children: [
               SizedBox(
-                width: 300.0,
+                width: 200.0,
                 child: LineFormLabel(
                   label: '刀具号',
                   isExpanded: true,
@@ -66,12 +196,8 @@ class _ToolMagazineOutsideMacViewGetX
                     controller: controller.toolNumController,
                     placeholder: '请输入',
                     onSaved: (newValue) {},
-                    onChanged: (value) {},
-                    validator: (text) {
-                      if (text == null || text.isEmpty) {
-                        return '必填';
-                      }
-                      return null;
+                    onChanged: (value) {
+                      controller.search.toolNum = value;
                     },
                   ),
                 ),
@@ -92,95 +218,34 @@ class _ToolMagazineOutsideMacViewGetX
                     children: [Icon(FluentUI.FluentIcons.search), Text('查询')]),
               ),
               FluentUI.FilledButton(
-                onPressed: () {
-                  GlobalKey _key = GlobalKey();
-                  var widgetContext = context;
-                  SmartDialog.show(
-                      tag: 'addTool',
-                      builder: (context) {
-                        return FluentUI.ContentDialog(
-                          constraints: const BoxConstraints(maxWidth: 600),
-                          title: const Text('入库刀具').fontSize(20),
-                          content: Container(
-                            height: 300,
-                            child: Container(
-                              child: AddToolForm(
-                                key: _key,
-                                maxStorageNum: controller.currentShelf!.max!,
-                                minStorageNum: controller.currentShelf!.min!,
-                                shelfNo: controller.currentShelf!.shelfNo!,
-                              ),
-                            ),
-                          ),
-                          actions: [
-                            Container(
-                              width: double.infinity,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  FluentUI.Button(
-                                      onPressed: () {
-                                        SmartDialog.dismiss(tag: 'addTool');
-                                      },
-                                      child: const Text('取消')),
-                                  20.horizontalSpace,
-                                  FluentUI.FilledButton(
-                                      onPressed: () async {
-                                        var state = (_key.currentState!
-                                            as AddToolFormState);
-
-                                        if (state.confirm() == true) {
-                                          SmartDialog.dismiss(tag: 'addTool');
-
-                                          ResponseApiBody res =
-                                              await ExternalToolMagazineApi
-                                                  .machineOutToolInput(
-                                                      state.toolAdd.toMap());
-
-                                          if (res.success == true) {
-                                            // showAlertDialog(widgetContext, '成功', res.message as String);
-                                            PopupMessage.showSuccessInfoBar(
-                                                res.message as String);
-                                            var addedItem =
-                                                Tool.fromJson(res.data);
-                                            var toolIndex = controller
-                                                .currentShelf!.list
-                                                .indexWhere((item) =>
-                                                    item.storageNum ==
-                                                    addedItem.storageNum);
-                                            print(toolIndex);
-                                            if (toolIndex == -1) {
-                                              print('新增');
-                                              List list =
-                                                  controller.currentShelf!.list;
-                                              list.add(addedItem);
-                                              controller.updateTableRows();
-                                            } else {
-                                              print('覆盖');
-                                              List list =
-                                                  controller.currentShelf!.list;
-                                              list[toolIndex] = addedItem;
-                                              controller.updateTableRows();
-                                            }
-                                          } else {
-                                            PopupMessage.showFailInfoBar(
-                                                res.message as String);
-                                          }
-                                        }
-                                      },
-                                      child: const Text('确定'))
-                                ],
-                              ),
-                            )
-                          ],
-                        );
-                      });
-                },
+                onPressed: openAddDialog,
                 child: const Wrap(
                     crossAxisAlignment: WrapCrossAlignment.center,
                     spacing: 5,
                     children: [Icon(FluentUI.FluentIcons.toolbox), Text('入库')]),
               ),
+              FilledIconButton(
+                  icon: FluentUI.FluentIcons.edit,
+                  label: '修改',
+                  onPressed: () {
+                    if (controller.stateManager.checkedRows.length != 1) {
+                      PopupMessage.showWarningInfoBar('请选择一个刀具');
+                      return;
+                    }
+                    if (controller.stateManager.checkedRows.first.cells['data']!
+                            .value ==
+                        null) {
+                      PopupMessage.showWarningInfoBar('当前货位无刀具');
+                      return;
+                    }
+
+                    openEditDialog(controller
+                        .stateManager.checkedRows.first.cells['data']!.value);
+                  }),
+              FilledIconButton(
+                  icon: FluentUI.FluentIcons.delete,
+                  label: '删除',
+                  onPressed: controller.toolDelete)
             ],
           )
         ],
@@ -216,13 +281,37 @@ class _ToolMagazineOutsideMacViewGetX
             selected: controller.currentShelf == controller.shelfList[index],
             onSelectionChange: (value) {
               controller.currentShelf = controller.shelfList[index];
+              controller.search.shelfNo = controller.shelfList[index].shelfNo;
               controller.update(["tool_magazine_outside_mac"]);
+              controller.query();
             },
           );
         },
         itemCount: controller.shelfList.length,
       ),
     );
+  }
+
+  // 获取图标颜色
+  Color? getToolColor(Tool? toolData) {
+    if (toolData == null) {
+      return const Color(0xff999999);
+    } else {
+      var theoreticalLife = toolData.theoreticalLife;
+      var usedLife = toolData.usedLife;
+      if (theoreticalLife != null &&
+          usedLife != null &&
+          usedLife != '0' &&
+          theoreticalLife != '0') {
+        if (double.tryParse(theoreticalLife) == double.tryParse(usedLife)) {
+          return FluentUI.Colors.green.lightest;
+        } else if (double.tryParse(theoreticalLife)! <
+            double.tryParse(usedLife)!) {
+          return FluentUI.Colors.red.lightest;
+        }
+      }
+    }
+    return null;
   }
 
   // 表格
@@ -241,6 +330,7 @@ class _ToolMagazineOutsideMacViewGetX
             readOnly: true,
             enableContextMenu: false,
             enableSorting: false,
+            enableRowChecked: true,
             width: 100,
           ),
           PlutoColumn(
@@ -252,6 +342,36 @@ class _ToolMagazineOutsideMacViewGetX
             enableContextMenu: false,
             enableSorting: false,
             width: 100,
+            renderer: (rendererContext) {
+              var color =
+                  getToolColor(rendererContext.row.cells['data']!.value);
+              return Container(
+                width: double.infinity,
+                height: double.infinity,
+                margin: EdgeInsets.symmetric(vertical: 5),
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                color: color,
+                child: Row(
+                  mainAxisAlignment: FluentUI.MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      MyIcons.tool,
+                      size: 20,
+                      color: color != null
+                          ? FluentUI.Colors.white
+                          : globalTheme.buttonIconColor,
+                    ),
+                    ThemedText(
+                      rendererContext.cell.value.toString(),
+                      style: TextStyle(
+                          color: color != null
+                              ? FluentUI.Colors.white
+                              : globalTheme.buttonIconColor),
+                    )
+                  ],
+                ),
+              );
+            },
           ),
           PlutoColumn(
             title: '刀具号',
@@ -323,10 +443,7 @@ class _ToolMagazineOutsideMacViewGetX
         rows: controller.rows,
         onLoaded: (PlutoGridOnLoadedEvent event) {
           controller.stateManager = event.stateManager;
-          controller.getToolMagazineList();
-        },
-        onRowChecked: (event) {
-          print(event);
+          controller.getShelfList();
         },
         configuration: globalTheme.plutoGridConfig,
       ),

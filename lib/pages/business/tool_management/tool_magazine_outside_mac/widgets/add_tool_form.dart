@@ -2,11 +2,12 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-10 15:26:47
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-26 18:51:24
+ * @LastEditTime: 2023-09-13 14:10:33
  * @FilePath: /flutter-mesui/lib/pages/tool_management/tool_magazine_outside_mac/widgets/add_tool_form.dart
  */
 
 import 'package:eatm_manager/common/utils/popup_message.dart';
+import 'package:eatm_manager/pages/business/tool_management/tool_magazine_outside_mac/controller.dart';
 import 'package:fluent_ui/fluent_ui.dart' as FluentUI;
 import 'package:flutter/material.dart';
 
@@ -15,11 +16,13 @@ class AddToolForm extends StatefulWidget {
       {Key? key,
       required this.minStorageNum,
       required this.maxStorageNum,
-      required this.shelfNo})
+      required this.shelfNo,
+      this.toolData})
       : super(key: key);
   final int minStorageNum;
   final int maxStorageNum;
   final int shelfNo;
+  final Tool? toolData;
 
   @override
   AddToolFormState createState() => AddToolFormState();
@@ -27,6 +30,7 @@ class AddToolForm extends StatefulWidget {
 
 class AddToolFormState extends State<AddToolForm> {
   late final ToolAdd toolAdd;
+  late bool isEdit;
 
   bool confirm() {
     if (toolAdd.storageNum == null) {
@@ -43,7 +47,20 @@ class AddToolFormState extends State<AddToolForm> {
 
   @override
   void initState() {
-    toolAdd = ToolAdd(deviceName: widget.shelfNo.toString());
+    var tool = widget.toolData;
+    toolAdd = tool != null
+        ? ToolAdd(
+            deviceName: widget.shelfNo.toString(),
+            storageNum: tool.storageNum,
+            toolNum: tool.toolNum,
+            toolFullName: tool.toolFullName,
+            toolLength: tool.toolLength,
+            toolType: tool.toolType,
+            toolHiltType: tool.toolHiltType,
+            theoreticalLife: tool.theoreticalLife,
+            usedLife: tool.usedLife)
+        : ToolAdd(deviceName: widget.shelfNo.toString());
+    isEdit = tool != null;
     super.initState();
   }
 
@@ -61,7 +78,7 @@ class AddToolFormState extends State<AddToolForm> {
               SizedBox(
                 width: 80.0,
                 child: RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                   text: '*',
                   style: TextStyle(color: Colors.redAccent),
                   children: [
@@ -70,7 +87,7 @@ class AddToolFormState extends State<AddToolForm> {
                   ],
                 )),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10.0,
               ),
               Expanded(
@@ -78,12 +95,16 @@ class AddToolFormState extends State<AddToolForm> {
                   placeholder: '请输入',
                   value: toolAdd.storageNum,
                   mode: FluentUI.SpinButtonPlacementMode.inline,
+                  min: widget.minStorageNum,
+                  max: widget.maxStorageNum,
                   // onSaved: (newValue) {
                   //   toolAdd.storageNum = int.parse(newValue!);
                   // },
-                  onChanged: (val) {
-                    toolAdd.storageNum = val != null ? val.toInt() : 0;
-                  },
+                  onChanged: !isEdit
+                      ? (val) {
+                          toolAdd.storageNum = val != null ? val.toInt() : 0;
+                        }
+                      : null,
                   // validator: (text) {
                   //   if (text == null || text.isEmpty) {
                   //     return '必填';
@@ -99,7 +120,7 @@ class AddToolFormState extends State<AddToolForm> {
               SizedBox(
                 width: 80.0,
                 child: RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                   // text: '*',
                   // style: TextStyle(color: Colors.redAccent),
                   children: [
@@ -108,7 +129,7 @@ class AddToolFormState extends State<AddToolForm> {
                   ],
                 )),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10.0,
               ),
               Expanded(
@@ -119,10 +140,12 @@ class AddToolFormState extends State<AddToolForm> {
                   onSaved: (newValue) {
                     toolAdd.deviceName = newValue;
                   },
-                  onChanged: (value) {
-                    toolAdd.deviceName = value;
-                    // setState(() {});
-                  },
+                  onChanged: !isEdit
+                      ? (value) {
+                          toolAdd.deviceName = value;
+                          // setState(() {});
+                        }
+                      : null,
                   validator: (text) {
                     if (text == null || text.isEmpty) {
                       return '必填';
@@ -138,7 +161,7 @@ class AddToolFormState extends State<AddToolForm> {
               SizedBox(
                 width: 80.0,
                 child: RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                   // text: '*',
                   // style: TextStyle(color: Colors.redAccent),
                   children: [
@@ -147,7 +170,7 @@ class AddToolFormState extends State<AddToolForm> {
                   ],
                 )),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10.0,
               ),
               Expanded(
@@ -176,7 +199,7 @@ class AddToolFormState extends State<AddToolForm> {
               SizedBox(
                 width: 80.0,
                 child: RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                   // text: '*',
                   // style: TextStyle(color: Colors.redAccent),
                   children: [
@@ -185,7 +208,7 @@ class AddToolFormState extends State<AddToolForm> {
                   ],
                 )),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10.0,
               ),
               Expanded(
@@ -214,7 +237,7 @@ class AddToolFormState extends State<AddToolForm> {
               SizedBox(
                 width: 80.0,
                 child: RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                   // text: '*',
                   // style: TextStyle(color: Colors.redAccent),
                   children: [
@@ -223,18 +246,22 @@ class AddToolFormState extends State<AddToolForm> {
                   ],
                 )),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10.0,
               ),
               Expanded(
-                child: FluentUI.TextFormBox(
+                child: FluentUI.NumberFormBox<double>(
                   placeholder: '请输入',
-                  initialValue: toolAdd.toolLength,
+                  // initialValue: toolAdd.toolLength,
+                  mode: FluentUI.SpinButtonPlacementMode.none,
+                  value: toolAdd.toolLength != null
+                      ? double.tryParse(toolAdd.toolLength!)
+                      : null,
                   onSaved: (newValue) {
-                    toolAdd.toolLength = newValue;
+                    toolAdd.toolLength = newValue.toString();
                   },
                   onChanged: (value) {
-                    toolAdd.toolLength = value;
+                    toolAdd.toolLength = value.toString();
                     // setState(() {});
                   },
                   validator: (text) {
@@ -252,7 +279,7 @@ class AddToolFormState extends State<AddToolForm> {
               SizedBox(
                 width: 80.0,
                 child: RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                   // text: '*',
                   // style: TextStyle(color: Colors.redAccent),
                   children: [
@@ -261,7 +288,7 @@ class AddToolFormState extends State<AddToolForm> {
                   ],
                 )),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10.0,
               ),
               Expanded(
@@ -290,7 +317,7 @@ class AddToolFormState extends State<AddToolForm> {
               SizedBox(
                 width: 80.0,
                 child: RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                   // text: '*',
                   // style: TextStyle(color: Colors.redAccent),
                   children: [
@@ -299,7 +326,7 @@ class AddToolFormState extends State<AddToolForm> {
                   ],
                 )),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10.0,
               ),
               Expanded(
@@ -328,7 +355,7 @@ class AddToolFormState extends State<AddToolForm> {
               SizedBox(
                 width: 80.0,
                 child: RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                   // text: '*',
                   // style: TextStyle(color: Colors.redAccent),
                   children: [
@@ -337,18 +364,22 @@ class AddToolFormState extends State<AddToolForm> {
                   ],
                 )),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10.0,
               ),
               Expanded(
-                child: FluentUI.TextFormBox(
+                child: FluentUI.NumberFormBox<double>(
                   placeholder: '请输入',
-                  initialValue: toolAdd.theoreticalLife,
+                  // initialValue: toolAdd.theoreticalLife,
+                  mode: FluentUI.SpinButtonPlacementMode.none,
+                  value: toolAdd.theoreticalLife != null
+                      ? double.tryParse(toolAdd.theoreticalLife!)
+                      : null,
                   onSaved: (newValue) {
-                    toolAdd.theoreticalLife = newValue;
+                    toolAdd.theoreticalLife = newValue.toString();
                   },
                   onChanged: (value) {
-                    toolAdd.theoreticalLife = value;
+                    toolAdd.theoreticalLife = value.toString();
                     // setState(() {});
                   },
                   validator: (text) {
@@ -366,7 +397,7 @@ class AddToolFormState extends State<AddToolForm> {
               SizedBox(
                 width: 80.0,
                 child: RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                   // text: '*',
                   // style: TextStyle(color: Colors.redAccent),
                   children: [
@@ -379,14 +410,19 @@ class AddToolFormState extends State<AddToolForm> {
                 width: 10.0,
               ),
               Expanded(
-                child: FluentUI.TextFormBox(
+                child: FluentUI.NumberFormBox<double>(
                   placeholder: '请输入',
-                  initialValue: toolAdd.usedLife,
+                  // initialValue: toolAdd.usedLife,
+                  mode: FluentUI.SpinButtonPlacementMode.none,
+
+                  value: toolAdd.usedLife != null
+                      ? double.tryParse(toolAdd.usedLife!)
+                      : null,
                   onSaved: (newValue) {
-                    toolAdd.usedLife = newValue;
+                    toolAdd.usedLife = newValue.toString();
                   },
                   onChanged: (value) {
-                    toolAdd.usedLife = value;
+                    toolAdd.usedLife = value.toString();
                     // setState(() {});
                   },
                   validator: (text) {

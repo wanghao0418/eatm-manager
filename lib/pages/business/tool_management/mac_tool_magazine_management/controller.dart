@@ -2,11 +2,13 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-06 10:21:53
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-07-26 18:26:27
+ * @LastEditTime: 2023-09-13 15:08:05
  * @FilePath: /flutter-mesui/lib/pages/tool_management/mac_tool_magazine_management/controller.dart
  */
 import 'package:eatm_manager/common/api/tool_management/mac_tool_magazine_management_api.dart';
 import 'package:eatm_manager/common/utils/http.dart';
+import 'package:eatm_manager/common/utils/log.dart';
+import 'package:eatm_manager/common/utils/popup_message.dart';
 import 'package:excel/excel.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -126,11 +128,46 @@ class MacToolMagazineManagementController extends GetxController {
       final bytes = await file.readAsBytes();
       var excel = Excel.decodeBytes(bytes);
       SmartDialog.dismiss();
+      initExcel(excel);
       // _initData(excel);
     }
   }
 
   initExcel(Excel excelData) {
+    try {
+      for (var table in excelData.tables.keys) {
+        var rows = excelData.tables[table]!.rows;
+        //去掉表头
+        rows.removeAt(0);
+        List<MacToolMagazineData> tools = [];
+        for (var row in rows) {
+          var values = row.map((e) => e?.value).toList();
+          LogUtil.i(values);
+          tools.add(MacToolMagazineData(
+              magazineNo: values.elementAt(0)?.toString(),
+              toolName: values.elementAt(1)?.toString(),
+              realToolRatedLife: values.elementAt(2)?.toString(),
+              realToolUsedLife: values.elementAt(3)?.toString(),
+              realToolLastLife: values.elementAt(4)?.toString(),
+              lengthWear: values.elementAt(5)?.toString(),
+              radiusWear: values.elementAt(6)?.toString(),
+              protrudingLength: values.elementAt(7)?.toString(),
+              toolCode: values.elementAt(8)?.toString(),
+              handleCode: values.elementAt(9)?.toString(),
+              lengthTolerance: values.elementAt(10)?.toString(),
+              toolType: values.elementAt(11)?.toString(),
+              toolSettingMode: values.elementAt(12)?.toString(),
+              radiusTolerance: values.elementAt(13)?.toString(),
+              toolRadius: values.elementAt(14)?.toString(),
+              measuringDepth: values.elementAt(15)?.toString(),
+              remark: values.elementAt(16)?.toString()));
+        }
+        LogUtil.i(tools.map((e) => e.toJson()).toList());
+      }
+    } catch (e) {
+      LogUtil.w(e);
+      PopupMessage.showFailInfoBar('解析失败，请检查表格格式或联系管理员');
+    }
     // try {
     //   for (var table in excelData.tables.keys) {
     //     String currentProjectName = table;
