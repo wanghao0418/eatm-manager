@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-10 13:33:12
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-14 09:30:44
+ * @LastEditTime: 2023-09-14 11:45:35
  * @FilePath: /flutter-mesui/lib/pages/tool_management/tool_magazine_outside_mac/view.dart
  */
 import 'package:eatm_manager/common/api/tool_management/externalToolMagazine_api.dart';
@@ -300,13 +300,10 @@ class _ToolMagazineOutsideMacViewGetX
     } else {
       var theoreticalLife = toolData.theoreticalLife;
       var usedLife = toolData.usedLife;
-      if (theoreticalLife != null &&
-          usedLife != null &&
-          usedLife != '0' &&
-          theoreticalLife != '0') {
-        if (double.tryParse(theoreticalLife) == double.tryParse(usedLife)) {
+      if (theoreticalLife != null && usedLife != null) {
+        if (double.tryParse(usedLife) == 0) {
           return FluentUI.Colors.green.lightest;
-        } else if (double.tryParse(theoreticalLife)! <
+        } else if (double.tryParse(theoreticalLife)! <=
             double.tryParse(usedLife)!) {
           return FluentUI.Colors.red.lightest;
         }
