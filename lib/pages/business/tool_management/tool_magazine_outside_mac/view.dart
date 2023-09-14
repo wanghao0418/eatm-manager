@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-10 13:33:12
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-13 13:41:34
+ * @LastEditTime: 2023-09-14 09:30:44
  * @FilePath: /flutter-mesui/lib/pages/tool_management/tool_magazine_outside_mac/view.dart
  */
 import 'package:eatm_manager/common/api/tool_management/externalToolMagazine_api.dart';
@@ -101,7 +101,8 @@ class _ToolMagazineOutsideMacViewGetX
                             SmartDialog.dismiss(tag: 'addTool');
 
                             ResponseApiBody res = await ExternalToolMagazineApi
-                                .machineOutToolInput(state.toolAdd.toMap());
+                                .machineOutToolInput(
+                                    {"params": state.toolAdd.toMap()});
 
                             if (res.success == true) {
                               // showAlertDialog(widgetContext, '成功', res.message as String);
@@ -354,13 +355,23 @@ class _ToolMagazineOutsideMacViewGetX
                 child: Row(
                   mainAxisAlignment: FluentUI.MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(
-                      MyIcons.tool,
-                      size: 20,
-                      color: color != null
-                          ? FluentUI.Colors.white
-                          : globalTheme.buttonIconColor,
+                    Transform.rotate(
+                      angle: -3.1415926535 / 2,
+                      child: Image.asset(
+                        width: 40,
+                        height: 10,
+                        'assets/images/tool/hilt.png',
+                        fit: BoxFit.fitHeight,
+                      ),
                     ),
+
+                    // Icon(
+                    //   MyIcons.tool,
+                    //   size: 20,
+                    //   color: color != null
+                    //       ? FluentUI.Colors.white
+                    //       : globalTheme.buttonIconColor,
+                    // ),
                     ThemedText(
                       rendererContext.cell.value.toString(),
                       style: TextStyle(
