@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-16 10:59:00
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-22 10:22:32
+ * @LastEditTime: 2023-09-15 15:47:54
  * @FilePath: /eatm_manager/lib/pages/business/scheduling/single_machine_operation/view.dart
  * @Description:  单机负荷视图层
  */
@@ -640,14 +640,15 @@ class _SingleMachineOperationViewGetX
                 type: PlutoColumnType.text(),
                 readOnly: true),
           ],
-          rows: controller.currentAlarmTools!
-              .map((e) => PlutoRow(cells: {
-                    'toolTypeNo': PlutoCell(value: e.toolTypeNo),
-                    'theoreticalTime': PlutoCell(value: e.theoreticalTime),
-                    'usedTime': PlutoCell(value: e.usedTime),
-                    'alarmTip': PlutoCell(value: e.alarmTip),
-                  }))
-              .toList(),
+          rows: controller.rows,
+          // rows: controller.currentAlarmTools!
+          //     .map((e) => PlutoRow(cells: {
+          //           'toolTypeNo': PlutoCell(value: e.toolTypeNo),
+          //           'theoreticalTime': PlutoCell(value: e.theoreticalTime),
+          //           'usedTime': PlutoCell(value: e.usedTime),
+          //           'alarmTip': PlutoCell(value: e.alarmTip),
+          //         }))
+          //     .toList(),
           onLoaded: (event) {
             controller.stateManager = event.stateManager;
             // controller.updateRows();
