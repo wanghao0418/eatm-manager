@@ -2,17 +2,19 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-03-28 14:27:46
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-06 18:48:12
+ * @LastEditTime: 2023-09-15 09:24:28
  * @FilePath: /mesui/lib/pages/dataBoard/dataBoard_main.dart
  * @Description: 数据看板主页面
  */
 import 'package:eatm_manager/common/components/title_card.dart';
+import 'package:eatm_manager/pages/business/dataBoard/line_body.dart';
 import 'package:eatm_manager/pages/business/dataBoard/machineRunInfo.dart';
 import 'package:eatm_manager/pages/business/dataBoard/modularBox.dart';
 import 'package:eatm_manager/pages/business/dataBoard/silo.dart';
 import 'package:eatm_manager/pages/business/dataBoard/timeNow.dart';
 import 'package:fluent_ui/fluent_ui.dart' as fluent_ui;
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dart:async';
@@ -133,7 +135,7 @@ class _DataBoardState extends State<DataBoard>
           width: 20,
         ),
         Container(
-          width: 400,
+          width: 400.r,
           child: _renderLeftColumn(),
         ),
         SizedBox(
@@ -146,7 +148,7 @@ class _DataBoardState extends State<DataBoard>
           width: 20,
         ),
         Container(
-          width: 400,
+          width: 400.r,
           child: _renderRightColumn(),
         ),
         SizedBox(
@@ -220,7 +222,7 @@ class _DataBoardState extends State<DataBoard>
 
   Widget _renderWorkmanShipItem(workmanshipInfo) {
     return Container(
-      height: 300,
+      height: 300.r,
       margin: EdgeInsets.only(bottom: 10),
       width: double.infinity,
       child: TitleCard(
@@ -310,152 +312,156 @@ class _DataBoardState extends State<DataBoard>
   Widget _renderCenterColumn() {
     return Column(
       children: [
-        Expanded(
-            flex: 4,
-            // child: Image.asset(
-            //   'assets/img/kaihua.png',
-            //   fit: BoxFit.cover,
-            // )
-            child: Container(
-              width: double.infinity,
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: Image.asset(
-                      'assets/images/dataBoard/line_body.png',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  // 机床1
-                  LayoutBuilder(builder: (context, constraints) {
-                    return Transform.translate(
-                      offset: Offset(constraints.maxWidth * 0.08,
-                          constraints.maxHeight * 0.1),
-                      child: Container(
-                        child: MachineRunInfo(
-                          width: constraints.maxHeight * 0.22,
-                          height: constraints.maxHeight * 0.2,
-                          rotateAngle: 180,
-                          machineName: '机床1',
-                          status: MachineStatus.paused,
-                        ),
-                      ),
-                    );
-                  }),
-                  // 机床2
-                  LayoutBuilder(builder: (context, constraints) {
-                    return Transform.translate(
-                      offset: Offset(constraints.maxWidth * 0.24,
-                          constraints.maxHeight * 0.1),
-                      child: Container(
-                        child: MachineRunInfo(
-                          width: constraints.maxHeight * 0.22,
-                          height: constraints.maxHeight * 0.2,
-                          rotateAngle: 180,
-                          machineName: '机床2',
-                          status: MachineStatus.running,
-                        ),
-                      ),
-                    );
-                  }),
-                  // 机床3
-                  LayoutBuilder(builder: (context, constraints) {
-                    return Transform.translate(
-                      offset: Offset(constraints.maxWidth * 0.4,
-                          constraints.maxHeight * 0.1),
-                      child: Container(
-                        child: MachineRunInfo(
-                          width: constraints.maxHeight * 0.22,
-                          height: constraints.maxHeight * 0.2,
-                          rotateAngle: 180,
-                          machineName: '机床3',
-                          status: MachineStatus.error,
-                        ),
-                      ),
-                    );
-                  }),
-                  // 机床4
-                  LayoutBuilder(builder: (context, constraints) {
-                    return Transform.translate(
-                      offset: Offset(constraints.maxWidth * 0.58,
-                          constraints.maxHeight * 0.1),
-                      child: Container(
-                        child: MachineRunInfo(
-                            width: constraints.maxHeight * 0.22,
-                            height: constraints.maxHeight * 0.2,
-                            rotateAngle: 180,
-                            machineName: '机床4',
-                            status: MachineStatus.idle),
-                      ),
-                    );
-                  }),
-                  // 机床5
-                  LayoutBuilder(builder: (context, constraints) {
-                    return Transform.translate(
-                      offset: Offset(constraints.maxWidth * 0.76,
-                          constraints.maxHeight * 0.1),
-                      child: Container(
-                        child: MachineRunInfo(
-                            width: constraints.maxHeight * 0.22,
-                            height: constraints.maxHeight * 0.2,
-                            rotateAngle: 180,
-                            machineName: '机床5',
-                            status: MachineStatus.idle),
-                      ),
-                    );
-                  }),
-                  // 机床6
-                  LayoutBuilder(builder: (context, constraints) {
-                    return Transform.translate(
-                      offset: Offset(constraints.maxWidth * 0.18,
-                          constraints.maxHeight * 0.6),
-                      child: Container(
-                        child: MachineRunInfo(
-                          width: constraints.maxHeight * 0.22,
-                          height: constraints.maxHeight * 0.2,
-                          status: MachineStatus.idle,
-                          machineName: '机床6',
-                        ),
-                      ),
-                    );
-                  }),
-                  // 机床7
-                  LayoutBuilder(builder: (context, constraints) {
-                    return Transform.translate(
-                      offset: Offset(constraints.maxWidth * 0.36,
-                          constraints.maxHeight * 0.6),
-                      child: Container(
-                        child: MachineRunInfo(
-                          width: constraints.maxHeight * 0.22,
-                          height: constraints.maxHeight * 0.2,
-                          status: MachineStatus.idle,
-                          machineName: '机床7',
-                        ),
-                      ),
-                    );
-                  }),
-                  // 机床8
-                  LayoutBuilder(builder: (context, constraints) {
-                    return Transform.translate(
-                      offset: Offset(constraints.maxWidth * 0.54,
-                          constraints.maxHeight * 0.6),
-                      child: Container(
-                        child: MachineRunInfo(
-                          width: constraints.maxHeight * 0.22,
-                          height: constraints.maxHeight * 0.2,
-                          status: MachineStatus.idle,
-                          machineName: '机床8',
-                        ),
-                      ),
-                    );
-                  }),
-                ],
-              ),
-            )),
+        Expanded(flex: 4, child: LineBody()),
+        // Expanded(
+        //     flex: 4,
+        //     // child: Image.asset(
+        //     //   'assets/img/kaihua.png',
+        //     //   fit: BoxFit.cover,
+        //     // )
+        //     child: Container(
+        //       width: double.infinity,
+        //       child: Stack(
+        //         children: [
+        //           Positioned(
+        //             top: 0,
+        //             left: 0,
+        //             right: 0,
+        //             bottom: 0,
+        //             child: Image.asset(
+        //               'assets/images/dataBoard/line_body.png',
+        //               fit: BoxFit.cover,
+        //             ),
+        //           ),
+        //           // 机床1
+        //           LayoutBuilder(builder: (context, constraints) {
+        //             return Transform.translate(
+        //               offset: Offset(constraints.maxWidth * 0.08,
+        //                   constraints.maxHeight * 0.1),
+        //               child: Container(
+        //                 child: MachineRunInfo(
+        //                   width: constraints.maxHeight * 0.22,
+        //                   height: constraints.maxHeight * 0.2,
+        //                   rotateAngle: 180,
+        //                   machineName: '机床1',
+        //                   status: MachineStatus.paused,
+        //                 ),
+        //               ),
+        //             );
+        //           }),
+        //           // 机床2
+        //           LayoutBuilder(builder: (context, constraints) {
+        //             return Transform.translate(
+        //               offset: Offset(constraints.maxWidth * 0.24,
+        //                   constraints.maxHeight * 0.1),
+        //               child: Container(
+        //                 child: MachineRunInfo(
+        //                   width: constraints.maxHeight * 0.22,
+        //                   height: constraints.maxHeight * 0.2,
+        //                   rotateAngle: 180,
+        //                   machineName: '机床2',
+        //                   status: MachineStatus.running,
+        //                 ),
+        //               ),
+        //             );
+        //           }),
+        //           // 机床3
+        //           LayoutBuilder(builder: (context, constraints) {
+        //             return Transform.translate(
+        //               offset: Offset(constraints.maxWidth * 0.4,
+        //                   constraints.maxHeight * 0.1),
+        //               child: Container(
+        //                 child: MachineRunInfo(
+        //                   width: constraints.maxHeight * 0.22,
+        //                   height: constraints.maxHeight * 0.2,
+        //                   rotateAngle: 180,
+        //                   machineName: '机床3',
+        //                   status: MachineStatus.error,
+        //                 ),
+        //               ),
+        //             );
+        //           }),
+        //           // 机床4
+        //           LayoutBuilder(builder: (context, constraints) {
+        //             return Transform.translate(
+        //               offset: Offset(constraints.maxWidth * 0.58,
+        //                   constraints.maxHeight * 0.1),
+        //               child: Container(
+        //                 child: MachineRunInfo(
+        //                     width: constraints.maxHeight * 0.22,
+        //                     height: constraints.maxHeight * 0.2,
+        //                     rotateAngle: 180,
+        //                     machineName: '机床4',
+        //                     status: MachineStatus.idle),
+        //               ),
+        //             );
+        //           }),
+        //           // 机床5
+        //           LayoutBuilder(builder: (context, constraints) {
+        //             return Transform.translate(
+        //               offset: Offset(constraints.maxWidth * 0.76,
+        //                   constraints.maxHeight * 0.1),
+        //               child: Container(
+        //                 child: MachineRunInfo(
+        //                     width: constraints.maxHeight * 0.22,
+        //                     height: constraints.maxHeight * 0.2,
+        //                     rotateAngle: 180,
+        //                     machineName: '机床5',
+        //                     status: MachineStatus.idle),
+        //               ),
+        //             );
+        //           }),
+        //           // 机床6
+        //           LayoutBuilder(builder: (context, constraints) {
+        //             return Transform.translate(
+        //               offset: Offset(constraints.maxWidth * 0.18,
+        //                   constraints.maxHeight * 0.6),
+        //               child: Container(
+        //                 child: MachineRunInfo(
+        //                   width: constraints.maxHeight * 0.22,
+        //                   height: constraints.maxHeight * 0.2,
+        //                   status: MachineStatus.idle,
+        //                   machineName: '机床6',
+        //                 ),
+        //               ),
+        //             );
+        //           }),
+        //           // 机床7
+        //           LayoutBuilder(builder: (context, constraints) {
+        //             return Transform.translate(
+        //               offset: Offset(constraints.maxWidth * 0.36,
+        //                   constraints.maxHeight * 0.6),
+        //               child: Container(
+        //                 child: MachineRunInfo(
+        //                   width: constraints.maxHeight * 0.22,
+        //                   height: constraints.maxHeight * 0.2,
+        //                   status: MachineStatus.idle,
+        //                   machineName: '机床7',
+        //                 ),
+        //               ),
+        //             );
+        //           }),
+        //           // 机床8
+        //           LayoutBuilder(builder: (context, constraints) {
+        //             return Transform.translate(
+        //               offset: Offset(constraints.maxWidth * 0.54,
+        //                   constraints.maxHeight * 0.6),
+        //               child: Container(
+        //                 child: MachineRunInfo(
+        //                   width: constraints.maxHeight * 0.22,
+        //                   height: constraints.maxHeight * 0.2,
+        //                   status: MachineStatus.idle,
+        //                   machineName: '机床8',
+        //                 ),
+        //               ),
+        //             );
+        //           }),
+        //         ],
+        //       ),
+        //     )),
+        SizedBox(
+          height: 20,
+        ),
         Container(
             height: 150,
             child: ModularBox(
