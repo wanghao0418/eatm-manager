@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-08-17 17:34:28
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-08 17:38:13
+ * @LastEditTime: 2023-09-18 11:11:25
  * @FilePath: /eatm_manager/lib/common/api/line_body_api.dart
  * @Description: 线体公用接口
  */
@@ -15,8 +15,7 @@ class LineBodyApi {
 
   // 获取机床列表
   static Future<ResponseApiBody> getMachineList() async {
-    return await HttpUtil.post('/Eatm/lineBody/getMacList',
-        data: {}, isMock: isMock);
+    return await HttpUtil.post('/Eatm/lineBody/getMacList', data: {});
   }
 
   // 获取线体运行信息

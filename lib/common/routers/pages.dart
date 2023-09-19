@@ -46,6 +46,10 @@ import '../../pages/business/production_monitoring/index.dart'
     deferred as production_monitoring;
 import '../../pages/business/automated_handling/index.dart'
     deferred as automated_handling;
+import '../../pages/business/utilization_statistics/index.dart'
+    deferred as utilization_statistics;
+import '../../pages//business/production_line_control/index.dart'
+    deferred as production_line_control;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -190,7 +194,8 @@ class MainChildPages {
         icon: MyIcons.binding),
     MainChildPage(
         url: '/EquipmentStatus',
-        page: Center(child: Text('设备状态')),
+        page: DeferredWidget(production_line_control.loadLibrary,
+            () => production_line_control.ProductionLineControlPage()),
         icon: MyIcons.equipmentManage),
     // 单机负荷
     MainChildPage(
@@ -303,6 +308,11 @@ class MainChildPages {
         page: DeferredWidget(
             reporting.loadLibrary, () => reporting.ReportingPage()),
         icon: FluentIcons.report_add),
+    MainChildPage(
+        url: '/utilizationStatistics',
+        page: DeferredWidget(utilization_statistics.loadLibrary,
+            () => utilization_statistics.UtilizationStatisticsPage()),
+        icon: FluentIcons.chart),
   ];
 
   static Widget getPage(String url) {
