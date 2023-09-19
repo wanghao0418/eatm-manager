@@ -12,6 +12,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../dataBoard/line_body.dart';
 import 'index.dart';
 
 class ProductionLineControlPage extends StatefulWidget {
@@ -61,7 +62,7 @@ class _ProductionLineControlViewGetX
                     width: 10.r,
                     color: MachineState.getStatus(mac.machineState!)!.color,
                   ),
-                  Text(mac.machineSn!)
+                  ThemedText(mac.machineSn!)
                 ],
               ),
               content: Column(children: [
@@ -293,10 +294,7 @@ class _ProductionLineControlViewGetX
   }
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
-    var style = TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 14,
-        color: globalTheme.buttonIconColor);
+    var style = TextStyle(fontSize: 14.r, color: globalTheme.buttonIconColor);
     String text;
     switch (value.toInt()) {
       case 1:
@@ -337,9 +335,8 @@ class _ProductionLineControlViewGetX
   }
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    TextStyle style = TextStyle(
-      fontSize: 14.r,
-    );
+    TextStyle style =
+        TextStyle(fontSize: 14.r, color: globalTheme.buttonIconColor);
     Widget text;
     switch (value.toInt()) {
       case 0:
@@ -463,16 +460,17 @@ class _ProductionLineControlViewGetX
     return Container(
       decoration: globalTheme.contentDecoration,
       child: TitleCard(
-        cardBackgroundColor: globalTheme.pageContentBackgroundColor,
-        title: '线体预览',
-        containChild: Container(
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage('/images/dataBoard/line_body.png'))),
-          child: Stack(children: []),
-        ),
-      ),
+          cardBackgroundColor: globalTheme.pageContentBackgroundColor,
+          title: '线体预览',
+          containChild: LineBody()
+          // Container(
+          //   decoration: const BoxDecoration(
+          //       image: DecorationImage(
+          //           fit: BoxFit.cover,
+          //           image: AssetImage('/images/dataBoard/line_body.png'))),
+          //   child: Stack(children: []),
+          // ),
+          ),
     );
   }
 

@@ -1,8 +1,8 @@
 /*
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-09-14 14:27:49
- * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-15 14:56:04
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2023-09-19 18:18:46
  * @FilePath: /eatm_manager/lib/pages/business/dataBoard/line_body.dart
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -21,13 +21,17 @@ class LineBody extends StatefulWidget {
 
 class _LineBodyState extends State<LineBody> {
   // 初始位置
-  Offset position = Offset(0, 0);
+  Offset position = Offset(20, 20);
 
   bool isDrag = false;
   GlobalKey _key = GlobalKey();
+  GlobalKey imageKey = GlobalKey();
 
-  double width = 0.0;
-  double height = 0.0;
+  late double width;
+  late double height;
+
+  late double imageWidth;
+  late double imageHeight;
 
   double sizeNum = 80;
 
@@ -53,26 +57,18 @@ class _LineBodyState extends State<LineBody> {
               bottom: 0,
               child: Image.asset(
                 'assets/images/dataBoard/line_body.png',
-                fit: BoxFit.cover,
+                fit: BoxFit.fitHeight,
+                key: imageKey,
               ),
             ),
-            Positioned(
-                child: CustomPaint(
-              painter: ConnectionLinePainter(
-                  start: Offset(0.15 * width + 5, 0.3 * height + 5),
-                  end: targetCenter), // 自定义的绘制器
-              child: const SizedBox.expand(), // 子部件占满整个画布
-            )),
-            Positioned(
-                left: 0.15 * width,
-                top: 0.3 * height,
-                child: Container(
-                  width: 10,
-                  height: 10,
-                  decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                )),
+            if (!isDrag)
+              Positioned(
+                  child: CustomPaint(
+                painter: ConnectionLinePainter(
+                    start: Offset(0.25 * width, 0.3 * height),
+                    end: targetCenter), // 自定义的绘制器
+                child: const SizedBox.expand(), // 子部件占满整个画布
+              )),
             // 测试拖动组件
             Positioned(
               left: position.dx,
@@ -105,8 +101,6 @@ class _LineBodyState extends State<LineBody> {
                                 .size
                                 .height -
                             sizeNum;
-                    LogUtil.i(maxDx);
-                    LogUtil.i(maxDy);
                     // 当前dx dy
                     var currentDx = offset.dx -
                         (context.findRenderObject() as RenderBox)
@@ -173,6 +167,7 @@ class ConnectionLinePainter extends CustomPainter {
     // 画线，这里假设两个点的坐标为 (50, 50) 和 (150, 150)
     Offset startPoint = start;
     Offset endPoint = end;
+    canvas.drawCircle(start, 5, paint);
     canvas.drawLine(startPoint, endPoint, paint);
   }
 
