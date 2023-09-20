@@ -48,8 +48,10 @@ import '../../pages/business/automated_handling/index.dart'
     deferred as automated_handling;
 import '../../pages/business/utilization_statistics/index.dart'
     deferred as utilization_statistics;
-import '../../pages//business/production_line_control/index.dart'
+import '../../pages/business/production_line_control/index.dart'
     deferred as production_line_control;
+import '../../pages/business/maintenance_system/todo_today/index.dart'
+    deferred as todo_today;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -220,7 +222,8 @@ class MainChildPages {
         icon: MyIcons.operationStatistics),
     MainChildPage(
         url: '/TodoToday',
-        page: Center(child: Text('今日待办')),
+        page: DeferredWidget(
+            todo_today.loadLibrary, () => todo_today.TodoTodayPage()),
         icon: MyIcons.todo),
     MainChildPage(
         url: '/TaskCreation',
