@@ -2,22 +2,33 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-27 14:48:59
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-09-13 17:38:40
+ * @LastEditTime: 2023-09-21 13:47:19
  * @FilePath: /eatm_manager/lib/common/widgets/pop_date_picker.dart
- * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @Description: 日期时间picker组件
  */
+import 'package:date_format/date_format.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as material;
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PopDatePicker extends StatefulWidget {
   const PopDatePicker(
-      {Key? key, required this.onChange, this.placeholder, this.value})
+      {Key? key,
+      required this.onChange,
+      this.placeholder,
+      this.value,
+      this.dateFormat,
+      this.pickTime = false})
       : super(key: key);
   final Function onChange;
   final String? placeholder;
   final String? value;
+  // 格式化 默认 yyyy-mm-dd
+  final List<String>? dateFormat;
+  // 是否精确到时分
+  final bool? pickTime;
 
   @override
   _PopDatePickerState createState() => _PopDatePickerState();
@@ -25,16 +36,14 @@ class PopDatePicker extends StatefulWidget {
 
 class _PopDatePickerState extends State<PopDatePicker> {
   late TextEditingController _controller;
-
-  get nowFormatDate => DateTime.now().toString().split(' ')[0];
-
-  getNowDateStr() {
-    var now = DateTime.now();
-    return '${now.year}-${now.month < 10 ? '0${now.month}' : now.month}-${now.day < 10 ? '0${now.day}' : now.day}';
-  }
+  List<String> dateLocale = [yyyy, '-', mm, '-', dd];
+  get nowFormatDate => formatDate(DateTime.now(), dateLocale);
 
   @override
   void initState() {
+    if (widget.dateFormat != null) {
+      dateLocale = widget.dateFormat!;
+    }
     _controller = TextEditingController(text: widget.value ?? nowFormatDate);
     // TODO: implement initState
     super.initState();
@@ -42,7 +51,6 @@ class _PopDatePickerState extends State<PopDatePicker> {
 
   @override
   void didUpdateWidget(covariant PopDatePicker oldWidget) {
-    print(widget.value);
     if (widget.value != _controller.text) {
       setState(() {
         _controller =
@@ -67,7 +75,7 @@ class _PopDatePickerState extends State<PopDatePicker> {
             color: GlobalTheme.instance.buttonIconColor,
           ),
         ),
-        placeholder: '${widget.placeholder ?? '请选择日期'}',
+        placeholder: widget.placeholder ?? '请选择日期',
         readOnly: true,
         // textAlign: TextAlign.center,
         onTap: () {
@@ -77,11 +85,25 @@ class _PopDatePickerState extends State<PopDatePicker> {
                   initialDate: DateTime.parse(_controller.text),
                   firstDate: DateTime(1900),
                   lastDate: DateTime(2100))
-              .then((value) {
-            if (value != null) {
-              var formatDate = value.toString().split(' ')[0];
-              _controller.text = formatDate;
-              widget.onChange(formatDate);
+              .then((date) async {
+            if (date != null) {
+              if (widget.pickTime == false) {
+                var dateString = formatDate(date, dateLocale);
+                _controller.text = dateString;
+                widget.onChange(dateString);
+              } else {
+                var time = await material.showTimePicker(
+                    context: Get.context!,
+                    initialTime: TimeOfDay.fromDateTime(
+                        DateTime.parse(_controller.text)));
+                if (time != null) {
+                  var dateTime = DateTime(
+                      date.year, date.month, date.day, time.hour, time.minute);
+                  var dateTimeString = formatDate(dateTime, dateLocale);
+                  _controller.text = dateTimeString;
+                  widget.onChange(dateTimeString);
+                }
+              }
             }
           });
         },
