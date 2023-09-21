@@ -52,6 +52,8 @@ import '../../pages/business/production_line_control/index.dart'
     deferred as production_line_control;
 import '../../pages/business/maintenance_system/todo_today/index.dart'
     deferred as todo_today;
+import '../../pages/business/maintenance_system/task_creation/index.dart'
+    deferred as task_creation;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -220,14 +222,17 @@ class MainChildPages {
         page: DeferredWidget(equipment_operation.loadLibrary,
             () => equipment_operation.EquipmentOperationPage()),
         icon: MyIcons.operationStatistics),
+    // 今日待办
     MainChildPage(
         url: '/TodoToday',
         page: DeferredWidget(
             todo_today.loadLibrary, () => todo_today.TodoTodayPage()),
         icon: MyIcons.todo),
+    // 任务创建
     MainChildPage(
         url: '/TaskCreation',
-        page: Center(child: Text('任务创建')),
+        page: DeferredWidget(
+            task_creation.loadLibrary, () => task_creation.TaskCreationPage()),
         icon: MyIcons.taskPlan),
     MainChildPage(
         url: '/MaintenanceManagement',

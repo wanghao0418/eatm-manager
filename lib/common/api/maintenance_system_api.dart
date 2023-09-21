@@ -27,4 +27,25 @@ class MaintenanceSystemApi {
     return HttpUtil.post('/Eatm/Maintenance_TodayTodo_ModifyName',
         data: params);
   }
+
+  // 查询维保任务
+  static Future<ResponseApiBody> queryMaintenanceTask(params) {
+    return HttpUtil.post('/Eatm/Maintenance_TaskCreate_Query', data: params);
+  }
+
+  // 查询维保项目
+  static Future<ResponseApiBody> queryMaintenanceItem() {
+    return HttpUtil.post('/Eatm/MaintenanceSet_DownQuery',
+        data: {"params": {}});
+  }
+
+  // 创建维保任务
+  static Future<ResponseApiBody> addMaintenanceTask(params) {
+    return HttpUtil.post('/Eatm/Maintenance_TaskCreate_Add', data: params);
+  }
+
+  // 删除维保任务
+  static Future<ResponseApiBody> deleteMaintenanceTask(params) {
+    return HttpUtil.post('/Eatm/Maintenance_TaskCreate_Delete', data: params);
+  }
 }
