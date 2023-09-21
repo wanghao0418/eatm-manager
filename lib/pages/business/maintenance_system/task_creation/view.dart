@@ -40,15 +40,15 @@ class _TaskCreationViewGetX extends GetView<TaskCreationController> {
 
   // 打开新增任务弹窗
   void openAddTaskDialog() {
+    GlobalKey key = GlobalKey();
     SmartDialog.show(
       tag: 'add_task',
       keepSingle: true,
       bindPage: true,
       builder: (context) {
-        GlobalKey key = GlobalKey();
         return ContentDialog(
           title: const Text('创建维保任务').fontSize(20.sp),
-          constraints: const BoxConstraints(maxWidth: 600, maxHeight: 800),
+          constraints: const BoxConstraints(maxWidth: 680, maxHeight: 800),
           content: AddTaskForm(
             key: key,
           ),

@@ -22,11 +22,7 @@ class AddTaskForm extends StatefulWidget {
   AddTaskFormState createState() => AddTaskFormState();
 }
 
-class AddTaskFormState extends State<AddTaskForm>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
+class AddTaskFormState extends State<AddTaskForm> {
   GlobalTheme get globalTheme => GlobalTheme.instance;
   // 设备编号
   List<SelectOption> equipmentOptionList = [];
@@ -234,7 +230,7 @@ class AddTaskFormState extends State<AddTaskForm>
             InfoLabel(
                 label: '设备编号:',
                 child: SizedBox(
-                  width: 200.0.r,
+                  width: 200.0,
                   child: ComboBox<String>(
                     placeholder: const Text('设备编号'),
                     value: addForm.deviceNum,
@@ -258,7 +254,7 @@ class AddTaskFormState extends State<AddTaskForm>
                   TextSpan(text: '设备名称:'),
                 ]),
                 child: SizedBox(
-                  width: 200.r,
+                  width: 200,
                   child: TextBox(
                     placeholder: '维保人员',
                     onChanged: (value) {
@@ -269,7 +265,7 @@ class AddTaskFormState extends State<AddTaskForm>
             InfoLabel(
                 label: '提醒时间间隔(分钟):',
                 child: SizedBox(
-                  width: 200.r,
+                  width: 200,
                   child: NumberBox(
                     mode: SpinButtonPlacementMode.none,
                     value: addForm.reminderInterval,
@@ -285,7 +281,7 @@ class AddTaskFormState extends State<AddTaskForm>
                   TextSpan(text: '保养周期:'),
                 ]),
                 child: SizedBox(
-                  width: 200.r,
+                  width: 200,
                   child: ComboBox<String>(
                     value: addForm.inspectionCycle,
                     placeholder: const Text('保养周期'),
@@ -310,7 +306,7 @@ class AddTaskFormState extends State<AddTaskForm>
             InfoLabel(
               label: '创建时间:',
               child: SizedBox(
-                width: 200.r,
+                width: 200,
                 child: PopDatePicker(
                   pickTime: true,
                   value: addForm.createTime,
@@ -420,8 +416,6 @@ class AddTaskFormState extends State<AddTaskForm>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
-
     return Column(children: [
       _buildTopForm(),
       10.verticalSpace,
