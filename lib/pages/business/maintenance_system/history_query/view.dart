@@ -3,25 +3,24 @@ import 'package:eatm_manager/common/components/line_form_label.dart';
 import 'package:eatm_manager/common/components/themed_text.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
+import 'package:eatm_manager/common/widgets/pop_date_picker.dart';
 import 'package:eatm_manager/pages/business/maintenance_system/enum.dart';
-import 'package:eatm_manager/pages/business/maintenance_system/todo_today/models.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:pluto_grid/pluto_grid.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import 'index.dart';
 
-class TodoTodayPage extends StatefulWidget {
-  const TodoTodayPage({Key? key}) : super(key: key);
+class HistoryQueryPage extends StatefulWidget {
+  const HistoryQueryPage({Key? key}) : super(key: key);
 
   @override
-  State<TodoTodayPage> createState() => _TodoTodayPageState();
+  State<HistoryQueryPage> createState() => _HistoryQueryPageState();
 }
 
-class _TodoTodayPageState extends State<TodoTodayPage>
+class _HistoryQueryPageState extends State<HistoryQueryPage>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
@@ -29,81 +28,13 @@ class _TodoTodayPageState extends State<TodoTodayPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return const _TodoTodayViewGetX();
+    return const _HistoryQueryViewGetX();
   }
 }
 
-class _TodoTodayViewGetX extends GetView<TodoTodayController> {
-  const _TodoTodayViewGetX({Key? key}) : super(key: key);
+class _HistoryQueryViewGetX extends GetView<HistoryQueryController> {
+  const _HistoryQueryViewGetX({Key? key}) : super(key: key);
   GlobalTheme get globalTheme => GlobalTheme.instance;
-
-  // 打开异常信息弹窗
-  void openExceptionInformationDialog(int id) {
-    TextEditingController textController = TextEditingController();
-    SmartDialog.show(
-      tag: 'exceptionInformationDialog',
-      keepSingle: true,
-      bindPage: true,
-      builder: (context) {
-        return ContentDialog(
-          title: const Text('异常信息').fontSize(20.sp),
-          content: TextBox(
-            controller: textController,
-            maxLines: 5,
-          ),
-          actions: [
-            Button(
-              onPressed: () =>
-                  SmartDialog.dismiss(tag: 'exceptionInformationDialog'),
-              child: const Text('取消'),
-            ),
-            FilledButton(
-                child: const Text('保存'),
-                onPressed: () {
-                  SmartDialog.dismiss(tag: 'exceptionInformationDialog');
-                  controller.updateIsAbnormal(id, true,
-                      abnormalText: textController.text);
-                })
-          ],
-        );
-      },
-    );
-  }
-
-  // 打开修改维保人员弹窗
-  void openModifyMaintainerDialog(int id) {
-    String? maintainer = controller
-        .stateManager.checkedRows[0].cells['maintenancePersonnel']!.value;
-    TextEditingController textController =
-        TextEditingController(text: maintainer);
-    SmartDialog.show(
-      tag: 'modifyMaintainerDialog',
-      keepSingle: true,
-      bindPage: true,
-      builder: (context) {
-        return ContentDialog(
-          title: const Text('修改维保人员').fontSize(20.sp),
-          content: TextBox(
-            controller: textController,
-            maxLines: 5,
-          ),
-          actions: [
-            Button(
-              onPressed: () =>
-                  SmartDialog.dismiss(tag: 'modifyMaintainerDialog'),
-              child: const Text('取消'),
-            ),
-            FilledButton(
-                child: const Text('保存'),
-                onPressed: () {
-                  SmartDialog.dismiss(tag: 'modifyMaintainerDialog');
-                  controller.updateMaintenanceUser(id, textController.text);
-                })
-          ],
-        );
-      },
-    );
-  }
 
   // 顶部操作栏
   Widget _buildTopBar() {
@@ -128,7 +59,7 @@ class _TodoTodayViewGetX extends GetView<TodoTodayController> {
                     .toList(),
                 onChanged: (value) {
                   controller.search.maintenanceType = value;
-                  controller.update(['todo_today']);
+                  controller.update(['history_query']);
                 },
               )),
           LineFormLabel(
@@ -148,7 +79,7 @@ class _TodoTodayViewGetX extends GetView<TodoTodayController> {
                     .toList(),
                 onChanged: (value) {
                   controller.search.item = value!;
-                  controller.update(['todo_today']);
+                  controller.update(['history_query']);
                 },
               )),
           LineFormLabel(
@@ -168,7 +99,7 @@ class _TodoTodayViewGetX extends GetView<TodoTodayController> {
                     .toList(),
                 onChanged: (value) {
                   controller.search.deviceNum = value;
-                  controller.update(['todo_today']);
+                  controller.update(['history_query']);
                 },
               )),
           LineFormLabel(
@@ -179,6 +110,16 @@ class _TodoTodayViewGetX extends GetView<TodoTodayController> {
                 placeholder: '维保人员',
                 onChanged: (value) {
                   controller.search.name = value;
+                },
+              )),
+          LineFormLabel(
+              label: '完成时间',
+              width: 200,
+              isExpanded: true,
+              child: PopDatePicker(
+                value: controller.search.finishTime,
+                onChange: (value) {
+                  controller.search.finishTime = value;
                 },
               )),
         ]))
@@ -198,39 +139,8 @@ class _TodoTodayViewGetX extends GetView<TodoTodayController> {
                 icon: FluentIcons.sync_occurence,
                 label: '重置',
                 onPressed: () {
-                  controller.search.reset();
+                  controller.resetForm();
                   controller.query();
-                }),
-            FilledButton(
-                child: const Text('维保处理'),
-                onPressed: () {
-                  if (controller.stateManager.checkedRows.length != 1) {
-                    PopupMessage.showWarningInfoBar('请选择一条要操作的记录');
-                    return;
-                  }
-                  if (MaintenanceStatus.fromValue(controller.stateManager
-                          .checkedRows[0].cells['maintenanceStatus']!.value) ==
-                      MaintenanceStatus.completed) {
-                    PopupMessage.showWarningInfoBar('该记录已完成');
-                    return;
-                  }
-                  PopupMessage.showConfirmDialog(
-                      title: '确认',
-                      message: '是否保养完成',
-                      onConfirm: () => controller.maintenanceHandle(
-                            controller
-                                .stateManager.checkedRows[0].cells['id']!.value,
-                          ));
-                }),
-            FilledButton(
-                child: const Text('修改维保人员'),
-                onPressed: () {
-                  if (controller.stateManager.checkedRows.length != 1) {
-                    PopupMessage.showWarningInfoBar('请选择一条要操作的记录');
-                    return;
-                  }
-                  openModifyMaintainerDialog(controller
-                      .stateManager.checkedRows[0].cells['id']!.value);
                 }),
           ],
         ))
@@ -254,9 +164,7 @@ class _TodoTodayViewGetX extends GetView<TodoTodayController> {
               title: 'id',
               field: 'id',
               type: PlutoColumnType.text(),
-              enableRowChecked: true,
               enableEditingMode: false,
-              frozen: PlutoColumnFrozen.start,
               width: 80),
           PlutoColumn(
             title: '维保类别',
@@ -269,16 +177,16 @@ class _TodoTodayViewGetX extends GetView<TodoTodayController> {
                     .label),
           ),
           PlutoColumn(
+            title: '设备编号',
+            field: 'equipmentNo',
+            type: PlutoColumnType.text(),
+            enableEditingMode: false,
+          ),
+          PlutoColumn(
             title: '维保项目',
             field: 'maintenanceProject',
             type: PlutoColumnType.text(),
             width: 120,
-            enableEditingMode: false,
-          ),
-          PlutoColumn(
-            title: '设备编号',
-            field: 'equipmentNo',
-            type: PlutoColumnType.text(),
             enableEditingMode: false,
           ),
           PlutoColumn(
@@ -294,23 +202,15 @@ class _TodoTodayViewGetX extends GetView<TodoTodayController> {
             enableEditingMode: false,
           ),
           PlutoColumn(
-            title: '维保标准',
-            field: 'maintenanceStandard',
+            title: '异常说明',
+            field: 'exceptionDescription',
             type: PlutoColumnType.text(),
-            enableEditingMode: false,
-          ),
-          PlutoColumn(
-            title: '周期',
-            field: 'maintenanceCycle',
-            type: PlutoColumnType.text(),
-            width: 80,
             enableEditingMode: false,
           ),
           PlutoColumn(
             title: '维保人员',
             field: 'maintenancePersonnel',
             type: PlutoColumnType.text(),
-            width: 120,
             enableEditingMode: false,
           ),
           PlutoColumn(
@@ -335,40 +235,14 @@ class _TodoTodayViewGetX extends GetView<TodoTodayController> {
             },
           ),
           PlutoColumn(
-            title: '时间',
-            field: 'maintenanceTime',
+            title: '开始时间',
+            field: 'startTime',
             type: PlutoColumnType.text(),
             enableEditingMode: false,
           ),
           PlutoColumn(
-            title: '是否存在异常',
-            field: 'isAbnormal',
-            type: PlutoColumnType.text(),
-            width: 150,
-            enableEditingMode: false,
-            renderer: (rendererContext) => Center(
-              child: ToggleSwitch(
-                checked: rendererContext.cell.value,
-                onChanged: (value) {
-                  var id = rendererContext.row.cells['id']!.value;
-                  if (value == true) {
-                    // 打开异常信息弹窗
-                    openExceptionInformationDialog(id);
-                  } else {
-                    // 打开确认弹窗
-                    PopupMessage.showConfirmDialog(
-                        title: '确认',
-                        message: '是否取消设置异常？',
-                        onConfirm: () =>
-                            controller.updateIsAbnormal(id, false));
-                  }
-                },
-              ),
-            ),
-          ),
-          PlutoColumn(
-            title: '异常说明',
-            field: 'exceptionDescription',
+            title: '完成时间',
+            field: 'endTime',
             type: PlutoColumnType.text(),
             enableEditingMode: false,
           ),
@@ -377,17 +251,6 @@ class _TodoTodayViewGetX extends GetView<TodoTodayController> {
         onLoaded: (event) {
           controller.stateManager = event.stateManager;
           controller.query();
-        },
-        onRowChecked: (event) {
-          // 单选模式
-          if (event.isAll) {
-            controller.stateManager.toggleAllRowChecked(false);
-          } else {
-            if (event.isChecked == true) {
-              controller.stateManager.toggleAllRowChecked(false);
-              controller.stateManager.setRowChecked(event.row!, true);
-            }
-          }
         },
         configuration: globalTheme.plutoGridConfig,
       ),
@@ -411,9 +274,9 @@ class _TodoTodayViewGetX extends GetView<TodoTodayController> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<TodoTodayController>(
-      init: TodoTodayController(),
-      id: "todo_today",
+    return GetBuilder<HistoryQueryController>(
+      init: HistoryQueryController(),
+      id: "history_query",
       builder: (_) {
         return ScaffoldPage(
           padding: EdgeInsets.zero,

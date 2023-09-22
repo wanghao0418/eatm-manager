@@ -2,8 +2,8 @@ import 'package:eatm_manager/common/utils/http.dart';
 
 class MaintenanceSystemApi {
   // 获取设备列表
-  static Future<ResponseApiBody> queryEquipmentList() async {
-    return HttpUtil.post('/Eatm/MaintenanceSet_UpQuery', data: {});
+  static Future<ResponseApiBody> queryEquipmentList(params) async {
+    return HttpUtil.post('/Eatm/MaintenanceSet_UpQuery', data: params);
   }
 
   // 查询今日待办
@@ -47,5 +47,30 @@ class MaintenanceSystemApi {
   // 删除维保任务
   static Future<ResponseApiBody> deleteMaintenanceTask(params) {
     return HttpUtil.post('/Eatm/Maintenance_TaskCreate_Delete', data: params);
+  }
+
+  // 新增设备
+  static Future<ResponseApiBody> addEquipment(params) {
+    return HttpUtil.post('/Eatm/MaintenanceSet_UpSave', data: params);
+  }
+
+  // 删除设备
+  static Future<ResponseApiBody> deleteEquipment(params) {
+    return HttpUtil.post('/Eatm/MaintenanceSet_UpDelete', data: params);
+  }
+
+  // 删除维保项目
+  static Future<ResponseApiBody> deleteMaintenanceItem(params) {
+    return HttpUtil.post('/Eatm/MaintenanceSet_DownDelete', data: params);
+  }
+
+  // 添加(修改)维保项目
+  static Future<ResponseApiBody> updateMaintenanceItem(params) {
+    return HttpUtil.post('/Eatm/MaintenanceSet_DownAddItem', data: params);
+  }
+
+  // 查询历史任务
+  static Future<ResponseApiBody> queryTaskHistory(params) {
+    return HttpUtil.post('/Eatm/Maintenance_HistoryQuery', data: params);
   }
 }

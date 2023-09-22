@@ -67,7 +67,7 @@ class TaskCreationController extends GetxController {
 
   // 获取设备列表
   void getEquipmentList() async {
-    ResponseApiBody res = await MaintenanceSystemApi.queryEquipmentList();
+    ResponseApiBody res = await MaintenanceSystemApi.queryEquipmentList({});
     if (res.success!) {
       equipmentOptionList = (res.data as List).map((e) {
         return SelectOption(label: e['equipmentNo'], value: e['equipmentNo']);

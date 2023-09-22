@@ -2,7 +2,7 @@
  * @Author: wanghao wanghao@oureman.com
  * @Date: 2023-07-24 11:10:08
  * @LastEditors: wanghao wanghao@oureman.com
- * @LastEditTime: 2023-08-10 09:41:22
+ * @LastEditTime: 2023-09-22 16:07:45
  * @FilePath: /eatm_manager/lib/pages/system/main/widgets/navigation_bar.dart
  * @Description: 导航栏组件
  */
@@ -136,7 +136,8 @@ class _NavigationBarState extends State<NavigationBar> {
         ),
         title: Text(
           mainController.isCollapseNavigation.value ? '' : menu.name!,
-          style: TextStyle(color: isCurrent ? Colors.white : Color(0xffacb1b9)),
+          style: TextStyle(
+              color: isCurrent ? Colors.white : const Color(0xffacb1b9)),
         ),
         onTap: () {
           widget.onMenuClick!(menu);

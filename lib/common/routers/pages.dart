@@ -54,6 +54,10 @@ import '../../pages/business/maintenance_system/todo_today/index.dart'
     deferred as todo_today;
 import '../../pages/business/maintenance_system/task_creation/index.dart'
     deferred as task_creation;
+import '../../pages/business/maintenance_system/maintenance_management/index.dart'
+    deferred as maintenance_management;
+import '../../pages/business/maintenance_system/history_query/index.dart'
+    deferred as history_query;
 import '../../pages/index.dart';
 import '../middlewares/index.dart';
 import '../style/icons.dart';
@@ -234,10 +238,17 @@ class MainChildPages {
         page: DeferredWidget(
             task_creation.loadLibrary, () => task_creation.TaskCreationPage()),
         icon: MyIcons.taskPlan),
+    // 维保管理
     MainChildPage(
         url: '/MaintenanceManagement',
-        page: Center(child: Text('维保设置')),
+        page: DeferredWidget(maintenance_management.loadLibrary,
+            () => maintenance_management.MaintenanceManagementPage()),
         icon: MyIcons.maintenance),
+    MainChildPage(
+        url: '/taskHistoryQuery',
+        page: DeferredWidget(
+            history_query.loadLibrary, () => history_query.HistoryQueryPage()),
+        icon: FluentIcons.history),
     // 多机负荷
     MainChildPage(
         url: '/AllMachine',
@@ -266,10 +277,6 @@ class MainChildPages {
         page: DeferredWidget(machine_binding.loadLibrary,
             () => machine_binding.MachineBindingPage()),
         icon: MyIcons.machineTool),
-    MainChildPage(
-        url: '/taskHistoryQuery',
-        page: Center(child: Text('历史查询')),
-        icon: FluentIcons.history),
     MainChildPage(
         url: '/ChipBindingStl',
         page: Center(child: Text('多钢件绑定')),
