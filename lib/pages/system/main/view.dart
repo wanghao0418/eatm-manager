@@ -1,6 +1,7 @@
 import 'package:eatm_manager/common/index.dart';
 import 'package:eatm_manager/common/store/index.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
+import 'package:eatm_manager/common/utils/log.dart';
 import 'package:eatm_manager/pages/system/main/widgets/navigation_bar.dart';
 import 'package:eatm_manager/pages/system/main/widgets/setting_view.dart';
 import 'package:fluent_ui/fluent_ui.dart' hide Tab;
@@ -206,7 +207,7 @@ class _MainViewGetX extends GetView<MainController> {
                           child: DragToMoveArea(
                               child: SizedBox(
                         width: double.infinity,
-                        height: 40,
+                        height: 38.5,
                       )))
                     ],
                   ))),
