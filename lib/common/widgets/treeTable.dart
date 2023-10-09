@@ -376,7 +376,7 @@ class TreeTableState extends State<TreeTable> {
   _buildBody() {
     return Container(
         child: Scrollbar(
-      isAlwaysShown: true,
+      thumbVisibility: true,
       controller: _columnScrollController,
       child: SingleChildScrollView(
         controller: _columnScrollController,
@@ -508,7 +508,7 @@ class TreeTableState extends State<TreeTable> {
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
-        isAlwaysShown: true,
+        thumbVisibility: true,
         controller: _rowScrollController,
         child: SingleChildScrollView(
           controller: _rowScrollController,
