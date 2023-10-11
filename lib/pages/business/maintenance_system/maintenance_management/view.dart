@@ -3,6 +3,7 @@ import 'package:eatm_manager/common/components/line_form_label.dart';
 import 'package:eatm_manager/common/components/themed_text.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
+import 'package:eatm_manager/common/widgets/tab_box.dart';
 import 'package:eatm_manager/pages/business/maintenance_system/maintenance_management/widgets/add_equipment_form.dart';
 import 'package:eatm_manager/pages/business/maintenance_system/maintenance_management/widgets/edit_projects_content.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -263,86 +264,13 @@ class _MaintenanceManagementViewGetX
   // 设备项目tabView
   Widget _buildEquipmentProjectTabView() {
     return Container(
-        padding: globalTheme.contentPadding,
-        decoration: globalTheme.contentDecoration,
-        child: FluentTheme(
-          data: FluentThemeData(
-              resources: globalTheme.isDarkMode
-                  ? ResourceDictionary.dark(
-                      solidBackgroundFillColorTertiary: globalTheme.accentColor)
-                  : ResourceDictionary.light(
-                      solidBackgroundFillColorTertiary:
-                          globalTheme.accentColor)),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 38.5,
-                child: TabView(
-                    tabWidthBehavior: TabWidthBehavior.sizeToContent,
-                    closeButtonVisibility: CloseButtonVisibilityMode.never,
-                    currentIndex: controller.currentTabIndex.value,
-                    onChanged: (value) {
-                      controller.currentTabIndex.value = value;
-                      controller.update(['maintenance_management']);
-                    },
-                    tabs: [
-                      Tab(
-                          icon: null,
-                          text: ThemedText(
-                            '保养项目',
-                            style: TextStyle(
-                                fontWeight:
-                                    controller.currentTabIndex.value == 0
-                                        ? FontWeight.bold
-                                        : null,
-                                decorationColor: Colors.white,
-                                decoration:
-                                    controller.currentTabIndex.value == 0
-                                        ? TextDecoration.underline
-                                        : TextDecoration.none,
-                                color: controller.currentTabIndex.value == 0
-                                    ? Colors.white
-                                    : null),
-                          ),
-                          body: Container()),
-                      Tab(
-                          icon: null,
-                          text: ThemedText(
-                            '点检项目',
-                            style: TextStyle(
-                                fontWeight:
-                                    controller.currentTabIndex.value == 1
-                                        ? FontWeight.bold
-                                        : null,
-                                decorationColor: Colors.white,
-                                decoration:
-                                    controller.currentTabIndex.value == 1
-                                        ? TextDecoration.underline
-                                        : TextDecoration.none,
-                                color: controller.currentTabIndex.value == 1
-                                    ? Colors.white
-                                    : null),
-                          ),
-                          body: Container())
-                    ]),
-              ),
-              Expanded(
-                  child: IndexedStack(
-                index: controller.currentTabIndex.value,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(10.r),
-                    child: _buildMaintainTable(),
-                  ).border(all: 1, color: globalTheme.accentColor),
-                  Container(
-                    padding: EdgeInsets.all(10.r),
-                    child: _buildSpotCheckTable(),
-                  ).border(all: 1, color: globalTheme.accentColor)
-                ],
-              ))
-            ],
-          ),
-        ));
+      padding: globalTheme.contentPadding,
+      decoration: globalTheme.contentDecoration,
+      child: TabBox(tabList: [
+        Tab(text: const Text('保养项目'), body: _buildMaintainTable()),
+        Tab(text: const Text('点检项目'), body: _buildSpotCheckTable()),
+      ]),
+    );
   }
 
   // 保养项目表格

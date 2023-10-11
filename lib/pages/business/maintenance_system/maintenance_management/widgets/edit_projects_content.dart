@@ -3,6 +3,7 @@ import 'package:eatm_manager/common/components/themed_text.dart';
 import 'package:eatm_manager/common/style/global_theme.dart';
 import 'package:eatm_manager/common/utils/http.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
+import 'package:eatm_manager/common/widgets/tab_box.dart';
 import 'package:eatm_manager/pages/business/maintenance_system/maintenance_management/controller.dart';
 import 'package:eatm_manager/pages/business/maintenance_system/models.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -265,98 +266,35 @@ class EditProjectsContentState extends State<EditProjectsContent> {
     );
   }
 
-  Widget _buildProjectTab() {
-    return FluentTheme(
-      data: FluentThemeData(
-          resources: globalTheme.isDarkMode
-              ? ResourceDictionary.dark(
-                  solidBackgroundFillColorTertiary: globalTheme.accentColor)
-              : ResourceDictionary.light(
-                  solidBackgroundFillColorTertiary: globalTheme.accentColor)),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 38.5,
-            child: TabView(
-                tabWidthBehavior: TabWidthBehavior.sizeToContent,
-                closeButtonVisibility: CloseButtonVisibilityMode.never,
-                currentIndex: currentTabIndex,
-                footer: Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    spacing: 5,
-                    children: [
-                      IconButton(
-                          icon: Icon(
-                            FluentIcons.circle_addition_solid,
-                            size: 16,
-                            color: GlobalTheme.instance.buttonIconColor,
-                          ),
-                          onPressed: addRow),
-                      IconButton(
-                          icon: Icon(
-                            FluentIcons.delete,
-                            size: 16,
-                            color: GlobalTheme.instance.buttonIconColor,
-                          ),
-                          onPressed: deleteProject),
-                    ]),
-                onChanged: (value) {
-                  setState(() {
-                    currentTabIndex = value;
-                  });
-                },
-                tabs: [
-                  Tab(
-                      icon: null,
-                      text: ThemedText(
-                        '保养项目',
-                        style: TextStyle(
-                            fontWeight:
-                                currentTabIndex == 0 ? FontWeight.bold : null,
-                            decorationColor: Colors.white,
-                            decoration: currentTabIndex == 0
-                                ? TextDecoration.underline
-                                : TextDecoration.none,
-                            color: currentTabIndex == 0 ? Colors.white : null),
-                      ),
-                      body: Container()),
-                  Tab(
-                      icon: null,
-                      text: ThemedText(
-                        '点检项目',
-                        style: TextStyle(
-                            fontWeight:
-                                currentTabIndex == 1 ? FontWeight.bold : null,
-                            decorationColor: Colors.white,
-                            decoration: currentTabIndex == 1
-                                ? TextDecoration.underline
-                                : TextDecoration.none,
-                            color: currentTabIndex == 1 ? Colors.white : null),
-                      ),
-                      body: Container())
-                ]),
-          ),
-          Expanded(
-              child: IndexedStack(
-            index: currentTabIndex,
-            children: [
-              Container(
-                padding: EdgeInsets.all(10.r),
-                child: _buildMaintainTable(),
-              ).border(all: 1, color: globalTheme.accentColor),
-              Container(
-                padding: EdgeInsets.all(10.r),
-                child: _buildSpotCheckTable(),
-              ).border(all: 1, color: globalTheme.accentColor)
-            ],
-          ))
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return _buildProjectTab();
+    return TabBox(
+      tabList: [
+        Tab(text: const Text('保养项目'), body: _buildMaintainTable()),
+        Tab(text: const Text('点检项目'), body: _buildSpotCheckTable()),
+      ],
+      onCurrentChange: (index) {
+        currentTabIndex = index;
+      },
+      footer: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 5,
+          children: [
+            IconButton(
+                icon: Icon(
+                  FluentIcons.circle_addition_solid,
+                  size: 16,
+                  color: GlobalTheme.instance.buttonIconColor,
+                ),
+                onPressed: addRow),
+            IconButton(
+                icon: Icon(
+                  FluentIcons.delete,
+                  size: 16,
+                  color: GlobalTheme.instance.buttonIconColor,
+                ),
+                onPressed: deleteProject),
+          ]),
+    );
   }
 }
