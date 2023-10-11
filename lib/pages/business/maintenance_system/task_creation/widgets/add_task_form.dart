@@ -7,6 +7,7 @@ import 'package:eatm_manager/common/utils/http.dart';
 import 'package:eatm_manager/common/utils/log.dart';
 import 'package:eatm_manager/common/utils/popup_message.dart';
 import 'package:eatm_manager/common/widgets/pop_date_picker.dart';
+import 'package:eatm_manager/common/widgets/tab_box.dart';
 import 'package:eatm_manager/pages/business/maintenance_system/models.dart';
 import 'package:eatm_manager/pages/business/maintenance_system/task_creation/models.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -343,74 +344,10 @@ class AddTaskFormState extends State<AddTaskForm> {
   }
 
   Widget _buildProjectTab() {
-    return FluentTheme(
-      data: FluentThemeData(
-          resources: globalTheme.isDarkMode
-              ? ResourceDictionary.dark(
-                  solidBackgroundFillColorTertiary: globalTheme.accentColor)
-              : ResourceDictionary.light(
-                  solidBackgroundFillColorTertiary: globalTheme.accentColor)),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 38.5,
-            child: TabView(
-                tabWidthBehavior: TabWidthBehavior.sizeToContent,
-                closeButtonVisibility: CloseButtonVisibilityMode.never,
-                currentIndex: currentTabIndex,
-                onChanged: (value) {
-                  setState(() {
-                    currentTabIndex = value;
-                  });
-                },
-                tabs: [
-                  Tab(
-                      icon: null,
-                      text: ThemedText(
-                        '保养项目',
-                        style: TextStyle(
-                            fontWeight:
-                                currentTabIndex == 0 ? FontWeight.bold : null,
-                            decorationColor: Colors.white,
-                            decoration: currentTabIndex == 0
-                                ? TextDecoration.underline
-                                : TextDecoration.none,
-                            color: currentTabIndex == 0 ? Colors.white : null),
-                      ),
-                      body: Container()),
-                  Tab(
-                      icon: null,
-                      text: ThemedText(
-                        '点检项目',
-                        style: TextStyle(
-                            fontWeight:
-                                currentTabIndex == 1 ? FontWeight.bold : null,
-                            decorationColor: Colors.white,
-                            decoration: currentTabIndex == 1
-                                ? TextDecoration.underline
-                                : TextDecoration.none,
-                            color: currentTabIndex == 1 ? Colors.white : null),
-                      ),
-                      body: Container())
-                ]),
-          ),
-          Expanded(
-              child: IndexedStack(
-            index: currentTabIndex,
-            children: [
-              Container(
-                padding: EdgeInsets.all(10.r),
-                child: _buildMaintainTable(),
-              ).border(all: 1, color: globalTheme.accentColor),
-              Container(
-                padding: EdgeInsets.all(10.r),
-                child: _buildSpotCheckTable(),
-              ).border(all: 1, color: globalTheme.accentColor)
-            ],
-          ))
-        ],
-      ),
-    );
+    return TabBox(tabList: [
+      Tab(text: const Text('保养项目'), body: _buildMaintainTable()),
+      Tab(text: const Text('点检项目'), body: _buildSpotCheckTable())
+    ]);
   }
 
   @override
